@@ -46,6 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Common\Accessories.cs" />
+    <Compile Include="DTO\Common\Customer.cs" />
+    <Compile Include="DTO\Common\Details.cs" />
+    <Compile Include="DTO\Common\Employee.cs" />
+    <Compile Include="DTO\Common\Laptop.cs" />
+    <Compile Include="DTO\Common\PC.cs" />
+    <Compile Include="DTO\Common\Product.cs" />
+    <Compile Include="DTO\Common\Supplier.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,5 +84,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
