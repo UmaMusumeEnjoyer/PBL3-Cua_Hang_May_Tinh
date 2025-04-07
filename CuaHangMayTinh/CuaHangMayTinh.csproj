@@ -58,6 +58,9 @@
     <Compile Include="DTO\Common\PC.cs" />
     <Compile Include="DTO\Common\Product.cs" />
     <Compile Include="DTO\Common\Supplier.cs" />
+    <Compile Include="DTO\Staff\CBBItems.cs" />
+    <Compile Include="DTO\Staff\GoodReceipt.cs" />
+    <Compile Include="DTO\Staff\Receipt.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
