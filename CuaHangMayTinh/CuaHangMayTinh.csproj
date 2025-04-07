@@ -61,6 +61,8 @@
     <Compile Include="DTO\Staff\CBBItems.cs" />
     <Compile Include="DTO\Staff\GoodReceipt.cs" />
     <Compile Include="DTO\Staff\Receipt.cs" />
+    <Compile Include="DTO\ViewModel\ProductDetailView.cs" />
+    <Compile Include="DTO\ViewModel\ReceiptDetailView.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
