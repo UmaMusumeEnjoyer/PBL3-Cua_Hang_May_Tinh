@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\Admin\Account.cs" />
+    <Compile Include="DTO\Admin\EmployeeView.cs" />
+    <Compile Include="DTO\Admin\InventoryView.cs" />
+    <Compile Include="DTO\Admin\SupplierReport.cs" />
     <Compile Include="DTO\Common\Accessories.cs" />
     <Compile Include="DTO\Common\Customer.cs" />
     <Compile Include="DTO\Common\Details.cs" />
