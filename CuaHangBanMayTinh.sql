@@ -95,3 +95,58 @@ CREATE TABLE Account (
     role NVARCHAR(50),
     FOREIGN KEY (Employee_Id) REFERENCES Employee(Employee_Id)
 );
+
+INSERT INTO Employee (employeeName, age, phoneNumber)
+VALUES 
+(N'Nguyễn Văn A', 30, '0901234567'),
+(N'Trần Thị B', 28, '0912345678'),
+(N'Lê Văn C', 35, '0923456789');
+
+INSERT INTO Customer (customerName, phoneNumber, email, address)
+VALUES 
+(N'Phạm Thị D', '0934567890', 'pham.d@example.com', N'Hà Nội'),
+(N'Hoàng Văn E', '0945678901', 'hoang.e@example.com', N'Hồ Chí Minh');
+
+INSERT INTO Supplier (supplierName, phoneNumber, email, address)
+VALUES 
+(N'Công ty ABC', '0956789012', 'abc@supplier.com', N'Đà Nẵng'),
+(N'Công ty XYZ', '0967890123', 'xyz@supplier.com', N'Cần Thơ');
+
+INSERT INTO Product (Supplier_Id, productName, price, stockQuantity)
+VALUES 
+(1, N'Dell Inspiron', 15000000, 10),
+(1, N'Chuột không dây Logitech', 500000, 50),
+(2, N'PC Gaming MSI', 25000000, 5);
+
+INSERT INTO Laptop (Product_Id, laptopName, weight, screenSize, specification, colour)
+VALUES 
+(2, N'Dell Inspiron 15', 1.80, 15.6, N'Intel i5, 8GB RAM, 256GB SSD', N'Bạc');
+
+INSERT INTO Accessories (Product_Id, accessoriesName, overview)
+VALUES 
+(2, N'Chuột Logitech M185', N'Chuột không dây, kết nối USB, pin AA');
+
+INSERT INTO PC (Product_Id, pcName, specification)
+VALUES 
+(3, N'MSI Gaming PC', N'Ryzen 7, 16GB RAM, RTX 3060, 1TB SSD');
+
+INSERT INTO Details (Product_Id, quantity, productPrice)
+VALUES 
+(1, 2, 15000000),
+(2, 5, 500000),
+(3, 1, 25000000);
+
+INSERT INTO Receipt (Details_Id, totalAmount, receiptDate, Customer_Id, Employee_Id)
+VALUES 
+(1, 30000000, '2025-04-01', 1, 1),
+(2, 2500000, '2025-04-02', 2, 2);
+
+INSERT INTO Goods_Receipt (Employee_Id, Details_Id, totalAmount, goodsReceiptDate)
+VALUES 
+(1, 3, 25000000, '2025-04-03');
+
+INSERT INTO Account (username, password, Employee_Id, role)
+VALUES 
+('adminA', 'admin123', 1, 'Admin'),
+('nvB', 'passwordB', 2, 'Nhân viên'),
+('nvC', 'passwordC', 3, 'Quản lý kho');
