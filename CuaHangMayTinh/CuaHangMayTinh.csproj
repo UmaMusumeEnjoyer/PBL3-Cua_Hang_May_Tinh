@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\testBUS.cs" />
+    <Compile Include="DAL\DbConnect.cs" />
+    <Compile Include="DAL\testDAO.cs" />
     <Compile Include="DTO\Admin\Account.cs" />
     <Compile Include="DTO\Admin\EmployeeView.cs" />
     <Compile Include="DTO\Admin\InventoryView.cs" />
@@ -71,6 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
