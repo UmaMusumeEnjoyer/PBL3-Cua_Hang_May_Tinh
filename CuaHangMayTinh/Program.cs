@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CuaHangMayTinh.DAL;
 
 namespace CuaHangMayTinh
 {
@@ -16,7 +17,7 @@ namespace CuaHangMayTinh
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new PBL3.DangNhap());
         }
     }
 }
