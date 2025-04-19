@@ -31,9 +31,7 @@ namespace PBL3
 
             string username = textBox1.Text.Trim();
             string password = textBox2.Text.Trim();
-
             bool isValid = AccountDAO.KiemTraDangNhap(username, password);
-
             if (isValid)
             {
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
