@@ -1,48 +1,64 @@
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO; 
 
 namespace CuaHangMayTinh.DAL
 {
-    public class EmployeeDAO
+    public class EmployeeDAO : DbConnect
     {
-        private readonly DbConnect _db = new DbConnect();
-
+        // private readonly DbConnect _db = new DbConnect();
         public DataTable GetAll()
         {
-            string sql = "select * from Employees";
-            return _db.GetData(sql);
+            string sql = "SELECT * FROM Employee"; 
+            return GetData(sql);
         }
 
         public DataTable GetById(int id)
         {
-            string sql = "select * from Employee where Employee_Id= {id}";
-            return _db.GetData(sql);
+            string sql = "SELECT * FROM Employee WHERE Employee_Id = @Id";
+            SqlParameter[] parameters = { new SqlParameter("@Id", id) };
+            return GetData(sql, parameters); // Cần thêm overload GetData hỗ trợ parameters
         }
 
-        public int Insrt(string name, int age, string phone)
+        public int Insert(string name, int age, string phone)
         {
-            var insert = new StringBuilder();
-            insert.Append("insert into Employee(employeeName,age, phoneNumber) ");
-            insert.Append($"VALUES(N'{name}',{age},N'{phone}')");
-            return _db.ExecuteNonQuery(insert.ToString());
+            string sql = @"INSERT INTO Employee(employeeName, age, phoneNumber) 
+                       VALUES(@Name, @Age, @Phone)";
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Name", SqlDbType.NVarChar) { Value = name },
+                new SqlParameter("@Age", SqlDbType.Int) { Value = age },
+                new SqlParameter("@Phone", SqlDbType.NVarChar) { Value = phone }
+            };
+
+            return ExecuteNonQuery(sql, parameters);
         }
         public int Update(int id, string name, int age, string phone)
         {
-            var sb = new StringBuilder();
-            sb.Append($"employeeName = N'{name}', ");
-            sb.Append($"age = {age}, ");
-            sb.Append($"phoneNumber = N'{phone}' ");
-            sb.Append($"WHERE Employee_Id = {id}");
-            return _db.ExecuteNonQuery(sb.ToString());
+            string sql = @"UPDATE Employee SET 
+                       employeeName = @Name, 
+                       age = @Age, 
+                       phoneNumber = @Phone 
+                       WHERE Employee_Id = @Id";
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Name", SqlDbType.NVarChar) { Value = name },
+                new SqlParameter("@Age", SqlDbType.Int) { Value = age },
+                new SqlParameter("@Phone", SqlDbType.NVarChar) { Value = phone },
+                new SqlParameter("@Id", SqlDbType.Int) { Value = id }
+            };
+
+            return ExecuteNonQuery(sql, parameters);
         }
         public int Delete(int id)
         {
-            string sql = $"DELETE FROM Employee WHERE Employee_Id = {id}";
-            return _db.ExecuteNonQuery(sql);
+            string sql = "DELETE FROM Employee WHERE Employee_Id = @Id";
+            SqlParameter[] parameters = { new SqlParameter("@Id", id) };
+            return ExecuteNonQuery(sql, parameters);
         }
-        
     }
 }

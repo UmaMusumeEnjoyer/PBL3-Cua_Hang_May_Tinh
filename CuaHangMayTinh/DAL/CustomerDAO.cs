@@ -1,45 +1,66 @@
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO;
-namespace CuaHangMayTinh.DAL
+public class CustomerDAO
 {
-    public class CustomerDAO
+    private readonly DbConnect _db = new DbConnect();
+
+    public DataTable GetAll()
     {
-        private readonly DbConnect _db = new DbConnect();
+        return _db.GetData("SELECT * FROM Customer");
+    }
 
-        public DataTable GetAll()
-        {
-            return _db.GetData("Select * from Customer");
-        }
+    public DataTable GetById(int id)
+    {
+        string sql = "SELECT * FROM Customer WHERE Customer_Id = @Id";
+        SqlParameter[] parameters = { new SqlParameter("@Id", id) };
+        return _db.GetData(sql, parameters);
+    }
 
-        public DataTable GetById(int id)
+    public int Insert(string name, string phone, string email, string address)
+    {
+        string sql = @"INSERT INTO Customer(customerName, phoneNumber, email, address)
+                       VALUES(@Name, @Phone, @Email, @Address)";
+        
+        SqlParameter[] parameters = 
         {
-            return _db.GetData($"Select * from Customer where Customer_Id = {id}");
-        }
+            new SqlParameter("@Name", SqlDbType.NVarChar) { Value = name },
+            new SqlParameter("@Phone", SqlDbType.NVarChar) { Value = phone },
+            new SqlParameter("@Email", SqlDbType.NVarChar) { Value = email },
+            new SqlParameter("@Address", SqlDbType.NVarChar) { Value = address }
+        };
+        
+        return _db.ExecuteNonQuery(sql, parameters);
+    }
 
-        public int Insert(string name, string phone, string email, string address)
+    public int Update(int id, string name, string phone, string email, string address)
+    {
+        string sql = @"UPDATE Customer SET 
+                       customerName = @Name, 
+                       phoneNumber = @Phone,
+                       email = @Email,
+                       address = @Address
+                       WHERE Customer_Id = @Id";
+
+        SqlParameter[] parameters = 
         {
-            var sql =  $@"
-                INSERT INTO Customer(customerName, phoneNumber, email, address)
-                VALUES(N'{name}', N'{phone}', N'{email}', N'{address}')";
-            return _db.ExecuteNonQuery(sql);
-        }
-        public int Update(int id, string name, string phone, string email, string address)
-        {
-            var sql = $@"
-                UPDATE Customer
-                SET customerName = N'{name}',
-                    phoneNumber  = N'{phone}',
-                    email        = N'{email}',
-                    address      = N'{address}'
-                WHERE Customer_Id = {id}";
-            return _db.ExecuteNonQuery(sql);
-        }
-        public int Delete(int id)
-        {
-            return _db.ExecuteNonQuery($"DELETE FROM Customer WHERE Customer_Id = {id}");
-        }
+            new SqlParameter("@Name", SqlDbType.NVarChar) { Value = name },
+            new SqlParameter("@Phone", SqlDbType.NVarChar) { Value = phone },
+            new SqlParameter("@Email", SqlDbType.NVarChar) { Value = email },
+            new SqlParameter("@Address", SqlDbType.NVarChar) { Value = address },
+            new SqlParameter("@Id", SqlDbType.Int) { Value = id }
+        };
+        
+        return _db.ExecuteNonQuery(sql, parameters);
+    }
+
+    public int Delete(int id)
+    {
+        string sql = "DELETE FROM Customer WHERE Customer_Id = @Id";
+        SqlParameter[] parameters = { new SqlParameter("@Id", id) };
+        return _db.ExecuteNonQuery(sql, parameters);
     }
 }
