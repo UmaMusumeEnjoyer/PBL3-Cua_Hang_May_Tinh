@@ -137,7 +137,7 @@ namespace CuaHangMayTinh.BUS
 
         // private bool HasRelatedTransactions(int employeeId)
                     // {
-                    //     // TODO: Kiểm tra các bảng Receipt, Goods_Receipt có liên quan tới employeeId
+                    //     //  Kiểm tra các bảng Receipt, Goods_Receipt có liên quan tới employeeId
                     //     // var receiptDao = new ReceiptDAO();
                     //     // return receiptDao.GetByEmployee(employeeId).Rows.Count > 0;
                     //     return false;
