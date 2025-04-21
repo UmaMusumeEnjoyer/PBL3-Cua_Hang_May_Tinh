@@ -1,0 +1,137 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CuaHangMayTinh.DAL;
+using System.Data;
+using System.Text.RegularExpressions;
+using System.Data.SqlClient;
+
+namespace CuaHangMayTinh.BLL
+{
+    public class ProductBUS
+    {
+        private readonly ProductDAO _dao = new ProductDAO();
+
+        public DataTable GetAllProducts()
+        {
+            try
+            {
+                return _dao.GetAllProducts();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi tải danh sách sản phẩm", ex);
+            }
+        }
+
+        public DataTable GetProductById(int productId)
+        {
+            if (productId <= 0)
+                throw new ArgumentException("ID sản phẩm không hợp lệ");
+
+            try
+            {
+                var dt = _dao.GetProductById(productId);
+                if (dt.Rows.Count == 0)
+                    throw new Exception("Sản phẩm không tồn tại");
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi lấy thông tin sản phẩm", ex);
+            }
+        }
+
+        public int InsertProduct(int supplierId, string productName, decimal price, int stockQuantity)
+        {
+            ValidateProductData(supplierId, productName, price, stockQuantity);
+
+            try
+            {
+                return _dao.Insert(supplierId, productName, price, stockQuantity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Thêm sản phẩm thất bại", ex);
+            }
+        }
+
+        public int UpdateProduct(int productId, int supplierId, string productName, decimal price, int stockQuantity)
+        {
+            if (productId <= 0)
+                throw new ArgumentException("ID sản phẩm không hợp lệ");
+            ValidateProductData(supplierId, productName, price, stockQuantity);
+
+            var existing = _dao.GetProductById(productId);
+            if (existing.Rows.Count == 0)
+                throw new Exception("Sản phẩm không tồn tại");
+
+            try
+            {
+                return _dao.UpdateProduct(productId, supplierId, productName, price, stockQuantity);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cập nhật sản phẩm thất bại", ex);
+            }
+        }
+
+        public int DeleteProduct(int productId)
+        {
+            if (productId <= 0)
+                throw new ArgumentException("ID sản phẩm không hợp lệ");
+
+            try
+            {
+                return _dao.Delete(productId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Xóa sản phẩm thất bại", ex);
+            }
+        }
+
+        public DataTable SearchProducts(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                throw new ArgumentException("Từ khóa tìm kiếm không hợp lệ");
+
+            try
+            {
+                string sql = @"SELECT p.*, s.supplierName
+                               FROM Product p
+                               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
+                               WHERE p.productName LIKE @Keyword
+                                  OR s.supplierName LIKE @Keyword";
+                SqlParameter[] param = { new SqlParameter("@Keyword", $"%{keyword}%") };
+                return _dao.GetData(sql, param);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Tìm kiếm sản phẩm thất bại", ex);
+            }
+        }
+
+        private void ValidateProductData(int supplierId, string productName, decimal price, int stockQuantity)
+        {
+            var errors = new StringBuilder();
+            if (supplierId <= 0)
+                errors.AppendLine("ID nhà cung cấp không hợp lệ");
+
+            if (string.IsNullOrWhiteSpace(productName))
+                errors.AppendLine("Tên sản phẩm không được để trống");
+
+            if (price < 0)
+                errors.AppendLine("Giá sản phẩm không được âm");
+
+            if (stockQuantity < 0)
+                errors.AppendLine("Số lượng tồn kho không được âm");
+
+            if (errors.Length > 0)
+                throw new ArgumentException(errors.ToString());
+        }
+    }
+}
+

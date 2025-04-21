@@ -7,7 +7,6 @@ using CuaHangMayTinh.DTO;
 public class CustomerDAO : DbConnect
 {
     //private readonly DbConnect _db = new DbConnect();
-
     public DataTable GetAll()
     {
         return GetData("SELECT * FROM Customer");

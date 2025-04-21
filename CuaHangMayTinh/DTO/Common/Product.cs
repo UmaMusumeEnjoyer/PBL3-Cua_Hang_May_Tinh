@@ -14,5 +14,4 @@ namespace CuaHangMayTinh.DTO.Common
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
     }
-
 }
