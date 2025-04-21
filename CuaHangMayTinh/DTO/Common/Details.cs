@@ -12,6 +12,7 @@ namespace CuaHangMayTinh.DTO.Common
         public int Product_Id { get; set; }
         public int Quantity { get; set; }
         public decimal ProductPrice { get; set; }
+        asaaaa 
     }
 
-}
+}  
