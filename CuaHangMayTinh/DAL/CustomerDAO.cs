@@ -4,20 +4,20 @@ using System.Data.SqlClient;
 using System.Text;
 using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO;
-public class CustomerDAO
+public class CustomerDAO : DbConnect
 {
-    private readonly DbConnect _db = new DbConnect();
+    //private readonly DbConnect _db = new DbConnect();
 
     public DataTable GetAll()
     {
-        return _db.GetData("SELECT * FROM Customer");
+        return GetData("SELECT * FROM Customer");
     }
 
     public DataTable GetById(int id)
     {
         string sql = "SELECT * FROM Customer WHERE Customer_Id = @Id";
         SqlParameter[] parameters = { new SqlParameter("@Id", id) };
-        return _db.GetData(sql, parameters);
+        return GetData(sql, parameters);
     }
 
     public int Insert(string name, string phone, string email, string address)
@@ -33,7 +33,7 @@ public class CustomerDAO
             new SqlParameter("@Address", SqlDbType.NVarChar) { Value = address }
         };
         
-        return _db.ExecuteNonQuery(sql, parameters);
+        return ExecuteNonQuery(sql, parameters);
     }
 
     public int Update(int id, string name, string phone, string email, string address)
@@ -54,13 +54,13 @@ public class CustomerDAO
             new SqlParameter("@Id", SqlDbType.Int) { Value = id }
         };
         
-        return _db.ExecuteNonQuery(sql, parameters);
+        return ExecuteNonQuery(sql, parameters);
     }
 
     public int Delete(int id)
     {
         string sql = "DELETE FROM Customer WHERE Customer_Id = @Id";
         SqlParameter[] parameters = { new SqlParameter("@Id", id) };
-        return _db.ExecuteNonQuery(sql, parameters);
+        return ExecuteNonQuery(sql, parameters);
     }
 }

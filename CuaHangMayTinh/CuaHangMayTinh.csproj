@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\CustomerBUS.cs" />
     <Compile Include="BLL\EmployeeBUS.cs" />
     <Compile Include="BLL\testBUS.cs" />
     <Compile Include="DAL\AccountDAO.cs" />
