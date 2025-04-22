@@ -14,5 +14,4 @@ namespace CuaHangMayTinh.DTO.Common
         public string Email { get; set; }
         public string Address { get; set; }
     }
-
 }

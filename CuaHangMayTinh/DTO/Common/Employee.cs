@@ -9,8 +9,8 @@ namespace CuaHangMayTinh.DTO.Common
     public class Employee
     {
         public int Employee_Id { get; set; }
-        public string EmployeeName { get; set; }
-        public int Age { get; set; }
-        public string PhoneNumber { get; set; }
+        public string employeeName { get; set; }
+        public int age { get; set; }
+        public string phoneNumber { get; set; }
     }
 }

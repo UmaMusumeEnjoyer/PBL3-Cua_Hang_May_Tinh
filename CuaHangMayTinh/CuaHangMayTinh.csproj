@@ -46,14 +46,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\CustomerBUS.cs" />
+    <Compile Include="BLL\EmployeeBUS.cs" />
+    <Compile Include="BLL\ProductBUS.cs" />
+    <Compile Include="BLL\SupplierBUS.cs" />
     <Compile Include="BLL\testBUS.cs" />
     <Compile Include="DAL\AccountDAO.cs" />
+    <Compile Include="DAL\CustomerDAO.cs" />
     <Compile Include="DAL\DbConnect.cs" />
+    <Compile Include="DAL\EmployeeDAO.cs" />
+    <Compile Include="DAL\LaptopDAO.cs" />
+    <Compile Include="DAL\ProductDAO.cs" />
+    <Compile Include="DAL\SupplierDAO.cs" />
     <Compile Include="DAL\testDAO.cs" />
-    <Compile Include="DangNhap.cs">
+    <Compile Include="UI\Form_Ad\FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DangNhap.Designer.cs">
+    <Compile Include="UI\Form_Ad\FormAdmin.Designer.cs">
+      <DependentUpon>FormAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Authentication\ChangePass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Authentication\ChangePass.Designer.cs">
+      <DependentUpon>ChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Authentication\DangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Authentication\DangNhap.Designer.cs">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="DTO\Admin\Account.cs" />
@@ -81,7 +102,61 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DangNhap.resx">
+    <Compile Include="UI\Form_Employee\FormEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Form_Employee\FormEmployee.Designer.cs">
+      <DependentUpon>FormEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Share\information.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Share\information.Designer.cs">
+      <DependentUpon>information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\EmployeeManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\EmployeeManager.Designer.cs">
+      <DependentUpon>EmployeeManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\FindProduct.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\FindProduct.Designer.cs">
+      <DependentUpon>FindProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\Goods_Receipt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\Goods_Receipt.Designer.cs">
+      <DependentUpon>Goods_Receipt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\ProductManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\ProductManager.Designer.cs">
+      <DependentUpon>ProductManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\SupplierManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls_Ad\SupplierManager.Designer.cs">
+      <DependentUpon>SupplierManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls_Employee\Receips.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls_Employee\Receips.Designer.cs">
+      <DependentUpon>Receips.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\Form_Ad\FormAdmin.resx">
+      <DependentUpon>FormAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Authentication\ChangePass.resx">
+      <DependentUpon>ChangePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Authentication\DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
@@ -96,6 +171,30 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\Form_Employee\FormEmployee.resx">
+      <DependentUpon>FormEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Share\information.resx">
+      <DependentUpon>information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls_Ad\EmployeeManager.resx">
+      <DependentUpon>EmployeeManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls_Ad\FindProduct.resx">
+      <DependentUpon>FindProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls_Ad\Goods_Receipt.resx">
+      <DependentUpon>Goods_Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls_Ad\ProductManager.resx">
+      <DependentUpon>ProductManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls_Ad\SupplierManager.resx">
+      <DependentUpon>SupplierManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UserControls_Employee\Receips.resx">
+      <DependentUpon>Receips.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,8 +208,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UserInterface\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

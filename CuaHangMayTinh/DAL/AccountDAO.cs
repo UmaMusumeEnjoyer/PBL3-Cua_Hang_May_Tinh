@@ -27,6 +27,8 @@ namespace CuaHangMayTinh.DAL
             }
             return result;
         }
+
+        
     }
 
 }
