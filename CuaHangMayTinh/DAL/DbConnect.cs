@@ -15,7 +15,7 @@ namespace CuaHangMayTinh.DAL
 
         public DbConnect()
         {
-            _connectionString = "Data Source=DESKTOP-HV7IPNG;Initial Catalog=PBL3;Integrated Security=True";
+            _connectionString = "Data Source=ADMIN-PC;Initial Catalog=PBL3;Integrated Security=True";
         }
         // Truy vấn dữ liệu từ cơ sở dữ liệu (các câu lệnh SQL dạng SELECT) và trả về kết quả dưới dạng DataTable.
         public DataTable GetData(string sql, SqlParameter[] parameters = null)

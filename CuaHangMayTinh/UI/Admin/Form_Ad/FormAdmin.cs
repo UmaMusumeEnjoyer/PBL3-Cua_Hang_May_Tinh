@@ -65,7 +65,9 @@ namespace CuaHangMayTinh.UI.Form_Ad
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
-
+            moveSidePanel(btnUsers);
+            EmployeeManager em = new EmployeeManager();
+            AddControlsToPanel(em);
         }
 
         private void panelLeft_Paint(object sender, PaintEventArgs e)

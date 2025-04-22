@@ -43,6 +43,10 @@ namespace CuaHangMayTinh.DAL
                 }
             }
         }
+        public static int GetId()
+        {
+            return id;
+        }
 
 
     }

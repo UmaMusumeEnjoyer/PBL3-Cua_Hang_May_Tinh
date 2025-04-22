@@ -65,6 +65,12 @@
     <Compile Include="UI\Admin\Form_Ad\FormAdmin.Designer.cs">
       <DependentUpon>FormAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\AddUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\AddUser.Designer.cs">
+      <DependentUpon>AddUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Authentication\ChangePass.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,10 +114,10 @@
     <Compile Include="UI\Share\information.Designer.cs">
       <DependentUpon>information.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\UserControls_Ad\EmployeeManager.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\EmployeeManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Admin\UserControls_Ad\EmployeeManager.Designer.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\EmployeeManager.Designer.cs">
       <DependentUpon>EmployeeManager.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Admin\UserControls_Ad\FindProduct.cs">
@@ -147,6 +153,9 @@
     <EmbeddedResource Include="UI\Admin\Form_Ad\FormAdmin.resx">
       <DependentUpon>FormAdmin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\Employee\AddUser.resx">
+      <DependentUpon>AddUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Authentication\ChangePass.resx">
       <DependentUpon>ChangePass.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,7 +177,7 @@
     <EmbeddedResource Include="UI\Share\information.resx">
       <DependentUpon>information.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\UserControls_Ad\EmployeeManager.resx">
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\Employee\EmployeeManager.resx">
       <DependentUpon>EmployeeManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\UserControls_Ad\FindProduct.resx">

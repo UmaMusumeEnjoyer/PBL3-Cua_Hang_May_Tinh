@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace CuaHangMayTinh.BUS
 {
@@ -136,11 +137,43 @@ namespace CuaHangMayTinh.BUS
         }
 
         // private bool HasRelatedTransactions(int employeeId)
-                    // {
-                    //     //  Kiểm tra các bảng Receipt, Goods_Receipt có liên quan tới employeeId
-                    //     // var receiptDao = new ReceiptDAO();
-                    //     // return receiptDao.GetByEmployee(employeeId).Rows.Count > 0;
-                    //     return false;
-                    // }
+        // {
+        //     //  Kiểm tra các bảng Receipt, Goods_Receipt có liên quan tới employeeId
+        //     // var receiptDao = new ReceiptDAO();
+        //     // return receiptDao.GetByEmployee(employeeId).Rows.Count > 0;
+        //     return false;
+        // }
+
+        public bool AddAccount(string username, string password, int employeeId)
+        {
+            string connectionString = "your_connection_string_here"; // sửa lại chuỗi kết nối của bạn
+
+            string query = @"
+        INSERT INTO Account (username, password, Employee_Id, role)
+        VALUES (@username, @password, @employeeId, N'Nhân viên')";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@password", password); // Gợi ý: hash mật khẩu trong thực tế
+                        cmd.Parameters.AddWithValue("@employeeId", employeeId);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi thêm tài khoản: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
     }
 }
