@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CuaHangMayTinh.UI.Form_Ad;
+using CuaHangMayTinh.UI.Form_Employee;
 
 namespace PBL3
 {
@@ -19,6 +21,7 @@ namespace PBL3
         public DangNhap()
         {
             InitializeComponent();
+            this.FormClosing += fLogin_FormClosing;
         }
        
         private void Form1_Load(object sender, EventArgs e)
@@ -31,13 +34,22 @@ namespace PBL3
 
             string username = textBox1.Text.Trim();
             string password = textBox2.Text.Trim();
-            bool isValid = AccountDAO.KiemTraDangNhap(username, password);
-            if (isValid)
+            int isValid = AccountDAO.KiemTraDangNhap(username, password);
+            if (isValid == 1)
             {
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FormAdmin formAdmin = new FormAdmin();
                 this.Hide();
-                Form1 mainForm = new Form1();
-                mainForm.Show();
+                formAdmin.ShowDialog();
+                this.Show();
+            }
+            else if (isValid == 2)
+            {
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                FormEmployee formEmployee = new FormEmployee();
+                this.Hide();
+                
+                formEmployee.ShowDialog();
                 this.Show();
             }
             else
@@ -83,7 +95,7 @@ namespace PBL3
         }
         private void pictureBox2_Click_1(object sender, EventArgs e)
         {
-            this.Close();   
+            this.Close();
         }
 
         private void groupBox2_Enter(object sender, EventArgs e)
@@ -114,6 +126,13 @@ namespace PBL3
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+        private void fLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Bạn có muốn thoát chương trình không?", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

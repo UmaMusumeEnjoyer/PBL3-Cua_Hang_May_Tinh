@@ -59,10 +59,10 @@
     <Compile Include="DAL\ProductDAO.cs" />
     <Compile Include="DAL\SupplierDAO.cs" />
     <Compile Include="DAL\testDAO.cs" />
-    <Compile Include="UI\Form_Ad\FormAdmin.cs">
+    <Compile Include="UI\Admin\Form_Ad\FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Form_Ad\FormAdmin.Designer.cs">
+    <Compile Include="UI\Admin\Form_Ad\FormAdmin.Designer.cs">
       <DependentUpon>FormAdmin.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Authentication\ChangePass.cs">
@@ -94,18 +94,12 @@
     <Compile Include="DTO\Staff\Receipt.cs" />
     <Compile Include="DTO\ViewModel\ProductDetailView.cs" />
     <Compile Include="DTO\ViewModel\ReceiptDetailView.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Form_Employee\FormEmployee.cs">
+    <Compile Include="UI\Employee\Form_Employee\FormEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Form_Employee\FormEmployee.Designer.cs">
+    <Compile Include="UI\Employee\Form_Employee\FormEmployee.Designer.cs">
       <DependentUpon>FormEmployee.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Share\information.cs">
@@ -114,43 +108,43 @@
     <Compile Include="UI\Share\information.Designer.cs">
       <DependentUpon>information.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\EmployeeManager.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\EmployeeManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\EmployeeManager.Designer.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\EmployeeManager.Designer.cs">
       <DependentUpon>EmployeeManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\FindProduct.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\FindProduct.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\FindProduct.Designer.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\FindProduct.Designer.cs">
       <DependentUpon>FindProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\Goods_Receipt.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\Goods_Receipt.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\Goods_Receipt.Designer.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\Goods_Receipt.Designer.cs">
       <DependentUpon>Goods_Receipt.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\ProductManager.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\ProductManager.Designer.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager.Designer.cs">
       <DependentUpon>ProductManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\SupplierManager.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls_Ad\SupplierManager.Designer.cs">
+    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager.Designer.cs">
       <DependentUpon>SupplierManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserControls_Employee\Receips.cs">
+    <Compile Include="UI\Employee\UserControls_Employee\Receips.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UserControls_Employee\Receips.Designer.cs">
+    <Compile Include="UI\Employee\UserControls_Employee\Receips.Designer.cs">
       <DependentUpon>Receips.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\Form_Ad\FormAdmin.resx">
+    <EmbeddedResource Include="UI\Admin\Form_Ad\FormAdmin.resx">
       <DependentUpon>FormAdmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Authentication\ChangePass.resx">
@@ -158,9 +152,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Authentication\DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -171,28 +162,28 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\Form_Employee\FormEmployee.resx">
+    <EmbeddedResource Include="UI\Employee\Form_Employee\FormEmployee.resx">
       <DependentUpon>FormEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Share\information.resx">
       <DependentUpon>information.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls_Ad\EmployeeManager.resx">
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\EmployeeManager.resx">
       <DependentUpon>EmployeeManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls_Ad\FindProduct.resx">
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\FindProduct.resx">
       <DependentUpon>FindProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls_Ad\Goods_Receipt.resx">
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\Goods_Receipt.resx">
       <DependentUpon>Goods_Receipt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls_Ad\ProductManager.resx">
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager.resx">
       <DependentUpon>ProductManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls_Ad\SupplierManager.resx">
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\SupplierManager.resx">
       <DependentUpon>SupplierManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UserControls_Employee\Receips.resx">
+    <EmbeddedResource Include="UI\Employee\UserControls_Employee\Receips.resx">
       <DependentUpon>Receips.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

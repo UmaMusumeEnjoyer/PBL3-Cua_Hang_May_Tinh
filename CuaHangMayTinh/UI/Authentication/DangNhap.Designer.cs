@@ -197,6 +197,7 @@ namespace PBL3
             this.Controls.Add(this.groupBox1);
             this.Name = "DangNhap";
             this.Padding = new System.Windows.Forms.Padding(2);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ứng dụng quản lý thiết bị điện tử";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

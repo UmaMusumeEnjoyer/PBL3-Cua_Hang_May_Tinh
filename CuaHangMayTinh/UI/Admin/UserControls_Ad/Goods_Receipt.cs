@@ -10,24 +10,24 @@ using System.Windows.Forms;
 
 namespace CuaHangMayTinh.UI.UserControls_Ad
 {
-    public partial class EmployeeManager: UserControl
+    public partial class Goods_Receipt: UserControl
     {
-        public EmployeeManager()
+        public Goods_Receipt()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void EmployeeManager_Load(object sender, EventArgs e)
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void lblmahoadonnhap_Click(object sender, EventArgs e)
         {
 
         }
