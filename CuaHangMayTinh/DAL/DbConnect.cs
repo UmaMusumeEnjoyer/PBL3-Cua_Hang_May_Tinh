@@ -17,7 +17,7 @@ namespace CuaHangMayTinh.DAL
         {
             _connectionString = "Data Source=DESKTOP-HV7IPNG;Initial Catalog=PBL3;Integrated Security=True";
         }
-
+        // Truy vấn dữ liệu từ cơ sở dữ liệu (các câu lệnh SQL dạng SELECT) và trả về kết quả dưới dạng DataTable.
         public DataTable GetData(string sql, SqlParameter[] parameters = null)
         {
             DataTable dt = new DataTable();
@@ -45,6 +45,9 @@ namespace CuaHangMayTinh.DAL
             }
             return dt;
         }
+
+        // Thực thi các câu lệnh SQL không trả về dữ liệu (các câu lệnh SQL dạng INSERT, UPDATE, DELETE) 
+        // và trả về số lượng bản ghi bị ảnh hưởng.
         public int ExecuteNonQuery(string sql, SqlParameter[] parameters = null)
         {
             try
@@ -64,6 +67,29 @@ namespace CuaHangMayTinh.DAL
             catch (Exception ex)
             {
                 Console.WriteLine($"[ExecuteNonQuery Error] {ex.Message}");
+                throw new DataException("Database operation failed", ex);
+            }
+        }
+        // Lấy giá trị đơn lẻ từ cơ sở dữ liệu
+        public object ExecuteScalar(string sql, SqlParameter[] parameters = null)
+        {
+            try
+            {
+                using (var conn = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+
+                    conn.Open();
+                    return cmd.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ExecuteScalar Error] {ex.Message}");
                 throw new DataException("Database operation failed", ex);
             }
         }

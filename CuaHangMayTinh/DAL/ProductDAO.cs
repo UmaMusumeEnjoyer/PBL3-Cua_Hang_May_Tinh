@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO;
 using CuaHangMayTinh.DTO.Common;
