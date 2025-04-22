@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,50 +11,87 @@ namespace CuaHangMayTinh.DAL
 {
     public class DbConnect
     {
-        private readonly string connectionString = "Data Source=ADMIN-PC;Initial Catalog=PBL3;Integrated Security=True";
-        private SqlConnection connection;
+        private readonly string _connectionString;
+
         public DbConnect()
         {
-            connection = new SqlConnection(connectionString);
+            _connectionString = "Data Source=DESKTOP-HV7IPNG;Initial Catalog=PBL3;Integrated Security=True";
         }
-        public DataTable GetData(string sql)
+        // Truy vấn dữ liệu từ cơ sở dữ liệu (các câu lệnh SQL dạng SELECT) và trả về kết quả dưới dạng DataTable.
+        public DataTable GetData(string sql, SqlParameter[] parameters = null)
         {
             DataTable dt = new DataTable();
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(sql, connection);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dt);
+                using (var conn = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+                    
+                    conn.Open();
+                    using (var da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                connection.Close();
+                Console.WriteLine($"[GetData Error] {ex.Message}");
+                throw new DataException("Database operation failed", ex);
             }
             return dt;
         }
-        public int ExecuteNonQuery(string sql)
+
+        // Thực thi các câu lệnh SQL không trả về dữ liệu (các câu lệnh SQL dạng INSERT, UPDATE, DELETE) 
+        // và trả về số lượng bản ghi bị ảnh hưởng.
+        public int ExecuteNonQuery(string sql, SqlParameter[] parameters = null)
         {
-            int result = 0;
             try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(sql, connection);
-                result = cmd.ExecuteNonQuery();
+                using (var conn = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+                    
+                    conn.Open();
+                    return cmd.ExecuteNonQuery();
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"[ExecuteNonQuery Error] {ex.Message}");
+                throw new DataException("Database operation failed", ex);
             }
-            finally
+        }
+        // Lấy giá trị đơn lẻ từ cơ sở dữ liệu
+        public object ExecuteScalar(string sql, SqlParameter[] parameters = null)
+        {
+            try
             {
-                connection.Close();
+                using (var conn = new SqlConnection(_connectionString))
+                using (var cmd = new SqlCommand(sql, conn))
+                {
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+
+                    conn.Open();
+                    return cmd.ExecuteScalar();
+                }
             }
-            return result;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[ExecuteScalar Error] {ex.Message}");
+                throw new DataException("Database operation failed", ex);
+            }
         }
     }
 }
