@@ -12,7 +12,7 @@ namespace CuaHangMayTinh.DTO.Admin
         public string SupplierName { get; set; }
         public int TotalProducts { get; set; }
         public int TotalStock { get; set; }
-        public decimal TotalValue { get; set; } // Tổng giá trị hàng tồn của NCC
+        public decimal TotalValue { get; set; } 
     }
 
 }

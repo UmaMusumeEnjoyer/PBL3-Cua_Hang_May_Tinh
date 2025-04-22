@@ -10,7 +10,7 @@ namespace CuaHangMayTinh.DTO.ViewModel
     {
         public int Product_Id { get; set; }
         public string ProductName { get; set; }
-        public string Category { get; set; } // Laptop / PC / Accessories
+        public string Category { get; set; }
         public string Specification { get; set; }
         public string Colour { get; set; }
         public decimal Price { get; set; }

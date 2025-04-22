@@ -8,8 +8,8 @@ namespace CuaHangMayTinh.DTO.Staff
 {
     public class CBBItems
     {
-        public string Text { get; set; }    // Tên hiển thị
-        public object Value { get; set; }   // Giá trị thực lưu lại
+        public string Text { get; set; }   
+        public object Value { get; set; }   
 
         public override string ToString()
         {

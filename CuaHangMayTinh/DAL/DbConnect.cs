@@ -11,7 +11,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class DbConnect
     {
-        private readonly string connectionString = "Data Source=LAPTOP-TF3R4DSP\\MSSQLSERVER01;Initial Catalog=PBL3;Integrated Security=True";
+        private readonly string connectionString = "Data Source=ADMIN-PC;Initial Catalog=PBL3;Integrated Security=True";
         private SqlConnection connection;
         public DbConnect()
         {

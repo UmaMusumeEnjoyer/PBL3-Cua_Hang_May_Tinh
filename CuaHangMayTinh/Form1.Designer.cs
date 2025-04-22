@@ -47,7 +47,6 @@ namespace CuaHangMayTinh
             this.btn.Text = "button1";
             this.btn.UseVisualStyleBackColor = true;
             this.btn.Click += new System.EventHandler(this.btnDemoProduct_Click);
-
             // 
             // dataGridView1
             // 
@@ -56,6 +55,7 @@ namespace CuaHangMayTinh
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(478, 355);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Form1
             // 
