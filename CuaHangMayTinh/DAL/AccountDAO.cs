@@ -51,7 +51,7 @@ namespace CuaHangMayTinh.DAL
         }
         public static bool InsertAccount(string username, string password, int employeeId, string role = "Nhân viên")
         {
-            string connectionString = "your_connection_string_here"; // Thay bằng chuỗi kết nối thật của bạn
+            
 
             string query = @"
         INSERT INTO Account (username, password, Employee_Id, role)

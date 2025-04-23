@@ -94,30 +94,36 @@ namespace CuaHangMayTinh.UI.Forms
 
                 if (result > 0)
                 {
-                    MessageBox.Show("Employee added successfully!", "Success",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    Employee employeeId = _employeeBLL.GetEmployeeByName(txtFullName.Text.Trim());
+                    // Lấy lại nhân viên để lấy ID
+                    Employee employee = _employeeBLL.GetEmployeeByName(fullName);
+
+                    if (employee == null)
+                    {
+                        MessageBox.Show("Cannot retrieve newly added employee info.", "Error",
+                                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     // Gọi phương thức thêm tài khoản
-                    bool accountResult = AccountDAO.InsertAccount(username, password, employeeId.Employee_Id);
+                    bool accountResult = AccountDAO.InsertAccount(username, password, employee.Employee_Id);
                     if (accountResult)
                     {
-                        MessageBox.Show("Account added successfully!", "Success",
+                        MessageBox.Show("Employee and account added successfully!", "Success",
                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Failed to add account. Please try again.", "Error",
-                                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Employee added, but failed to create account.", "Partial Success",
+                                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    this.Close();
                 }
                 else
                 {
                     MessageBox.Show("Failed to add employee. Please try again.", "Error",
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
             catch (Exception ex)
             {
@@ -125,6 +131,7 @@ namespace CuaHangMayTinh.UI.Forms
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
         private void btnCancel_Click(object sender, EventArgs e)
