@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CuaHangMayTinh.BLL;
 using CuaHangMayTinh.BUS;
+using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO;
 using CuaHangMayTinh.DTO.Common;
 
@@ -98,7 +99,7 @@ namespace CuaHangMayTinh.UI.Forms
                     this.DialogResult = DialogResult.OK;
                     Employee employeeId = _employeeBLL.GetEmployeeByName(txtFullName.Text.Trim());
                     // Gọi phương thức thêm tài khoản
-                    bool accountResult = _employeeBLL.AddAccount(username, password, employeeId.Employee_Id);
+                    bool accountResult = AccountDAO.InsertAccount(username, password, employeeId.Employee_Id);
                     if (accountResult)
                     {
                         MessageBox.Show("Account added successfully!", "Success",

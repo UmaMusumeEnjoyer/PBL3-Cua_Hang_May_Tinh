@@ -1,10 +1,12 @@
 ﻿using CuaHangMayTinh.DTO.Admin;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CuaHangMayTinh.DAL
 {
@@ -47,6 +49,38 @@ namespace CuaHangMayTinh.DAL
         {
             return id;
         }
+        public static bool InsertAccount(string username, string password, int employeeId, string role = "Nhân viên")
+        {
+            string connectionString = "your_connection_string_here"; // Thay bằng chuỗi kết nối thật của bạn
+
+            string query = @"
+        INSERT INTO Account (username, password, Employee_Id, role)
+        VALUES (@username, @password, @employeeId, @role)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@password", password); // Có thể hash mật khẩu tại đây
+                        cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                        cmd.Parameters.AddWithValue("@role", role);
+
+                        int result = cmd.ExecuteNonQuery();
+                        return result > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi thêm tài khoản: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
 
 
     }

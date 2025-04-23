@@ -12,6 +12,7 @@ namespace CuaHangMayTinh.BUS
     public class EmployeeBUS
     {
         private readonly EmployeeDAO _employeeDAO = new EmployeeDAO();
+        private readonly AccountDAO _accountDAO = new AccountDAO();
 
         public DataTable GetAllEmployees()
         {
@@ -166,36 +167,36 @@ namespace CuaHangMayTinh.BUS
         //     return false;
         // }
 
-        public bool AddAccount(string username, string password, int employeeId)
-        {
-            string connectionString = "your_connection_string_here"; // sửa lại chuỗi kết nối của bạn
+        //public bool AddAccount(string username, string password, int employeeId)
+        //{
+        //    string connectionString = "your_connection_string_here"; // sửa lại chuỗi kết nối của bạn
 
-            string query = @"
-        INSERT INTO Account (username, password, Employee_Id, role)
-        VALUES (@username, @password, @employeeId, N'Nhân viên')";
+        //    string query = @"
+        //INSERT INTO Account (username, password, Employee_Id, role)
+        //VALUES (@username, @password, @employeeId, N'Nhân viên')";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@username", username);
-                        cmd.Parameters.AddWithValue("@password", password); // Gợi ý: hash mật khẩu trong thực tế
-                        cmd.Parameters.AddWithValue("@employeeId", employeeId);
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    {
+        //        try
+        //        {
+        //            conn.Open();
+        //            using (SqlCommand cmd = new SqlCommand(query, conn))
+        //            {
+        //                cmd.Parameters.AddWithValue("@username", username);
+        //                cmd.Parameters.AddWithValue("@password", password); // Gợi ý: hash mật khẩu trong thực tế
+        //                cmd.Parameters.AddWithValue("@employeeId", employeeId);
 
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi thêm tài khoản: " + ex.Message);
-                    return false;
-                }
-            }
-        }
+        //                int rowsAffected = cmd.ExecuteNonQuery();
+        //                return rowsAffected > 0;
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Lỗi khi thêm tài khoản: " + ex.Message);
+        //            return false;
+        //        }
+        //    }
+        //}
 
 
 
