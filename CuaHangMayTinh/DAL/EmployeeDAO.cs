@@ -23,6 +23,13 @@ namespace CuaHangMayTinh.DAL
             return GetData(sql, parameters); // Cần thêm overload GetData hỗ trợ parameters
         }
 
+        public DataTable GetByName(string name)
+        {
+            string sql = "SELECT * FROM Employee WHERE employeeName = @Name";
+            SqlParameter[] parameters = { new SqlParameter("@Name", name) };
+            return GetData(sql, parameters);
+        }
+
         public int Insert(string name, int age, string phone)
         {
             string sql = @"INSERT INTO Employee(employeeName, age, phoneNumber) 

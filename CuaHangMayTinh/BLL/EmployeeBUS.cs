@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using CuaHangMayTinh.DTO.Common;
 
 namespace CuaHangMayTinh.BUS
 {
@@ -23,14 +24,35 @@ namespace CuaHangMayTinh.BUS
                 throw new Exception("Lỗi khi tải danh sách nhân viên", ex);
             }
         }
-        public DataTable GetEmployeeById(int employeeId)
-        {
-            if (employeeId <= 0)
-                throw new ArgumentException("ID nhân viên không hợp lệ");
+        //public DataTable GetEmployeeById(int employeeId)
+        //{
+        //    if (employeeId <= 0)
+        //        throw new ArgumentException("ID nhân viên không hợp lệ");
 
+        //    try
+        //    {
+        //        return _employeeDAO.GetById(employeeId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Lỗi khi lấy thông tin nhân viên", ex);
+        //    }
+        //}
+
+        public Employee GetEmployeeByName(string name)
+        {
             try
             {
-                return _employeeDAO.GetById(employeeId);
+                DataTable dt = _employeeDAO.GetByName(name);
+                if (dt.Rows.Count == 0)
+                    return null;
+                return new Employee
+                {
+                    Employee_Id = Convert.ToInt32(dt.Rows[0]["Employee_Id"]),
+                    employeeName = dt.Rows[0]["EmployeeName"].ToString(),
+                    age = Convert.ToInt32(dt.Rows[0]["Age"]),
+                    phoneNumber = dt.Rows[0]["PhoneNumber"].ToString()
+                };
             }
             catch (Exception ex)
             {
@@ -174,6 +196,8 @@ namespace CuaHangMayTinh.BUS
                 }
             }
         }
+
+
 
     }
 }

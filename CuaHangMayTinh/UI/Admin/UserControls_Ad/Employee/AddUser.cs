@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CuaHangMayTinh.BLL;
 using CuaHangMayTinh.BUS;
+using CuaHangMayTinh.DTO;
+using CuaHangMayTinh.DTO.Common;
 
 namespace CuaHangMayTinh.UI.Forms
 {
@@ -94,6 +96,19 @@ namespace CuaHangMayTinh.UI.Forms
                     MessageBox.Show("Employee added successfully!", "Success",
                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
+                    Employee employeeId = _employeeBLL.GetEmployeeByName(txtFullName.Text.Trim());
+                    // Gọi phương thức thêm tài khoản
+                    bool accountResult = _employeeBLL.AddAccount(username, password, employeeId.Employee_Id);
+                    if (accountResult)
+                    {
+                        MessageBox.Show("Account added successfully!", "Success",
+                                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to add account. Please try again.", "Error",
+                                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     this.Close();
                 }
                 else
@@ -102,18 +117,6 @@ namespace CuaHangMayTinh.UI.Forms
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                // Gọi phương thức thêm tài khoản
-                bool accountResult = _employeeBLL.AddAccount(username, password, result);
-                if (accountResult)
-                {
-                    MessageBox.Show("Account added successfully!", "Success",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Failed to add account. Please try again.", "Error",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
             catch (Exception ex)
             {
