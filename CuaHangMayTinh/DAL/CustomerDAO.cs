@@ -62,4 +62,13 @@ public class CustomerDAO : DbConnect
         SqlParameter[] parameters = { new SqlParameter("@Id", id) };
         return ExecuteNonQuery(sql, parameters);
     }
+    public DataTable Search(string keyword)
+    {
+        string sql = @"SELECT * FROM Customer
+                           WHERE customerName LIKE @Keyword
+                              OR phoneNumber  LIKE @Keyword
+                             Or email  LIKE @Keyword";
+        SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
+        return GetData(sql, parameters);
+    }
 }

@@ -59,5 +59,14 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Id", id) };
             return ExecuteNonQuery(sql, parameters);
         }
+        public DataTable Search(string keyword)
+        {
+            string sql = @"SELECT * FROM Supplier
+                           WHERE supplierName LIKE @Keyword
+                              OR phoneNumber  LIKE @Keyword
+                              Or email  LIKE @Keyword";
+            SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
+            return GetData(sql, parameters);
+        }
     }
 }

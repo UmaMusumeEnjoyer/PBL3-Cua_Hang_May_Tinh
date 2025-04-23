@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using CuaHangMayTinh.DAL;
-using CuaHangMayTinh.DTO;
-using CuaHangMayTinh.DTO.Common;
 
 namespace CuaHangMayTinh.DAL
 {
@@ -68,6 +61,13 @@ namespace CuaHangMayTinh.DAL
             string sql = "DELETE FROM Product WHERE Product_Id = @Id";
             SqlParameter[] param = { new SqlParameter("@Id", id) };
             return ExecuteNonQuery(sql, param);
+        }
+        public DataTable Search(string keyword)
+        {
+            string sql = @"SELECT * FROM Product 
+                      WHERE productName LIKE @Keyword";
+            SqlParameter[] parameters = { new SqlParameter("@Keyword", $"%{keyword}%") };
+            return GetData(sql, parameters);
         }
     }
 
