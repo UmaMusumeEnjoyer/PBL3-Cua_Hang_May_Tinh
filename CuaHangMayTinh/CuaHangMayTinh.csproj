@@ -51,15 +51,14 @@
     <Compile Include="BLL\LaptopBUS.cs" />
     <Compile Include="BLL\ProductBUS.cs" />
     <Compile Include="BLL\SupplierBUS.cs" />
-    <Compile Include="BLL\testBUS.cs" />
     <Compile Include="DAL\AccountDAO.cs" />
     <Compile Include="DAL\CustomerDAO.cs" />
     <Compile Include="DAL\DbConnect.cs" />
     <Compile Include="DAL\EmployeeDAO.cs" />
     <Compile Include="DAL\LaptopDAO.cs" />
+    <Compile Include="DAL\PCDAO.cs" />
     <Compile Include="DAL\ProductDAO.cs" />
     <Compile Include="DAL\SupplierDAO.cs" />
-    <Compile Include="DAL\testDAO.cs" />
     <Compile Include="UI\Admin\Form_Ad\FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
