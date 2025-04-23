@@ -39,7 +39,7 @@ namespace CuaHangMayTinh.BUS
         //        throw new Exception("Lỗi khi lấy thông tin nhân viên", ex);
         //    }
         //}
-
+// demo
         public Employee GetEmployeeByName(string name)
         {
             try
