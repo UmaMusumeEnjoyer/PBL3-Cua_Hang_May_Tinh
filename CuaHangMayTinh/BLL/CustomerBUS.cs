@@ -96,17 +96,8 @@ namespace CuaHangMayTinh.BUS
 
             try
             {
-                string sql = @"SELECT * FROM Customer
-                               WHERE customerName LIKE @Keyword
-                                  OR phoneNumber LIKE @Keyword
-                                  OR email LIKE @Keyword";
-
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" }
-                };
-
-                return _customerDAO.GetData(sql, parameters);
+                
+                return _customerDAO.Search(keyword);
             }
             catch (Exception ex)
             {

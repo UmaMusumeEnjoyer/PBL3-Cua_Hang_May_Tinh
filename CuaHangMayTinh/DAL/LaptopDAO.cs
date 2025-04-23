@@ -24,7 +24,7 @@ namespace CuaHangMayTinh.DAL
             return GetData(sql, para);
         }
 
-        public int InsertLaptop(string laptopName, decimal weight, decimal screenSize,
+        public int Insert(string laptopName, decimal weight, decimal screenSize,
                             string specification, string colour, int supplierId,
                             string productName, decimal price, int stockQuantity)
         {

@@ -100,13 +100,7 @@ namespace CuaHangMayTinh.BLL
 
             try
             {
-                string sql = @"SELECT p.*, s.supplierName
-                               FROM Product p
-                               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
-                               WHERE p.productName LIKE @Keyword
-                                  OR s.supplierName LIKE @Keyword";
-                SqlParameter[] param = { new SqlParameter("@Keyword", $"%{keyword}%") };
-                return _dao.GetData(sql, param);
+                return _dao.Search(keyword);
             }
             catch (Exception ex)
             {

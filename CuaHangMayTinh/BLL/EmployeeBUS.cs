@@ -120,16 +120,8 @@ namespace CuaHangMayTinh.BUS
 
             try
             {
-                string sql = @"SELECT * FROM Employee
-                               WHERE employeeName LIKE @Keyword
-                                  OR phoneNumber LIKE @Keyword";
 
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("@Keyword", $"%{keyword}%")
-                };
-
-                return _employeeDAO.GetData(sql, parameters);
+                return _employeeDAO.Search(keyword);
             }
             catch (Exception ex)
             {

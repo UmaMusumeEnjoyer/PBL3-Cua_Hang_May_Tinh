@@ -58,8 +58,21 @@ namespace CuaHangMayTinh.BLL
             {
                 throw new Exception("Lỗi khi xoá nhà cung cấp", ex);
             }
-            
+        }
 
+        public DataTable SearchSupplier(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                throw new ArgumentException("Từ khóa tìm kiếm không hợp lệ");
+
+            try
+            {
+                return _supplierDAO.Search(keyword);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Tìm kiếm nhà cung cấp thất bại", ex);
+            }
         }
         private void ValidateSupplierData(string name, string phone, string email)
         {
