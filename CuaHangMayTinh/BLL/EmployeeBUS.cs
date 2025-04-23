@@ -25,6 +25,7 @@ namespace CuaHangMayTinh.BUS
                 throw new Exception("Lỗi khi tải danh sách nhân viên", ex);
             }
         }
+        //aaaaa
         //public DataTable GetEmployeeById(int employeeId)
         //{
         //    if (employeeId <= 0)
