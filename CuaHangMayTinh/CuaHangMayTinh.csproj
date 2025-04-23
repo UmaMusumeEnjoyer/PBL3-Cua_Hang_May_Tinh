@@ -49,6 +49,7 @@
     <Compile Include="BLL\CustomerBUS.cs" />
     <Compile Include="BLL\EmployeeBUS.cs" />
     <Compile Include="BLL\LaptopBUS.cs" />
+    <Compile Include="BLL\PCBUS.cs" />
     <Compile Include="BLL\ProductBUS.cs" />
     <Compile Include="BLL\SupplierBUS.cs" />
     <Compile Include="DAL\AccountDAO.cs" />
