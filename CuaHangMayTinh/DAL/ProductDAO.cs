@@ -69,6 +69,28 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Keyword", $"%{keyword}%") };
             return GetData(sql, parameters);
         }
+        public DataTable GetAllProductDetails()
+        {
+            string sql = @"
+            SELECT 
+              p.Product_Id,
+              p.productName,
+              CASE 
+                WHEN l.Product_Id IS NOT NULL THEN 'Laptop'
+                WHEN pc.Product_Id IS NOT NULL THEN 'PC'
+                ELSE 'Accessories'
+              END AS Category,
+              COALESCE(l.specification, pc.specification, a.overview) AS Specification,
+              COALESCE(l.colour, '') AS Colour,
+              p.price,
+              p.stockQuantity
+            FROM Product p
+            LEFT JOIN Laptop     l ON p.Product_Id = l.Product_Id
+            LEFT JOIN PC         pc ON p.Product_Id = pc.Product_Id
+            LEFT JOIN Accessories a ON p.Product_Id = a.Product_Id;
+            ";
+            return GetData(sql);
+        }
     }
 
 }
