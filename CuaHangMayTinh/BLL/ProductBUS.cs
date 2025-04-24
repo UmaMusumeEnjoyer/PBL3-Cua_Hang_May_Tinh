@@ -147,6 +147,15 @@ namespace CuaHangMayTinh.BLL
                      })
                      .ToList();
         }
+        /// <summary>
+        // Trong FormReceipts.cs
+        //private void FormReceipts_Load(object sender, EventArgs e)
+        //{
+        //    var products = new ProductBUS().GetAllProductDetails();
+        //    dataGridViewProducts.DataSource = products;
+        //}
+        ///<summary>
+
     }
 }
 
