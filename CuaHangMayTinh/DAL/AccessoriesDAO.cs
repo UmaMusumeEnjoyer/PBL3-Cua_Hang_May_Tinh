@@ -51,6 +51,62 @@ namespace CuaHangMayTinh.DAL
             ExecuteNonQuery(accSql, accParams);
             return productId;
         }
+        public int Update(int productId, string accessoriesName, string overview,
+                          int supplierId, string productName,
+                          decimal price, int stockQuantity)
+        {
+            // Update Product
+            var productSql = @"UPDATE Product SET
+                               Supplier_Id = @SupplierId,
+                               productName = @ProductName,
+                               price = @Price,
+                               stockQuantity = @StockQuantity
+                               WHERE Product_Id = @ProductId";
+            var productParams = new SqlParameter[] {
+                new SqlParameter("@SupplierId", supplierId),
+                new SqlParameter("@ProductName", productName),
+                new SqlParameter("@Price", price),
+                new SqlParameter("@StockQuantity", stockQuantity),
+                new SqlParameter("@ProductId", productId)
+            };
+            int rows = ExecuteNonQuery(productSql, productParams);
 
+            // Update Accessories
+            var accSql = @"UPDATE Accessories SET
+                           accessoriesName = @Name,
+                           overview = @Overview
+                           WHERE Product_Id = @ProductId";
+            var accParams = new SqlParameter[] {
+                new SqlParameter("@Name", accessoriesName),
+                new SqlParameter("@Overview", overview),
+                new SqlParameter("@ProductId", productId)
+            };
+            rows += ExecuteNonQuery(accSql, accParams);
+            return rows;
+        }
+
+        public int Delete(int productId)
+        {
+            // Delete from Accessories first
+            var accSql = "DELETE FROM Accessories WHERE Product_Id = @ProductId";
+            var param = new SqlParameter("@ProductId", productId);
+            int rows = ExecuteNonQuery(accSql, new[] { param });
+
+            // Delete from Product
+            var prodSql = "DELETE FROM Product WHERE Product_Id = @ProductId";
+            rows += ExecuteNonQuery(prodSql, new[] { param });
+            return rows;
+        }
+
+        public DataTable Search(string keyword)
+        {
+            string sql = @"SELECT p.*, a.accessoriesName, a.overview
+                           FROM Product p
+                           INNER JOIN Accessories a ON p.Product_Id = a.Product_Id
+                           WHERE a.accessoriesName LIKE @Keyword
+                              OR a.overview LIKE @Keyword";
+            SqlParameter[] parameters = { new SqlParameter("@Keyword", $"%{keyword}%") };
+            return GetData(sql, parameters);
+        }
     }
 }
