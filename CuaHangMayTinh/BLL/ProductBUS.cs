@@ -7,6 +7,7 @@ using CuaHangMayTinh.DAL;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
+using CuaHangMayTinh.DTO.ViewModel;
 
 namespace CuaHangMayTinh.BLL
 {
@@ -125,6 +126,26 @@ namespace CuaHangMayTinh.BLL
 
             if (errors.Length > 0)
                 throw new ArgumentException(errors.ToString());
+        }
+        /// <summary>
+        /// Lấy toàn bộ danh sách sản phẩm dưới dạng ViewModel,
+        /// để UI bind trực tiếp List<ProductDetailView>
+        /// </summary>
+        public List<ProductDetailView> GetAllProductDetails()
+        {
+            DataTable dt = _dao.GetAllProductDetails();
+            return dt.AsEnumerable()
+                     .Select(r => new ProductDetailView
+                     {
+                         Product_Id = r.Field<int>("Product_Id"),
+                         ProductName = r.Field<string>("productName"),
+                         Category = r.Field<string>("Category"),
+                         Specification = r.Field<string>("Specification"),
+                         Colour = r.Field<string>("Colour"),
+                         Price = r.Field<decimal>("price"),
+                         StockQuantity = r.Field<int>("stockQuantity")
+                     })
+                     .ToList();
         }
     }
 }

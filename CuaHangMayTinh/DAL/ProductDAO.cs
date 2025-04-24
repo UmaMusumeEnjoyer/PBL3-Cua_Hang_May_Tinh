@@ -91,6 +91,10 @@ namespace CuaHangMayTinh.DAL
             ";
             return GetData(sql);
         }
+        /// <summary>
+        ///COALESCE:
+        ///Hàm SQL chọn giá trị đầu tiên không null trong danh sách các cột
+        /// </summary>
     }
 
 }
