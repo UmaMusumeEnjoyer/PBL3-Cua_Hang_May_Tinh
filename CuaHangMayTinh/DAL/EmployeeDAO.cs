@@ -75,5 +75,20 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
             return GetData(sql, parameters);
         }
+        public DataTable GetEmployeeAccount()
+        {
+            string sql = @"
+                        SELECT 
+                          e.Employee_Id,
+                          e.employeeName   AS EmployeeName,
+                          e.age            AS Age,
+                          e.phoneNumber    AS PhoneNumber,
+                          a.username       AS Username,
+                          a.role           AS Role
+                        FROM Employee e
+                        LEFT JOIN Account a 
+                          ON e.Employee_Id = a.Employee_Id";
+            return GetData(sql);
+        }
     }
 }
