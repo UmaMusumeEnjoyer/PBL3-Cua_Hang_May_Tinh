@@ -6,13 +6,16 @@ using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using CuaHangMayTinh.DTO.Common;
+using CuaHangMayTinh.DTO.Admin;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CuaHangMayTinh.BUS
 {
     public class EmployeeBUS
     {
         private readonly EmployeeDAO _employeeDAO = new EmployeeDAO();
-        private readonly AccountDAO _accountDAO = new AccountDAO();
+        // private readonly AccountDAO _accountDAO = new AccountDAO();
 
         public DataTable GetAllEmployees()
         {
@@ -158,5 +161,20 @@ namespace CuaHangMayTinh.BUS
         //     // return receiptDao.GetByEmployee(employeeId).Rows.Count > 0;
         //     return false;
         // }
+        public List<EmployeeView> GetEmployeeViews()
+        {
+            DataTable dt = _employeeDAO.GetEmployeeAccount();
+            return dt.AsEnumerable()
+                     .Select(r => new EmployeeView
+                     {
+                         Employee_Id = r.Field<int>("Employee_Id"),
+                         EmployeeName = r.Field<string>("EmployeeName"),
+                         Age = r.Field<int>("Age"),
+                         PhoneNumber = r.Field<string>("PhoneNumber"),
+                         Username = r.Field<string>("Username"),
+                         Role = r.Field<string>("Role")
+                     })
+                     .ToList();
+        }
     }
 }
