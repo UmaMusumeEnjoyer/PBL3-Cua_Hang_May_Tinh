@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO;
 using System.Text.RegularExpressions;
+using CuaHangMayTinh.DTO.Admin;
 
 namespace CuaHangMayTinh.BLL
 {
@@ -26,13 +27,13 @@ namespace CuaHangMayTinh.BLL
             try { return _supplierDAO.GetById(id); }
             catch (Exception ex) { throw new Exception("Lỗi khi tải danh sách nhà cung cấp theo Id", ex); }
         }
-        public int InsertSupplier(string name,string phone ,string email, string address)
+        public int InsertSupplier(string name, string phone, string email, string address)
         {
             ValidateSupplierData(name, phone, email);
             try
             {
                 return _supplierDAO.Insert(name, phone, email, address);
-            }   catch(Exception ex)
+            } catch (Exception ex)
             {
                 throw new Exception("Thêm nhà cung cấp thất bại", ex);
             }
@@ -44,7 +45,7 @@ namespace CuaHangMayTinh.BLL
 
             ValidateSupplierData(name, phone, email);
             try { return _supplierDAO.Update(id, name, phone, email, address); }
-            catch(Exception ex) { throw new Exception("Lỗi khi cập nhật nhà cung cấp", ex); }
+            catch (Exception ex) { throw new Exception("Lỗi khi cập nhật nhà cung cấp", ex); }
         }
         public int Delete(int id)
         {
@@ -54,7 +55,7 @@ namespace CuaHangMayTinh.BLL
             {
                 return _supplierDAO.Delete(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Lỗi khi xoá nhà cung cấp", ex);
             }
@@ -85,6 +86,20 @@ namespace CuaHangMayTinh.BLL
             if (!string.IsNullOrWhiteSpace(email) && !Regex.IsMatch(email,
                     "^[\\w-+.]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))
                 throw new ArgumentException("Email không hợp lệ.", nameof(email));
+        }
+        public List<SupplierReport> GetSupplierReports()
+        {
+            DataTable dt = _supplierDAO.GetSupplierReport();
+            return dt.AsEnumerable()
+                     .Select(r => new SupplierReport
+                     {
+                         Supplier_Id = r.Field<int>("Supplier_Id"),
+                         SupplierName = r.Field<string>("SupplierName"),
+                         TotalProducts = r.Field<int>("TotalProducts"),
+                         TotalStock = r.Field<int>("TotalStock"),
+                         TotalValue = r.Field<decimal>("TotalValue")
+                     })
+                     .ToList();
         }
     }
 }
