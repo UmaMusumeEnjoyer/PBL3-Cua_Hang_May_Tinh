@@ -85,7 +85,7 @@ namespace CuaHangMayTinh.DAL
                           ON s.Supplier_Id = p.Supplier_Id
                         GROUP BY 
                           s.Supplier_Id, 
-                          s.supplierName"" ";
+                          s.supplierName ";
             return GetData(sql);
         }
     }
