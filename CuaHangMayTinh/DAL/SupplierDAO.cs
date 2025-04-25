@@ -68,5 +68,9 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
             return GetData(sql, parameters);
         }
+        public DataTable GetSupplierReport()
+        {
+            string sql = @"" 
+        }
     }
 }
