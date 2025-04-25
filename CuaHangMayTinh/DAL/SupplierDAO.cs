@@ -68,9 +68,25 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
             return GetData(sql, parameters);
         }
+        /// <summary>
+        ///  TotalValue: tổng (price * stockQuantity)
+        ///  TotalStock: tổng stockQuantity
+        /// </summary>
         public DataTable GetSupplierReport()
         {
-            string sql = @"" 
+            string sql = @"SELECT 
+                          s.Supplier_Id,
+                          s.supplierName      AS SupplierName,
+                          COUNT(p.Product_Id) AS TotalProducts,
+                          SUM(p.stockQuantity)      AS TotalStock,
+                          SUM(p.price * p.stockQuantity) AS TotalValue
+                        FROM Supplier s
+                        LEFT JOIN Product p 
+                          ON s.Supplier_Id = p.Supplier_Id
+                        GROUP BY 
+                          s.Supplier_Id, 
+                          s.supplierName"" ";
+            return GetData(sql);
         }
     }
 }
