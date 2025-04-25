@@ -16,6 +16,9 @@ namespace CuaHangMayTinh.DTO.Admin
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
         public string SupplierName { get; set; }
+        // thêm 2 trường mới cho InventoryView
+        public string SupplierPhone { get; set; }
+        public DateTime GoodsReceiptDate { get; set; }
     }
 
 }
