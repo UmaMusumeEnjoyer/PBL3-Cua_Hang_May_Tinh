@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BLL\CustomerBUS.cs" />
     <Compile Include="BLL\EmployeeBUS.cs" />
+    <Compile Include="BLL\InventoryBUS.cs" />
     <Compile Include="BLL\LaptopBUS.cs" />
     <Compile Include="BLL\PCBUS.cs" />
     <Compile Include="BLL\ProductBUS.cs" />
