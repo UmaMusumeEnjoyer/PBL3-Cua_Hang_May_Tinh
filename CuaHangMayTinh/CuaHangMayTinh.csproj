@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BLL\CustomerBUS.cs" />
     <Compile Include="BLL\EmployeeBUS.cs" />
+    <Compile Include="BLL\InventoryBUS.cs" />
     <Compile Include="BLL\LaptopBUS.cs" />
     <Compile Include="BLL\PCBUS.cs" />
     <Compile Include="BLL\ProductBUS.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="DAL\CustomerDAO.cs" />
     <Compile Include="DAL\DbConnect.cs" />
     <Compile Include="DAL\EmployeeDAO.cs" />
+    <Compile Include="DAL\InventoryDAO.cs" />
     <Compile Include="DAL\LaptopDAO.cs" />
     <Compile Include="DAL\PCDAO.cs" />
     <Compile Include="DAL\ProductDAO.cs" />
