@@ -9,130 +9,151 @@ namespace CuaHangMayTinh.DAL
     {
         public DataTable GetAllLaptops()
         {
-            string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour 
-                         FROM Product p
-                         INNER JOIN Laptop l ON p.Product_Id = l.Product_Id";
+            const string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour
+                                  FROM Product p
+                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id";
             return GetData(sql);
         }
+
         public DataTable GetLaptopById(int id)
         {
-            string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour 
-                         FROM Product p
-                         INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
-                         WHERE p.Product_Id = @Id";
-            SqlParameter[] para = { new SqlParameter("@Id", id) };
-            return GetData(sql, para);
+            const string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour
+                                  FROM Product p
+                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
+                                  WHERE p.Product_Id = @Id";
+            return GetData(sql, new[] { new SqlParameter("@Id", id) });
         }
 
         public int Insert(string laptopName, decimal weight, decimal screenSize,
-                            string specification, string colour, int supplierId,
-                            string productName, decimal price, int stockQuantity)
+                          string specification, string colour, int supplierId,
+                          string productName, decimal price, int stockQuantity)
         {
-            // Thêm vào Product
-            var productSql = @"INSERT INTO Product (Supplier_Id, productName, price, stockQuantity) 
-                                 VALUES (@SupplierId, @ProductName, @Price, @StockQuantity);
-                                 SELECT SCOPE_IDENTITY();";
+            int productId = 0;
+            ExecuteTransaction((conn, tran) =>
+            {
+                // 1) Insert into Product
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.Transaction = tran;
+                    cmd.CommandText = @"INSERT INTO Product (Supplier_Id, productName, price, stockQuantity)
+                                        VALUES (@SupplierId, @ProductName, @Price, @StockQuantity);
+                                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
+                    cmd.Parameters.AddRange(new[] {
+                        new SqlParameter("@SupplierId", supplierId),
+                        new SqlParameter("@ProductName", productName),
+                        new SqlParameter("@Price", price),
+                        new SqlParameter("@StockQuantity", stockQuantity)
+                    });
+                    productId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
 
-            var productParams = new SqlParameter[] {
-                    new SqlParameter("@SupplierId", supplierId),
-                    new SqlParameter("@ProductName", productName),
-                    new SqlParameter("@Price", price),
-                    new SqlParameter("@StockQuantity", stockQuantity)
-                };
-
-            int productId = Convert.ToInt32(ExecuteScalar(productSql, productParams));
-
-            // Thêm vào Laptop
-            var laptopSql = @"INSERT INTO Laptop (Product_Id, laptopName, weight, screenSize, specification, colour) 
-                               VALUES (@ProductId, @LaptopName, @Weight, @ScreenSize, @Specification, @Colour)";
-
-            var laptopParams = new SqlParameter[] {
-                    new SqlParameter("@ProductId", productId),
-                    new SqlParameter("@LaptopName", laptopName),
-                    new SqlParameter("@Weight", weight),
-                    new SqlParameter("@ScreenSize", screenSize),
-                    new SqlParameter("@Specification", specification),
-                    new SqlParameter("@Colour", colour)
-                };
-
-                ExecuteNonQuery(laptopSql, laptopParams);
-                return productId;
-            }
-
+                // 2) Insert into Laptop
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.Transaction = tran;
+                    cmd.CommandText = @"INSERT INTO Laptop (Product_Id, laptopName, weight, screenSize, specification, colour)
+                                        VALUES (@ProductId, @LaptopName, @Weight, @ScreenSize, @Specification, @Colour)";
+                    cmd.Parameters.AddRange(new[] {
+                        new SqlParameter("@ProductId", productId),
+                        new SqlParameter("@LaptopName", laptopName),
+                        new SqlParameter("@Weight", weight),
+                        new SqlParameter("@ScreenSize", screenSize),
+                        new SqlParameter("@Specification", specification),
+                        new SqlParameter("@Colour", colour)
+                    });
+                    cmd.ExecuteNonQuery();
+                }
+            });
+            return productId;
+        }
 
         public int UpdateLaptop(int productId, string laptopName, decimal weight,
-                              decimal screenSize, string specification, string colour,
-                              int supplierId, string productName, decimal price, int stockQuantity)
+                                decimal screenSize, string specification, string colour,
+                                int supplierId, string productName, decimal price, int stockQuantity)
         {
-            
-                // Cập nhật Product
-                var productSql = @"UPDATE Product SET 
-                                  Supplier_Id = @SupplierId,
-                                  productName = @ProductName,
-                                  price = @Price,
-                                  stockQuantity = @StockQuantity
-                                  WHERE Product_Id = @ProductId";
+            int rows = 0;
+            ExecuteTransaction((conn, tran) =>
+            {
+                // Update Product
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.Transaction = tran;
+                    cmd.CommandText = @"UPDATE Product SET
+                                          Supplier_Id = @SupplierId,
+                                          productName = @ProductName,
+                                          price = @Price,
+                                          stockQuantity = @StockQuantity
+                                        WHERE Product_Id = @ProductId";
+                    cmd.Parameters.AddRange(new[] {
+                        new SqlParameter("@SupplierId", supplierId),
+                        new SqlParameter("@ProductName", productName),
+                        new SqlParameter("@Price", price),
+                        new SqlParameter("@StockQuantity", stockQuantity),
+                        new SqlParameter("@ProductId", productId)
+                    });
+                    rows += cmd.ExecuteNonQuery();
+                }
 
-                var productParams = new SqlParameter[] {
-                    new SqlParameter("@SupplierId", supplierId),
-                    new SqlParameter("@ProductName", productName),
-                    new SqlParameter("@Price", price),
-                    new SqlParameter("@StockQuantity", stockQuantity),
-                    new SqlParameter("@ProductId", productId)
-                };
+                // Update Laptop
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.Transaction = tran;
+                    cmd.CommandText = @"UPDATE Laptop SET
+                                          laptopName = @LaptopName,
+                                          weight = @Weight,
+                                          screenSize = @ScreenSize,
+                                          specification = @Specification,
+                                          colour = @Colour
+                                        WHERE Product_Id = @ProductId";
+                    cmd.Parameters.AddRange(new[] {
+                        new SqlParameter("@LaptopName", laptopName),
+                        new SqlParameter("@Weight", weight),
+                        new SqlParameter("@ScreenSize", screenSize),
+                        new SqlParameter("@Specification", specification),
+                        new SqlParameter("@Colour", colour),
+                        new SqlParameter("@ProductId", productId)
+                    });
+                    rows += cmd.ExecuteNonQuery();
+                }
+            });
+            return rows;
+        }
 
-                int rowsAffected = ExecuteNonQuery(productSql, productParams);
-
-                // Cập nhật Laptop
-                var laptopSql = @"UPDATE Laptop SET 
-                                laptopName = @LaptopName,
-                                weight = @Weight,
-                                screenSize = @ScreenSize,
-                                specification = @Specification,
-                                colour = @Colour
-                                WHERE Product_Id = @ProductId";
-
-                var laptopParams = new SqlParameter[] {
-                    new SqlParameter("@LaptopName", laptopName),
-                    new SqlParameter("@Weight", weight),
-                    new SqlParameter("@ScreenSize", screenSize),
-                    new SqlParameter("@Specification", specification),
-                    new SqlParameter("@Colour", colour),
-                    new SqlParameter("@ProductId", productId)
-                };
-
-                rowsAffected += ExecuteNonQuery(laptopSql, laptopParams);
-                return rowsAffected;
-            }
         public int DeleteLaptop(int productId)
         {
+            int rows = 0;
+            ExecuteTransaction((conn, tran) =>
             {
-                // Xóa Laptop trước
-                var laptopSql = "DELETE FROM Laptop WHERE Product_Id = @ProductId";
-                var laptopParams = new SqlParameter[] {
-                    new SqlParameter("@ProductId", productId)
-                };
+                // Delete from Laptop
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.Transaction = tran;
+                    cmd.CommandText = "DELETE FROM Laptop WHERE Product_Id = @ProductId";
+                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
+                    rows += cmd.ExecuteNonQuery();
+                }
 
-                int rowsAffected = ExecuteNonQuery(laptopSql, laptopParams);
-
-                // Xóa Product
-                var productSql = "DELETE FROM Product WHERE Product_Id = @ProductId";
-                rowsAffected += ExecuteNonQuery(productSql, laptopParams);
-
-                return rowsAffected;
-            }
-            
+                // Delete from Product
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.Transaction = tran;
+                    cmd.CommandText = "DELETE FROM Product WHERE Product_Id = @ProductId";
+                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
+                    rows += cmd.ExecuteNonQuery();
+                }
+            });
+            return rows;
         }
+
         public DataTable Search(string keyword)
         {
-            string sql = @"SELECT p.*, l.* 
-                 FROM Product p
-                 INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
-                 WHERE l.laptopName LIKE @Keyword 
-                 OR l.colour LIKE @Keyword
-                 OR l.specification LIKE @Keyword";
-            SqlParameter[] param = { new SqlParameter("@Keyword", $"%{keyword}%") };
-            return GetData(sql, param);
+            const string sql = @"SELECT p.*, l.*
+                                 FROM Product p
+                                 INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
+                                 WHERE l.laptopName LIKE @Keyword
+                                    OR l.colour LIKE @Keyword
+                                    OR l.specification LIKE @Keyword";
+            return GetData(sql, new[] { new SqlParameter("@Keyword", $"%{keyword}%") });
         }
     }
 }
