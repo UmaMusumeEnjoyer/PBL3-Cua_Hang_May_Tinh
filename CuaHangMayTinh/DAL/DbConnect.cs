@@ -17,24 +17,26 @@ namespace CuaHangMayTinh.DAL
         {
             _connectionString = "Data Source=DESKTOP-HV7IPNG;Initial Catalog=PBL3;Integrated Security=True";
         }
-        // Truy vấn dữ liệu từ cơ sở dữ liệu (các câu lệnh SQL dạng SELECT) và trả về kết quả dưới dạng DataTable.
+
         public DataTable GetData(string sql, SqlParameter[] parameters = null)
         {
             DataTable dt = new DataTable();
             try
             {
                 using (var conn = new SqlConnection(_connectionString))
-                using (var cmd = new SqlCommand(sql, conn))
                 {
-                    if (parameters != null)
+                    using (var cmd = new SqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddRange(parameters);
-                    }
-                    
-                    conn.Open();
-                    using (var da = new SqlDataAdapter(cmd))
-                    {
-                        da.Fill(dt);
+                        if (parameters != null)
+                        {
+                            cmd.Parameters.AddRange(parameters);
+                        }
+
+                        conn.Open();
+                        using (var da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
                     }
                 }
             }
@@ -46,22 +48,22 @@ namespace CuaHangMayTinh.DAL
             return dt;
         }
 
-        // Thực thi các câu lệnh SQL không trả về dữ liệu (các câu lệnh SQL dạng INSERT, UPDATE, DELETE) 
-        // và trả về số lượng bản ghi bị ảnh hưởng.
         public int ExecuteNonQuery(string sql, SqlParameter[] parameters = null)
         {
             try
             {
                 using (var conn = new SqlConnection(_connectionString))
-                using (var cmd = new SqlCommand(sql, conn))
                 {
-                    if (parameters != null)
+                    using (var cmd = new SqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddRange(parameters);
+                        if (parameters != null)
+                        {
+                            cmd.Parameters.AddRange(parameters);
+                        }
+
+                        conn.Open();
+                        return cmd.ExecuteNonQuery();
                     }
-                    
-                    conn.Open();
-                    return cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
@@ -70,27 +72,50 @@ namespace CuaHangMayTinh.DAL
                 throw new DataException("Database operation failed", ex);
             }
         }
-        // Lấy giá trị đơn lẻ từ cơ sở dữ liệu
+
         public object ExecuteScalar(string sql, SqlParameter[] parameters = null)
         {
             try
             {
                 using (var conn = new SqlConnection(_connectionString))
-                using (var cmd = new SqlCommand(sql, conn))
                 {
-                    if (parameters != null)
+                    using (var cmd = new SqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddRange(parameters);
-                    }
+                        if (parameters != null)
+                        {
+                            cmd.Parameters.AddRange(parameters);
+                        }
 
-                    conn.Open();
-                    return cmd.ExecuteScalar();
+                        conn.Open();
+                        return cmd.ExecuteScalar();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"[ExecuteScalar Error] {ex.Message}");
                 throw new DataException("Database operation failed", ex);
+            }
+        }
+
+        public void ExecuteTransaction(Action<SqlConnection, SqlTransaction> action)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        action(conn, tran);
+                        tran.Commit();
+                    }
+                    catch
+                    {
+                        tran.Rollback();
+                        throw;
+                    }
+                }
             }
         }
     }
