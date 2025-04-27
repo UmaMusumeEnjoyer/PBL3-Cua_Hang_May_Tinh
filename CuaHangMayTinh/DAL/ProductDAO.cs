@@ -6,95 +6,66 @@ namespace CuaHangMayTinh.DAL
 {
     public class ProductDAO : DbConnect
     {
-        public DataTable GetAllProducts()
-        {
-            return GetData(@"SELECT p.*, s.supplierName 
-                    FROM Product p 
-                    INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id");
-        }
-        public DataTable GetProductById(int id)
-        {
-            string sql = @"SELECT p.*, s.supplierName 
-                      FROM Product p 
-                      INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
-                      WHERE p.Product_Id = @Id";
-            SqlParameter[] para = { new SqlParameter("@Id", id) };
-            return GetData(sql, para);
-        }
-        public int Insert(int supp_id, string name, decimal price, int stock_Quanity)
-        {
-            string sql = @"INSERT INTO Product 
-                         (Supplier_Id, productName, price, stockQuantity) 
-                         VALUES 
-                         (@SupplierId, @Name, @Price, @Stock)";
-            SqlParameter[] para =
-            {
-                new SqlParameter("@Supplier_Id", supp_id),
-                new SqlParameter("@productName", name),
-                new SqlParameter("@Price", price),
-                new SqlParameter("@stockQuanity", stock_Quanity)
-            };
-            return ExecuteNonQuery(sql, para);
-        }
+        public DataTable GetAllProducts() => GetData(
+            @"SELECT p.*, s.supplierName
+               FROM Product p
+               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id");
+
+        public DataTable GetProductById(int id) => GetData(
+            @"SELECT p.*, s.supplierName
+               FROM Product p
+               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
+               WHERE p.Product_Id = @Id",
+            new SqlParameter[] { new SqlParameter("@Id", id) });
+
+        public int Insert(int supplierId, string productName, decimal price, int stockQuantity)
+            => ExecuteNonQuery(
+                @"INSERT INTO Product (Supplier_Id, productName, price, stockQuantity)
+                   VALUES (@SupplierId, @ProductName, @Price, @StockQuantity)",
+                new SqlParameter[] {
+                    new SqlParameter("@SupplierId", supplierId),
+                    new SqlParameter("@ProductName", productName),
+                    new SqlParameter("@Price", price),
+                    new SqlParameter("@StockQuantity", stockQuantity)
+                });
+
         public int UpdateProduct(int productId, int supplierId, string productName, decimal price, int stockQuantity)
-        {
-            string sql = @"UPDATE Product SET 
-                         Supplier_Id = @SupplierId,
-                         productName = @Name,
-                         price = @Price,
-                         stockQuantity = @Stock
-                         WHERE Product_Id = @ProductId";
+            => ExecuteNonQuery(
+                @"UPDATE Product SET
+                    Supplier_Id = @SupplierId,
+                    productName = @ProductName,
+                    price = @Price,
+                    stockQuantity = @StockQuantity
+                   WHERE Product_Id = @ProductId",
+                new SqlParameter[] {
+                    new SqlParameter("@SupplierId", supplierId),
+                    new SqlParameter("@ProductName", productName),
+                    new SqlParameter("@Price", price),
+                    new SqlParameter("@StockQuantity", stockQuantity),
+                    new SqlParameter("@ProductId", productId)
+                });
 
-            SqlParameter[] param =
-            {
-                new SqlParameter("@SupplierId", supplierId),
-                new SqlParameter("@Name", productName),
-                new SqlParameter("@Price", price),
-                new SqlParameter("@Stock", stockQuantity),
-                new SqlParameter("@ProductId", productId)
-            };
-
-            return ExecuteNonQuery(sql, param);
-        }
         public int Delete(int id)
-        {
-            string sql = "DELETE FROM Product WHERE Product_Id = @Id";
-            SqlParameter[] param = { new SqlParameter("@Id", id) };
-            return ExecuteNonQuery(sql, param);
-        }
-        public DataTable Search(string keyword)
-        {
-            string sql = @"SELECT * FROM Product 
-                      WHERE productName LIKE @Keyword";
-            SqlParameter[] parameters = { new SqlParameter("@Keyword", $"%{keyword}%") };
-            return GetData(sql, parameters);
-        }
-        public DataTable GetAllProductDetails()
-        {
-            string sql = @"
-            SELECT 
-              p.Product_Id,
-              p.productName,
-              CASE 
-                WHEN l.Product_Id IS NOT NULL THEN 'Laptop'
-                WHEN pc.Product_Id IS NOT NULL THEN 'PC'
-                ELSE 'Accessories'
-              END AS Category,
-              COALESCE(l.specification, pc.specification, a.overview) AS Specification,
-              COALESCE(l.colour, '') AS Colour,
-              p.price,
-              p.stockQuantity
-            FROM Product p
-            LEFT JOIN Laptop     l ON p.Product_Id = l.Product_Id
-            LEFT JOIN PC         pc ON p.Product_Id = pc.Product_Id
-            LEFT JOIN Accessories a ON p.Product_Id = a.Product_Id;
-            ";
-            return GetData(sql);
-        }
-        /// <summary>
-        ///COALESCE:
-        ///Hàm SQL chọn giá trị đầu tiên không null trong danh sách các cột
-        /// </summary>
-    }
+            => ExecuteNonQuery("DELETE FROM Product WHERE Product_Id = @Id",
+                new SqlParameter[] { new SqlParameter("@Id", id) });
 
+        public DataTable Search(string keyword)
+            => GetData(
+                "SELECT * FROM Product WHERE productName LIKE @Keyword",
+                new SqlParameter[] { new SqlParameter("@Keyword", $"%{keyword}%") });
+
+        public DataTable GetAllProductDetails() => GetData(
+            @"SELECT p.Product_Id, p.productName,
+                      CASE WHEN l.Product_Id IS NOT NULL THEN 'Laptop'
+                           WHEN pc.Product_Id IS NOT NULL THEN 'PC'
+                           ELSE 'Accessories' END AS Category,
+                   COALESCE(l.specification, pc.specification, a.overview) AS Specification,
+                   COALESCE(l.colour, '') AS Colour,
+                   p.price, p.stockQuantity
+              FROM Product p
+         LEFT JOIN Laptop l ON p.Product_Id = l.Product_Id
+         LEFT JOIN PC pc ON p.Product_Id = pc.Product_Id
+         LEFT JOIN Accessories a ON p.Product_Id = a.Product_Id");
+    }
 }
+

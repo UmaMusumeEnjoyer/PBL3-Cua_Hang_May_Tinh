@@ -25,7 +25,7 @@ namespace CuaHangMayTinh.BLL
                          Price = r.Field<decimal>("Price"),
                          StockQuantity = r.Field<int>("StockQuantity"),
                          SupplierPhone = r.Field<string>("SupplierPhone"),
-                         GoodsReceiptDate = r.Field<DateTime>("GoodsReceiptDate")
+                         GoodsReceiptDate = r.Field<DateTime>("GoodsReceiptDate")   
                      })
                      .ToList();
         }
