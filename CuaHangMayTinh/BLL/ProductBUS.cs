@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using CuaHangMayTinh.DAL;
-using System.Data;
-using System.Text.RegularExpressions;
-using System.Data.SqlClient;
 using CuaHangMayTinh.DTO.ViewModel;
 
 namespace CuaHangMayTinh.BLL
@@ -45,48 +42,119 @@ namespace CuaHangMayTinh.BLL
             }
         }
 
-        public int InsertProduct(int supplierId, string productName, decimal price, int stockQuantity)
+        public int InsertProductWithLaptop(int supplierId, string productName, decimal price, int stockQuantity,
+                                           string laptopName, decimal weight, decimal screenSize, string specification, string colour)
         {
             ValidateProductData(supplierId, productName, price, stockQuantity);
-
+            ValidateLaptopData(laptopName);
             try
             {
-                return _dao.Insert(supplierId, productName, price, stockQuantity);
+                return _dao.InsertProductWithLaptop(supplierId, productName, price, stockQuantity,
+                                                    laptopName, weight, screenSize, specification, colour);
             }
             catch (Exception ex)
             {
-                throw new Exception("Thêm sản phẩm thất bại", ex);
+                throw new Exception("Thêm sản phẩm Laptop thất bại", ex);
             }
         }
 
-        public int UpdateProduct(int productId, int supplierId, string productName, decimal price, int stockQuantity)
+        public int InsertProductWithPC(int supplierId, string productName, decimal price, int stockQuantity,
+                                       string pcName, string specification)
+        {
+            ValidateProductData(supplierId, productName, price, stockQuantity);
+            if (string.IsNullOrWhiteSpace(pcName))
+                throw new ArgumentException("Tên PC không được để trống");
+            try
+            {
+                return _dao.InsertProductWithPC(supplierId, productName, price, stockQuantity,
+                                                 pcName, specification);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Thêm sản phẩm PC thất bại", ex);
+            }
+        }
+
+        public int InsertProductWithAccessory(int supplierId, string productName, decimal price, int stockQuantity,
+                                              string accessoriesName, string overview)
+        {
+            ValidateProductData(supplierId, productName, price, stockQuantity);
+            if (string.IsNullOrWhiteSpace(accessoriesName))
+                throw new ArgumentException("Tên phụ kiện không được để trống");
+            try
+            {
+                return _dao.InsertProductWithAccessory(supplierId, productName, price, stockQuantity,
+                                                        accessoriesName, overview);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Thêm sản phẩm Phụ kiện thất bại", ex);
+            }
+        }
+
+        public int UpdateProductWithLaptop(int productId, int supplierId, string productName, decimal price, int stockQuantity,
+                                           string laptopName, decimal weight, decimal screenSize, string specification, string colour)
         {
             if (productId <= 0)
                 throw new ArgumentException("ID sản phẩm không hợp lệ");
             ValidateProductData(supplierId, productName, price, stockQuantity);
-
-            var existing = _dao.GetProductById(productId);
-            if (existing.Rows.Count == 0)
-                throw new Exception("Sản phẩm không tồn tại");
-
+            ValidateLaptopData(laptopName);
             try
             {
-                return _dao.UpdateProduct(productId, supplierId, productName, price, stockQuantity);
+                return _dao.UpdateProductWithLaptop(productId, supplierId, productName, price, stockQuantity,
+                                                    laptopName, weight, screenSize, specification, colour);
             }
             catch (Exception ex)
             {
-                throw new Exception("Cập nhật sản phẩm thất bại", ex);
+                throw new Exception("Cập nhật sản phẩm Laptop thất bại", ex);
             }
         }
 
-        public int DeleteProduct(int productId)
+        public int UpdateProductWithPC(int productId, int supplierId, string productName, decimal price, int stockQuantity,
+                                       string pcName, string specification)
         {
             if (productId <= 0)
                 throw new ArgumentException("ID sản phẩm không hợp lệ");
-
+            ValidateProductData(supplierId, productName, price, stockQuantity);
+            if (string.IsNullOrWhiteSpace(pcName))
+                throw new ArgumentException("Tên PC không được để trống");
             try
             {
-                return _dao.Delete(productId);
+                return _dao.UpdateProductWithPC(productId, supplierId, productName, price, stockQuantity,
+                                                pcName, specification);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cập nhật sản phẩm PC thất bại", ex);
+            }
+        }
+
+        public int UpdateProductWithAccessory(int productId, int supplierId, string productName, decimal price, int stockQuantity,
+                                              string accessoriesName, string overview)
+        {
+            if (productId <= 0)
+                throw new ArgumentException("ID sản phẩm không hợp lệ");
+            ValidateProductData(supplierId, productName, price, stockQuantity);
+            if (string.IsNullOrWhiteSpace(accessoriesName))
+                throw new ArgumentException("Tên phụ kiện không được để trống");
+            try
+            {
+                return _dao.UpdateProductWithAccessory(productId, supplierId, productName, price, stockQuantity,
+                                                       accessoriesName, overview);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cập nhật sản phẩm Phụ kiện thất bại", ex);
+            }
+        }
+
+        public int DeleteProductWithChildren(int productId)
+        {
+            if (productId <= 0)
+                throw new ArgumentException("ID sản phẩm không hợp lệ");
+            try
+            {
+                return _dao.DeleteProduct(productId);
             }
             catch (Exception ex)
             {
@@ -98,7 +166,6 @@ namespace CuaHangMayTinh.BLL
         {
             if (string.IsNullOrWhiteSpace(keyword))
                 throw new ArgumentException("Từ khóa tìm kiếm không hợp lệ");
-
             try
             {
                 return _dao.Search(keyword);
@@ -109,31 +176,9 @@ namespace CuaHangMayTinh.BLL
             }
         }
 
-        private void ValidateProductData(int supplierId, string productName, decimal price, int stockQuantity)
-        {
-            var errors = new StringBuilder();
-            if (supplierId <= 0)
-                errors.AppendLine("ID nhà cung cấp không hợp lệ");
-
-            if (string.IsNullOrWhiteSpace(productName))
-                errors.AppendLine("Tên sản phẩm không được để trống");
-
-            if (price < 0)
-                errors.AppendLine("Giá sản phẩm không được âm");
-
-            if (stockQuantity < 0)
-                errors.AppendLine("Số lượng tồn kho không được âm");
-
-            if (errors.Length > 0)
-                throw new ArgumentException(errors.ToString());
-        }
-        /// <summary>
-        /// Lấy toàn bộ danh sách sản phẩm dưới dạng ViewModel,
-        /// để UI bind trực tiếp List<ProductDetailView>
-        /// </summary>
         public List<ProductDetailView> GetAllProductDetails()
         {
-            DataTable dt = _dao.GetAllProductDetails();
+            var dt = _dao.GetAllProductDetails();
             return dt.AsEnumerable()
                      .Select(r => new ProductDetailView
                      {
@@ -147,15 +192,26 @@ namespace CuaHangMayTinh.BLL
                      })
                      .ToList();
         }
-        /// <summary>
-        // Trong FormReceipts.cs
-        //private void FormReceipts_Load(object sender, EventArgs e)
-        //{
-        //    var products = new ProductBUS().GetAllProductDetails();
-        //    dataGridViewProducts.DataSource = products;
-        //}
-        ///<summary>
 
+        private void ValidateProductData(int supplierId, string productName, decimal price, int stockQuantity)
+        {
+            var errors = new StringBuilder();
+            if (supplierId <= 0)
+                errors.AppendLine("ID nhà cung cấp không hợp lệ");
+            if (string.IsNullOrWhiteSpace(productName))
+                errors.AppendLine("Tên sản phẩm không được để trống");
+            if (price < 0)
+                errors.AppendLine("Giá sản phẩm không được âm");
+            if (stockQuantity < 0)
+                errors.AppendLine("Số lượng tồn kho không được âm");
+            if (errors.Length > 0)
+                throw new ArgumentException(errors.ToString());
+        }
+
+        private void ValidateLaptopData(string laptopName)
+        {
+            if (string.IsNullOrWhiteSpace(laptopName))
+                throw new ArgumentException("Tên laptop không được để trống");
+        }
     }
 }
-

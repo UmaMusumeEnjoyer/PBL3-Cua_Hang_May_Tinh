@@ -139,7 +139,7 @@ namespace CuaHangMayTinh.DAL
                     cmd.Transaction = tran;
                     cmd.CommandText = "DELETE FROM Product WHERE Product_Id = @ProductId";
                     cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rows += cmd.ExecuteNonQuery();
+                    rows += cmd.ExecuteNonQuery();  
                 }
             });
             return rows;
