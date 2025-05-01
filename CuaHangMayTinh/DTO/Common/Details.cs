@@ -14,7 +14,7 @@ namespace CuaHangMayTinh.DTO.Common
         public decimal ProductPrice { get; set; }
 
         // khóa ngoại, chỉ một trong hai có giá trị
-        public int? Receipt_Id { get; set; }
-        public int? GoodsReceipt_Id { get; set; }
+        public int? Receipt_Id { get; set; }    // Nullable
+        public int? GoodsReceipt_Id { get; set; }   // Nullable
     }
 }
