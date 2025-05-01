@@ -63,6 +63,7 @@
     <Compile Include="DAL\PCDAO.cs" />
     <Compile Include="DAL\ProductDAO.cs" />
     <Compile Include="DAL\SupplierDAO.cs" />
+    <Compile Include="DTO\ViewModel\GoodsReceiptViewModel.cs" />
     <Compile Include="UI\Admin\Form_Ad\FormAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
