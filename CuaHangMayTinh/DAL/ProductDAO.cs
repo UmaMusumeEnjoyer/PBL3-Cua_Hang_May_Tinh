@@ -10,14 +10,23 @@ namespace CuaHangMayTinh.DAL
         public DataTable GetAllProducts() => GetData(
             @"SELECT p.*, s.supplierName
                FROM Product p
-               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id");
-
+               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
+               WHERE p.IsDeleted = 0");
+        
+        // Lấy sản phẩm đã xóa (thùng rác)
+        public DataTable GetDeletedProducts() => GetData(
+            @"SELECT p.*, s.supplierName
+              FROM Product p
+              INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
+              WHERE p.IsDeleted = 1");
+        
         // Lấy sản phẩm theo ID
         public DataTable GetProductById(int id) => GetData(
             @"SELECT p.*, s.supplierName
                FROM Product p
                INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
-               WHERE p.Product_Id = @Id",
+               WHERE p.Product_Id = @Id
+               AND p.IsDeleted = 0",
             new[] { new SqlParameter("@Id", id) });
 
         #region Insert kèm bảng con
@@ -281,37 +290,28 @@ namespace CuaHangMayTinh.DAL
             int rowsAffected = 0;
             ExecuteTransaction((conn, tran) =>
             {
-                // Xóa Laptop
-                using (var cmd = conn.CreateCommand())
+                // Xóa các bảng con
+                string[] childTables = { "Laptop", "PC", "Accessories" };
+                foreach (var table in childTables)
                 {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Laptop WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.Transaction = tran;
+                        cmd.CommandText = $"DELETE FROM {table} WHERE Product_Id = @ProductId";
+                        cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-                // Xóa PC
+
+                // Đánh dấu xóa mềm
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM PC WHERE Product_Id = @ProductId";
+                    cmd.CommandText = @"UPDATE Product SET 
+                                  IsDeleted = 1 
+                                  WHERE Product_Id = @ProductId";
                     cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                // Xóa Accessories
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Accessories WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                // Cuối cùng xóa Product
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Product WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
+                    rowsAffected = cmd.ExecuteNonQuery();
                 }
             });
             return rowsAffected;
@@ -321,7 +321,11 @@ namespace CuaHangMayTinh.DAL
         // Tìm kiếm đơn giản
         public DataTable Search(string keyword)
             => GetData(
-                "SELECT * FROM Product WHERE productName LIKE @Keyword",
+                @"SELECT p.*, s.supplierName
+                  FROM Product p
+                  INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
+                  WHERE p.productName LIKE @Keyword
+                    AND p.IsDeleted = 0",
                 new[] { new SqlParameter("@Keyword", $"%{keyword}%") });
 
         // Lấy chi tiết category chung
@@ -336,6 +340,17 @@ namespace CuaHangMayTinh.DAL
               FROM Product p
          LEFT JOIN Laptop l ON p.Product_Id = l.Product_Id
          LEFT JOIN PC pc ON p.Product_Id = pc.Product_Id
-         LEFT JOIN Accessories a ON p.Product_Id = a.Product_Id");
+         LEFT JOIN Accessories a ON p.Product_Id = a.Product_Id
+         WHERE p.IsDeleted = 0");
+        public int RestoreProduct(int productId)
+        {
+            const string sql = @"
+                UPDATE Product 
+                SET IsDeleted = 0 
+                WHERE Product_Id = @ProductId";
+            return ExecuteNonQuery(sql,
+                new[] { new SqlParameter("@ProductId", productId) });
+        }
     }
+    
 }
