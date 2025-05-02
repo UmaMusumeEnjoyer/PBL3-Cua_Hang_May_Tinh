@@ -57,6 +57,7 @@
     <Compile Include="DAL\AccountDAO.cs" />
     <Compile Include="DAL\CustomerDAO.cs" />
     <Compile Include="DAL\DbConnect.cs" />
+    <Compile Include="DAL\DetailsDAO.cs" />
     <Compile Include="DAL\EmployeeDAO.cs" />
     <Compile Include="DAL\InventoryDAO.cs" />
     <Compile Include="DAL\LaptopDAO.cs" />
