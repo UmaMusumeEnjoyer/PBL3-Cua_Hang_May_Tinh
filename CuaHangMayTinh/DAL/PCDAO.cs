@@ -10,7 +10,8 @@ namespace CuaHangMayTinh.DAL
         {
             const string sql = @"SELECT p.*, pc.pcName, pc.specification
                                 FROM Product p
-                                INNER JOIN PC pc ON p.Product_Id = pc.Product_Id";
+                                INNER JOIN PC pc ON p.Product_Id = pc.Product_Id
+                                WHERE p.IsDeleted = 0";
             return GetData(sql);
         }
 
@@ -19,7 +20,8 @@ namespace CuaHangMayTinh.DAL
             const string sql = @"SELECT p.*, pc.pcName, pc.specification
                                 FROM Product p
                                 INNER JOIN PC pc ON p.Product_Id = pc.Product_Id
-                                WHERE p.Product_Id = @Id";
+                                WHERE p.Product_Id = @Id
+                                AND  p.IsDeleted = 0";
             return GetData(sql, new SqlParameter[] { new SqlParameter("@Id", id) });
         }
 
@@ -117,26 +119,7 @@ namespace CuaHangMayTinh.DAL
 
         public int DeletePC(int productId)
         {
-            int rows = 0;
-            ExecuteTransaction((conn, tran) =>
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM PC WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rows += cmd.ExecuteNonQuery();
-                }
-
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Product WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rows += cmd.ExecuteNonQuery();
-                }
-            });
-            return rows;
+            return new ProductDAO().DeleteProduct(productId);
         }
 
         public DataTable Search(string keyword)
