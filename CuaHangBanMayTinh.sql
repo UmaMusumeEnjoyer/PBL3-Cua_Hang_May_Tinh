@@ -30,7 +30,8 @@ CREATE TABLE Product (
                          REFERENCES Supplier(Supplier_Id),
     productName    NVARCHAR(100)    NOT NULL,
     price          DECIMAL(10,2)    NULL,
-    stockQuantity  INT              NULL
+    stockQuantity  INT              NULL,
+    IsDeleted      BIT              NOT NULL DEFAULT 0
 );
 GO
 
