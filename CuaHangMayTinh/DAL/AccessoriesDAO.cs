@@ -114,28 +114,7 @@ namespace CuaHangMayTinh.DAL
 
         public int Delete(int productId)
         {
-            int rows = 0;
-            ExecuteTransaction((conn, tran) =>
-            {
-                // Delete from Accessories
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Accessories WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rows += cmd.ExecuteNonQuery();
-                }
-
-                // Delete from Product
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Product WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rows += cmd.ExecuteNonQuery();
-                }
-            });
-            return rows;
+            return new ProductDAO().DeleteProduct(productId);
         }
 
         public DataTable Search(string keyword)
