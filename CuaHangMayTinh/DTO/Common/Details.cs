@@ -16,5 +16,8 @@ namespace CuaHangMayTinh.DTO.Common
         // khóa ngoại, chỉ một trong hai có giá trị
         public int? Receipt_Id { get; set; }    // Nullable
         public int? GoodsReceipt_Id { get; set; }   // Nullable
+        
+        public string AdjustmentType { get; set; } // "ADJUST", "CANCEL", "ORIGINAL"
+        public int? OriginalDetailId { get; set; } 
     }
 }
