@@ -99,7 +99,9 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.Gray;
             this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.button9);
+            this.panel3.Controls.Add(this.comboBox3);
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.button7);
@@ -119,7 +121,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(878, 16);
+            this.label4.Location = new System.Drawing.Point(936, 16);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(257, 19);
             this.label4.TabIndex = 87;
@@ -306,8 +308,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.comboBox3);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.label7);
@@ -341,7 +341,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(700, 40);
+            this.label1.Location = new System.Drawing.Point(669, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 19);
             this.label1.TabIndex = 91;
@@ -351,7 +351,7 @@
             // 
             this.comboBox3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(786, 35);
+            this.comboBox3.Location = new System.Drawing.Point(755, 11);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(134, 27);
             this.comboBox3.TabIndex = 90;
@@ -493,7 +493,7 @@
             this.productPrice});
             this.dataGridView1.Location = new System.Drawing.Point(242, 270);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(671, 368);
+            this.dataGridView1.Size = new System.Drawing.Size(671, 435);
             this.dataGridView1.TabIndex = 71;
             // 
             // Product_id
