@@ -98,7 +98,9 @@ CREATE TABLE Details (
                          ON DELETE CASCADE,
     GoodsReceipt_Id  INT              NULL
                          REFERENCES Goods_Receipt(GoodsReceipt_Id)
-                         ON DELETE CASCADE
+                         ON DELETE CASCADE,
+    AdjustmentType   NVARCHAR(20) NULL CHECK (AdjustmentType IN ('ADJUST', 'CANCEL', 'ORIGINAL')),
+    OriginalDetailId INT NULL REFERENCES Details(Details_Id)
 );
 GO
 
