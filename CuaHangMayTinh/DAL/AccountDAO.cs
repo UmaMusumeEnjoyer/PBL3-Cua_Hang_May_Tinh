@@ -80,9 +80,6 @@ namespace CuaHangMayTinh.DAL
                 }
             }
         }
-
-
-
     }
 
 }
