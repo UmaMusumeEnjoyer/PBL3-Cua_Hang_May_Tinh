@@ -69,6 +69,7 @@ GO
 CREATE TABLE Receipt (
     Receipt_Id   INT IDENTITY(1,1) PRIMARY KEY,
     receiptDate  DATE             NOT NULL,
+    IsCanceled   BIT NOT NULL DEFAULT 0,
     Customer_Id  INT              NOT NULL
                    REFERENCES Customer(Customer_Id),
     Employee_Id  INT              NOT NULL
@@ -80,6 +81,7 @@ GO
 CREATE TABLE Goods_Receipt (
     GoodsReceipt_Id  INT IDENTITY(1,1) PRIMARY KEY,
     goodsReceiptDate DATE             NOT NULL,
+    IsCanceled BIT NOT NULL DEFAULT 0,
     Employee_Id      INT              NOT NULL
                      REFERENCES Employee(Employee_Id)
 );
