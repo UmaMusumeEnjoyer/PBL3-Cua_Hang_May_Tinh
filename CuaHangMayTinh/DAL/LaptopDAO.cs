@@ -154,7 +154,7 @@ namespace CuaHangMayTinh.DAL
                      .ToList();
         }
         public List<decimal> GetDistinctScreenSizes()
-        {
+        {   
             const string sql = @"
           SELECT DISTINCT l.screenSize 
           FROM Laptop l
