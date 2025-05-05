@@ -71,4 +71,15 @@ public class CustomerDAO : DbConnect
         SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
         return GetData(sql, parameters);
     }
+
+    #region ComboBox
+    public DataTable GetIdName()
+    {
+        const string sql =
+            "SELECT Customer_Id, customerName FROM Customer";  // WHERE IsDeleted = 0";
+        return GetData(sql);
+    }
+    #endregion
+
+
 }

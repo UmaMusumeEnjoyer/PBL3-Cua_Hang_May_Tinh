@@ -4,6 +4,9 @@ using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
+using System.Linq;
+using CuaHangMayTinh.DTO.Staff;
+using System.Collections.Generic;
 
 namespace CuaHangMayTinh.BUS
 {
@@ -144,5 +147,17 @@ namespace CuaHangMayTinh.BUS
         //    // return receiptDao.GetByCustomer(customerId).Rows.Count > 0;
         //    return false;
         //}
+
+        public List<CBBItems> GetCustomerCBBItems()
+        {
+            var dt = _customerDAO.GetIdName();
+            return dt.AsEnumerable()
+                     .Select(r => new CBBItems
+                     {
+                         Text = r.Field<string>("customerName"),
+                         Value = r.Field<int>("Customer_Id")
+                     })
+                     .ToList();
+        }
     }
 }

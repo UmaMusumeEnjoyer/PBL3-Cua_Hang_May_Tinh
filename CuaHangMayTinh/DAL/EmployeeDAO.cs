@@ -91,7 +91,7 @@ namespace CuaHangMayTinh.DAL
             return GetData(sql);
         }
 
-
+        #region Combobox
         public DataTable GetIdName()
         {
             const string sql = @"
@@ -103,5 +103,6 @@ namespace CuaHangMayTinh.DAL
  //       WHERE IsDeleted = 0";    // flag xoá mềm
             return GetData(sql);
         }
+        #endregion
     }
 }
