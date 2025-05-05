@@ -181,7 +181,7 @@ namespace CuaHangMayTinh.DAL
             return Convert.ToInt32(ExecuteScalar(sql, new[] { new SqlParameter("@DetailId", detailId) }));
         }
 
-        private void UpdateStock(int productId, int quantity, string adjustmentType, 
+        private void UpdateStock(int productId, int quantity, string adjustmentType,
                                 int? receiptId, int? goodsReceiptId, SqlTransaction tran)
         {
             using (var cmd = new SqlCommand())
@@ -191,7 +191,7 @@ namespace CuaHangMayTinh.DAL
 
                 if (adjustmentType == "ORIGINAL")
                 {
-                    cmd.CommandText = receiptId.HasValue ? 
+                    cmd.CommandText = receiptId.HasValue ?
                         "UPDATE Product SET stockQuantity -= @Qty WHERE Product_Id = @ProductId" :
                         "UPDATE Product SET stockQuantity += @Qty WHERE Product_Id = @ProductId";
                 }
@@ -201,7 +201,7 @@ namespace CuaHangMayTinh.DAL
                 }
                 else if (adjustmentType == "ADJUST")
                 {
-                    cmd.CommandText = receiptId.HasValue ? 
+                    cmd.CommandText = receiptId.HasValue ?
                         "UPDATE Product SET stockQuantity -= @Qty WHERE Product_Id = @ProductId" :
                         "UPDATE Product SET stockQuantity += @Qty WHERE Product_Id = @ProductId";
                 }

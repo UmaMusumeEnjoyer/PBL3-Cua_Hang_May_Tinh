@@ -90,5 +90,18 @@ namespace CuaHangMayTinh.DAL
                           ON e.Employee_Id = a.Employee_Id";
             return GetData(sql);
         }
+
+
+        public DataTable GetIdName()
+        {
+            const string sql = @"
+        SELECT 
+            Employee_Id, 
+            employeeName 
+        FROM Employee ";
+                    
+ //       WHERE IsDeleted = 0";    // flag xoá mềm
+            return GetData(sql);
+        }
     }
 }
