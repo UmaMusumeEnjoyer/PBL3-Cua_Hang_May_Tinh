@@ -9,6 +9,7 @@ using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO;
 using System.Text.RegularExpressions;
 using CuaHangMayTinh.DTO.Admin;
+using CuaHangMayTinh.DTO.Staff;
 
 namespace CuaHangMayTinh.BLL
 {
@@ -98,6 +99,19 @@ namespace CuaHangMayTinh.BLL
                          TotalProducts = r.Field<int>("TotalProducts"),
                          TotalStock = r.Field<int>("TotalStock"),
                          TotalValue = r.Field<decimal>("TotalValue")
+                     })
+                     .ToList();
+        }
+
+
+        public List<CBBItems> GetSupplierCBBItems()
+        {
+            var dt = _supplierDAO.GetIdName();
+            return dt.AsEnumerable()
+                     .Select(r => new CBBItems
+                     {
+                         Text = r.Field<string>("supplierName"),
+                         Value = r.Field<int>("Supplier_Id")
                      })
                      .ToList();
         }

@@ -88,5 +88,14 @@ namespace CuaHangMayTinh.DAL
                           s.supplierName ";
             return GetData(sql);
         }
+
+        #region ComboBox
+        public DataTable GetIdName()
+        {
+            const string sql =
+                "SELECT Supplier_Id, supplierName FROM Supplier WHERE IsDeleted = 0";
+            return GetData(sql);
+        }
+        #endregion
     }
 }
