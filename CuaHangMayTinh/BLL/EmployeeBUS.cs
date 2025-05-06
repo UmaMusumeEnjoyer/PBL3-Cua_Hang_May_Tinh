@@ -9,6 +9,7 @@ using CuaHangMayTinh.DTO.Common;
 using CuaHangMayTinh.DTO.Admin;
 using System.Collections.Generic;
 using System.Linq;
+using CuaHangMayTinh.DTO.Staff;
 
 namespace CuaHangMayTinh.BUS
 {
@@ -173,6 +174,19 @@ namespace CuaHangMayTinh.BUS
                          PhoneNumber = r.Field<string>("PhoneNumber"),
                          Username = r.Field<string>("Username"),
                          Role = r.Field<string>("Role")
+                     })
+                     .ToList();
+        }
+
+        public List<CBBItems> GetEmployeeCBBItems()
+        {
+            
+            var dt = _employeeDAO.GetIdName();
+            return dt.AsEnumerable()
+                     .Select(r => new CBBItems
+                     {
+                         Text = r.Field<string>("employeeName"),
+                         Value = r.Field<int>("Employee_Id")
                      })
                      .ToList();
         }

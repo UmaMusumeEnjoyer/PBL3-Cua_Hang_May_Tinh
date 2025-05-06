@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 
 namespace CuaHangMayTinh.DAL
@@ -134,5 +136,38 @@ namespace CuaHangMayTinh.DAL
                                     OR l.specification LIKE @Keyword";
             return GetData(sql, new[] { new SqlParameter("@Keyword", $"%{keyword}%") });
         }
+
+        #region Combobox Colour-ScreenSize
+        public List<string> GetDistinctColours()
+        {
+            const string sql = @"
+          SELECT DISTINCT l.colour 
+          FROM Laptop l
+          JOIN Product p ON l.Product_Id = p.Product_Id
+          WHERE p.IsDeleted = 0 
+            AND l.colour IS NOT NULL";
+            var dt = GetData(sql);
+            return dt.Rows
+                     .Cast<DataRow>()
+                     .Select(r => r["colour"].ToString())
+                     .OrderBy(c => c)
+                     .ToList();
+        }
+        public List<decimal> GetDistinctScreenSizes()
+        {   
+            const string sql = @"
+          SELECT DISTINCT l.screenSize 
+          FROM Laptop l
+          JOIN Product p ON l.Product_Id = p.Product_Id
+          WHERE p.IsDeleted = 0 
+            AND l.screenSize IS NOT NULL";
+            var dt = GetData(sql);
+            return dt.Rows
+                     .Cast<DataRow>()
+                     .Select(r => Convert.ToDecimal(r["screenSize"]))
+                     .OrderBy(s => s)
+                     .ToList();
+        }
+        #endregion
     }
 }

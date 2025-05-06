@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CuaHangMayTinh.DAL
 {
-    public class AccountDAO
+    public class AccountDAO : DbConnect
     {
         private static readonly string connectionString = "Data Source=ADMIN-PC;Initial Catalog=PBL3;Integrated Security=True";
 

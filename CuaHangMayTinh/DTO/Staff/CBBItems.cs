@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// DTO phục vụ UI
+
 namespace CuaHangMayTinh.DTO.Staff
 {
     public class CBBItems
