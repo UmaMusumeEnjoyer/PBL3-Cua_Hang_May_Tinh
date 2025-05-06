@@ -78,6 +78,8 @@ namespace CuaHangMayTinh.DAL
                 }
             }
         }
+
+        #region CBB
         public DataTable GetDistinctRoles()
         {
             const string sql = @"
@@ -87,6 +89,7 @@ namespace CuaHangMayTinh.DAL
             ORDER BY role";
             return GetData(sql);
         }
+        #endregion
     }
 
 }
