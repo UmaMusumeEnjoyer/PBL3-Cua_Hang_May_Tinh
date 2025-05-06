@@ -80,6 +80,20 @@ namespace CuaHangMayTinh.DAL
                 }
             }
         }
+        #region ComboBox - Roles
+        /// <summary>
+        /// Lấy danh sách các role hiện có trong bảng Account (distinct)
+        /// </summary>
+        public DataTable GetDistinctRoles()
+        {
+            const string sql = @"
+            SELECT DISTINCT role
+            FROM Account
+            WHERE role IS NOT NULL
+            ORDER BY role";
+            return GetData(sql);
+        }
+        #endregion
     }
 
 }
