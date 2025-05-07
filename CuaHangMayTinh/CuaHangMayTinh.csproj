@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\AccountBUS.cs" />
+    <Compile Include="BLL\ChartBUS.cs" />
     <Compile Include="BLL\CustomerBUS.cs" />
     <Compile Include="BLL\EmployeeBUS.cs" />
     <Compile Include="BLL\InventoryBUS.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="BLL\SupplierBUS.cs" />
     <Compile Include="DAL\AccessoriesDAO.cs" />
     <Compile Include="DAL\AccountDAO.cs" />
+    <Compile Include="DAL\ChartDAO.cs" />
     <Compile Include="DAL\CustomerDAO.cs" />
     <Compile Include="DAL\DbConnect.cs" />
     <Compile Include="DAL\DetailsDAO.cs" />
@@ -66,6 +69,7 @@
     <Compile Include="DAL\ProductDAO.cs" />
     <Compile Include="DAL\ReceiptDAO.cs" />
     <Compile Include="DAL\SupplierDAO.cs" />
+    <Compile Include="DTO\Common\ChartData.cs" />
     <Compile Include="DTO\ViewModel\GoodsReceiptViewModel.cs" />
     <Compile Include="UI\Admin\Form_Ad\FormAdmin.cs">
       <SubType>Form</SubType>

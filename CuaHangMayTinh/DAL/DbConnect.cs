@@ -118,5 +118,56 @@ namespace CuaHangMayTinh.DAL
                 }
             }
         }
+
+        protected DataTable ExecuteSp(string sp, SqlParameter[] parameters = null)
+        {
+            var dt = new DataTable();
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand(sp, conn))
+                {
+                    using (var da = new SqlDataAdapter(cmd))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        if (parameters != null) cmd.Parameters.AddRange(parameters);
+                        
+                        conn.Open();
+                        da.Fill(dt);
+                    }
+                }
+            }
+            return dt;
+        }
+
+        protected int ExecuteSpNonQuery(string sp, SqlParameter[] parameters = null)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand(sp, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (parameters != null)
+                    {
+                        cmd.Parameters.AddRange(parameters);
+                    }
+                    conn.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        protected object ExecuteSpScalar(string sp, SqlParameter[] parameters = null)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = new SqlCommand(sp, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (parameters != null) cmd.Parameters.AddRange(parameters);
+                    conn.Open();
+                    return cmd.ExecuteScalar();
+                }
+            }
+        }
     }
 }
