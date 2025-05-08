@@ -13,7 +13,8 @@ namespace CuaHangMayTinh.DAL
         {
             const string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour
                                   FROM Product p
-                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id";
+                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
+                                    WHERE p.IsDeleted = 0";
             return GetData(sql);
         }
 
@@ -22,7 +23,9 @@ namespace CuaHangMayTinh.DAL
             const string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour
                                   FROM Product p
                                   INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
-                                  WHERE p.Product_Id = @Id";
+                                  WHERE p.Product_Id = @Id
+                                     AND p.IsDeleted = 0";
+
             return GetData(sql, new[] { new SqlParameter("@Id", id) });
         }
 
