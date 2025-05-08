@@ -30,7 +30,8 @@ CREATE TABLE Product (
                          REFERENCES Supplier(Supplier_Id),
     productName    NVARCHAR(100)    NOT NULL,
     price          DECIMAL(10,2)    NULL,
-    stockQuantity  INT              NULL
+    stockQuantity  INT              NULL,
+    IsDeleted      BIT              NOT NULL DEFAULT 0
 );
 GO
 
@@ -68,6 +69,7 @@ GO
 CREATE TABLE Receipt (
     Receipt_Id   INT IDENTITY(1,1) PRIMARY KEY,
     receiptDate  DATE             NOT NULL,
+    IsCanceled   BIT NOT NULL DEFAULT 0,
     Customer_Id  INT              NOT NULL
                    REFERENCES Customer(Customer_Id),
     Employee_Id  INT              NOT NULL
@@ -79,6 +81,7 @@ GO
 CREATE TABLE Goods_Receipt (
     GoodsReceipt_Id  INT IDENTITY(1,1) PRIMARY KEY,
     goodsReceiptDate DATE             NOT NULL,
+    IsCanceled BIT NOT NULL DEFAULT 0,
     Employee_Id      INT              NOT NULL
                      REFERENCES Employee(Employee_Id)
 );
@@ -95,7 +98,9 @@ CREATE TABLE Details (
                          ON DELETE CASCADE,
     GoodsReceipt_Id  INT              NULL
                          REFERENCES Goods_Receipt(GoodsReceipt_Id)
-                         ON DELETE CASCADE
+                         ON DELETE CASCADE,
+    AdjustmentType   NVARCHAR(20) NULL CHECK (AdjustmentType IN ('ADJUST', 'CANCEL', 'ORIGINAL')),
+    OriginalDetailId INT NULL REFERENCES Details(Details_Id)
 );
 GO
 

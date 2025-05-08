@@ -6,136 +6,106 @@ namespace CuaHangMayTinh.DAL
 {
     public class ProductDAO : DbConnect
     {
-        // Lấy tất cả sản phẩm cùng tên nhà cung cấp
-        public DataTable GetAllProducts() => GetData(
-            @"SELECT p.*, s.supplierName
-               FROM Product p
-               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id");
+        #region Read
+        // Lấy tất cả sản phẩm chưa xóa
+        public DataTable GetAllProducts()
+            => ExecuteSp("sp_Product_GetAll");
+
+        // Lấy sản phẩm đã xóa (thùng rác)
+        public DataTable GetDeletedProducts()
+            => ExecuteSp("sp_Product_GetDeleted");
 
         // Lấy sản phẩm theo ID
-        public DataTable GetProductById(int id) => GetData(
-            @"SELECT p.*, s.supplierName
-               FROM Product p
-               INNER JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
-               WHERE p.Product_Id = @Id",
-            new[] { new SqlParameter("@Id", id) });
+        public DataTable GetProductById(int productId)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId }
+            };
+            return ExecuteSp("sp_Product_GetById", parameters);
+        }
+        #endregion
+
+        // Tìm kiếm sản phẩm
+        public DataTable Search(string keyword)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Keyword", SqlDbType.NVarChar, 100) { Value = $"%{keyword}%" }
+            };
+            return ExecuteSp("sp_Product_Search", parameters);
+        }
+
+        // Khôi phục sản phẩm
+        public int RestoreProduct(int productId)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId }
+            };
+            return ExecuteSpNonQuery("sp_Product_Restore", parameters);
+        }
 
         #region Insert kèm bảng con
         public int InsertProductWithLaptop(int supplierId, string productName, decimal price, int stockQuantity,
                                            string laptopName, decimal weight, decimal screenSize, string specification, string colour)
         {
-            int newProductId = 0;
-            ExecuteTransaction((conn, tran) =>
+            var parameters = new[]
             {
-                // 1) Insert vào Product
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"INSERT INTO Product (Supplier_Id, productName, price, stockQuantity)
-                                        VALUES (@SupplierId, @ProductName, @Price, @StockQuantity);
-                                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@SupplierId", supplierId),
-                        new SqlParameter("@ProductName", productName),
-                        new SqlParameter("@Price", price),
-                        new SqlParameter("@StockQuantity", stockQuantity)
-                    });
-                    newProductId = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-                // 2) Insert vào Laptop
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"INSERT INTO Laptop (Product_Id, laptopName, weight, screenSize, specification, colour)
-                                        VALUES (@ProductId, @LaptopName, @Weight, @ScreenSize, @Specification, @Colour)";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@ProductId", newProductId),
-                        new SqlParameter("@LaptopName", laptopName),
-                        new SqlParameter("@Weight", weight),
-                        new SqlParameter("@ScreenSize", screenSize),
-                        new SqlParameter("@Specification", specification),
-                        new SqlParameter("@Colour", colour)
-                    });
-                    cmd.ExecuteNonQuery();
-                }
-            });
-            return newProductId;
+                new SqlParameter("@Supplier_Id", SqlDbType.Int) { Value = supplierId },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = productName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = price },
+                new SqlParameter("@StockQuantity", SqlDbType.Int) { Value = stockQuantity },
+                new SqlParameter("@LaptopName", SqlDbType.NVarChar, 100) { Value = laptopName },
+                new SqlParameter("@Weight", SqlDbType.Decimal) { Value = weight },
+                new SqlParameter("@ScreenSize", SqlDbType.Decimal) { Value = screenSize },
+                new SqlParameter("@Specification", SqlDbType.NVarChar, -1) { Value = specification },
+                new SqlParameter("@Colour", SqlDbType.NVarChar, 50) { Value = colour },
+                new SqlParameter("@NewProductId", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            ExecuteSpNonQuery("sp_Product_InsertWithLaptop", parameters);
+            // Lấy giá trị output từ tham số cuối
+            var lastIndex = parameters.Length - 1;
+            return (int)parameters[lastIndex].Value;
         }
 
         public int InsertProductWithPC(int supplierId, string productName, decimal price, int stockQuantity,
                                        string pcName, string specification)
         {
-            int newProductId = 0;
-            ExecuteTransaction((conn, tran) =>
+            var parameters = new[]
             {
-                // 1) Insert vào Product
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"INSERT INTO Product (Supplier_Id, productName, price, stockQuantity)
-                                        VALUES (@SupplierId, @ProductName, @Price, @StockQuantity);
-                                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@SupplierId", supplierId),
-                        new SqlParameter("@ProductName", productName),
-                        new SqlParameter("@Price", price),
-                        new SqlParameter("@StockQuantity", stockQuantity)
-                    });
-                    newProductId = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-                // 2) Insert vào PC
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"INSERT INTO PC (Product_Id, pcName, specification)
-                                        VALUES (@ProductId, @PCName, @Specification)";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@ProductId", newProductId),
-                        new SqlParameter("@PCName", pcName),
-                        new SqlParameter("@Specification", specification)
-                    });
-                    cmd.ExecuteNonQuery();
-                }
-            });
-            return newProductId;
+                new SqlParameter("@Supplier_Id", SqlDbType.Int) { Value = supplierId },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = productName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = price },
+                new SqlParameter("@StockQuantity", SqlDbType.Int) { Value = stockQuantity },
+                new SqlParameter("@PCName", SqlDbType.NVarChar, 100) { Value = pcName },
+                new SqlParameter("@Specification", SqlDbType.NVarChar, -1) { Value = specification },
+                new SqlParameter("@NewProductId", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            ExecuteSpNonQuery("sp_Product_InsertWithPC", parameters);
+            var lastIdx = parameters.Length - 1;
+            return (int)parameters[lastIdx].Value;
         }
 
         public int InsertProductWithAccessory(int supplierId, string productName, decimal price, int stockQuantity,
                                               string accessoriesName, string overview)
         {
-            int newProductId = 0;
-            ExecuteTransaction((conn, tran) =>
+            var parameters = new[]
             {
-                // 1) Insert vào Product
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"INSERT INTO Product (Supplier_Id, productName, price, stockQuantity)
-                                        VALUES (@SupplierId, @ProductName, @Price, @StockQuantity);
-                                        SELECT CAST(SCOPE_IDENTITY() AS INT);";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@SupplierId", supplierId),
-                        new SqlParameter("@ProductName", productName),
-                        new SqlParameter("@Price", price),
-                        new SqlParameter("@StockQuantity", stockQuantity)
-                    });
-                    newProductId = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-                // 2) Insert vào Accessories
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"INSERT INTO Accessories (Product_Id, accessoriesName, overview)
-                                        VALUES (@ProductId, @Name, @Overview)";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@ProductId", newProductId),
-                        new SqlParameter("@Name", accessoriesName),
-                        new SqlParameter("@Overview", overview)
-                    });
-                    cmd.ExecuteNonQuery();
-                }
-            });
-            return newProductId;
+                new SqlParameter("@Supplier_Id", SqlDbType.Int) { Value = supplierId },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = productName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = price },
+                new SqlParameter("@StockQuantity", SqlDbType.Int) { Value = stockQuantity },
+                new SqlParameter("@AccessoriesName", SqlDbType.NVarChar, 100) { Value = accessoriesName },
+                new SqlParameter("@Overview", SqlDbType.NVarChar, -1) { Value = overview },
+                new SqlParameter("@NewProductId", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            ExecuteSpNonQuery("sp_Product_InsertWithAccessory", parameters);
+            var idx = parameters.Length - 1;
+            return (int)parameters[idx].Value;
         }
         #endregion
 
@@ -143,199 +113,72 @@ namespace CuaHangMayTinh.DAL
         public int UpdateProductWithLaptop(int productId, int supplierId, string productName, decimal price, int stockQuantity,
                                            string laptopName, decimal weight, decimal screenSize, string specification, string colour)
         {
-            int rowsAffected = 0;
-            ExecuteTransaction((conn, tran) =>
+            var parameters = new[]
             {
-                // Cập nhật Product
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"UPDATE Product SET
-                                        Supplier_Id = @SupplierId,
-                                        productName = @ProductName,
-                                        price = @Price,
-                                        stockQuantity = @StockQuantity
-                                        WHERE Product_Id = @ProductId";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@SupplierId", supplierId),
-                        new SqlParameter("@ProductName", productName),
-                        new SqlParameter("@Price", price),
-                        new SqlParameter("@StockQuantity", stockQuantity),
-                        new SqlParameter("@ProductId", productId)
-                    });
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                // Cập nhật Laptop
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"UPDATE Laptop SET
-                                        laptopName = @LaptopName,
-                                        weight = @Weight,
-                                        screenSize = @ScreenSize,
-                                        specification = @Specification,
-                                        colour = @Colour
-                                        WHERE Product_Id = @ProductId";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@LaptopName", laptopName),
-                        new SqlParameter("@Weight", weight),
-                        new SqlParameter("@ScreenSize", screenSize),
-                        new SqlParameter("@Specification", specification),
-                        new SqlParameter("@Colour", colour),
-                        new SqlParameter("@ProductId", productId)
-                    });
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-            });
-            return rowsAffected;
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId },
+                new SqlParameter("@Supplier_Id", SqlDbType.Int) { Value = supplierId },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = productName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = price },
+                new SqlParameter("@StockQuantity", SqlDbType.Int) { Value = stockQuantity },
+                new SqlParameter("@LaptopName", SqlDbType.NVarChar, 100) { Value = laptopName },
+                new SqlParameter("@Weight", SqlDbType.Decimal) { Value = weight },
+                new SqlParameter("@ScreenSize", SqlDbType.Decimal) { Value = screenSize },
+                new SqlParameter("@Specification", SqlDbType.NVarChar, -1) { Value = specification },
+                new SqlParameter("@Colour", SqlDbType.NVarChar, 50) { Value = colour }
+            };
+
+            return ExecuteSpNonQuery("sp_Product_UpdateWithLaptop", parameters);
         }
 
         public int UpdateProductWithPC(int productId, int supplierId, string productName, decimal price, int stockQuantity,
                                        string pcName, string specification)
         {
-            int rowsAffected = 0;
-            ExecuteTransaction((conn, tran) =>
+            var parameters = new[]
             {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"UPDATE Product SET
-                                        Supplier_Id = @SupplierId,
-                                        productName = @ProductName,
-                                        price = @Price,
-                                        stockQuantity = @StockQuantity
-                                        WHERE Product_Id = @ProductId";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@SupplierId", supplierId),
-                        new SqlParameter("@ProductName", productName),
-                        new SqlParameter("@Price", price),
-                        new SqlParameter("@StockQuantity", stockQuantity),
-                        new SqlParameter("@ProductId", productId)
-                    });
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"UPDATE PC SET
-                                        pcName = @PCName,
-                                        specification = @Specification
-                                        WHERE Product_Id = @ProductId";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@PCName", pcName),
-                        new SqlParameter("@Specification", specification),
-                        new SqlParameter("@ProductId", productId)
-                    });
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-            });
-            return rowsAffected;
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId },
+                new SqlParameter("@Supplier_Id", SqlDbType.Int) { Value = supplierId },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = productName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = price },
+                new SqlParameter("@StockQuantity", SqlDbType.Int) { Value = stockQuantity },
+                new SqlParameter("@PCName", SqlDbType.NVarChar, 100) { Value = pcName },
+                new SqlParameter("@Specification", SqlDbType.NVarChar, -1) { Value = specification }
+            };
+
+            return ExecuteSpNonQuery("sp_Product_UpdateWithPC", parameters);
         }
 
         public int UpdateProductWithAccessory(int productId, int supplierId, string productName, decimal price, int stockQuantity,
                                               string accessoriesName, string overview)
         {
-            int rowsAffected = 0;
-            ExecuteTransaction((conn, tran) =>
+            var parameters = new[]
             {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"UPDATE Product SET
-                                        Supplier_Id = @SupplierId,
-                                        productName = @ProductName,
-                                        price = @Price,
-                                        stockQuantity = @StockQuantity
-                                        WHERE Product_Id = @ProductId";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@SupplierId", supplierId),
-                        new SqlParameter("@ProductName", productName),
-                        new SqlParameter("@Price", price),
-                        new SqlParameter("@StockQuantity", stockQuantity),
-                        new SqlParameter("@ProductId", productId)
-                    });
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = @"UPDATE Accessories SET
-                                        accessoriesName = @Name,
-                                        overview = @Overview
-                                        WHERE Product_Id = @ProductId";
-                    cmd.Parameters.AddRange(new[] {
-                        new SqlParameter("@Name", accessoriesName),
-                        new SqlParameter("@Overview", overview),
-                        new SqlParameter("@ProductId", productId)
-                    });
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-            });
-            return rowsAffected;
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId },
+                new SqlParameter("@Supplier_Id", SqlDbType.Int) { Value = supplierId },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = productName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = price },
+                new SqlParameter("@StockQuantity", SqlDbType.Int) { Value = stockQuantity },
+                new SqlParameter("@AccessoriesName", SqlDbType.NVarChar, 100) { Value = accessoriesName },
+                new SqlParameter("@Overview", SqlDbType.NVarChar, -1) { Value = overview }
+            };
+
+            return ExecuteSpNonQuery("sp_Product_UpdateWithAccessory", parameters);
         }
         #endregion
 
         #region Delete kèm bảng con
         public int DeleteProduct(int productId)
         {
-            int rowsAffected = 0;
-            ExecuteTransaction((conn, tran) =>
+            var parameters = new[]
             {
-                // Xóa Laptop
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Laptop WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                // Xóa PC
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM PC WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                // Xóa Accessories
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Accessories WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-                // Cuối cùng xóa Product
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.Transaction = tran;
-                    cmd.CommandText = "DELETE FROM Product WHERE Product_Id = @ProductId";
-                    cmd.Parameters.Add(new SqlParameter("@ProductId", productId));
-                    rowsAffected += cmd.ExecuteNonQuery();
-                }
-            });
-            return rowsAffected;
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId }
+            };
+            return ExecuteSpNonQuery("sp_Product_Delete", parameters);
         }
         #endregion
 
-        // Tìm kiếm đơn giản
-        public DataTable Search(string keyword)
-            => GetData(
-                "SELECT * FROM Product WHERE productName LIKE @Keyword",
-                new[] { new SqlParameter("@Keyword", $"%{keyword}%") });
-
-        // Lấy chi tiết category chung
-        public DataTable GetAllProductDetails() => GetData(
-            @"SELECT p.Product_Id, p.productName,
-                      CASE WHEN l.Product_Id IS NOT NULL THEN 'Laptop'
-                           WHEN pc.Product_Id IS NOT NULL THEN 'PC'
-                           ELSE 'Accessories' END AS Category,
-                   COALESCE(l.specification, pc.specification, a.overview) AS Specification,
-                   COALESCE(l.colour, '') AS Colour,
-                   p.price, p.stockQuantity
-              FROM Product p
-         LEFT JOIN Laptop l ON p.Product_Id = l.Product_Id
-         LEFT JOIN PC pc ON p.Product_Id = pc.Product_Id
-         LEFT JOIN Accessories a ON p.Product_Id = a.Product_Id");
+        
+        // Lấy chi tiết chung
+        public DataTable GetAllProductDetails()
+            => ExecuteSp("sp_Product_GetAllDetails");
     }
 }

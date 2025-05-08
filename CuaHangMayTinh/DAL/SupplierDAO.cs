@@ -12,6 +12,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class SupplierDAO : DbConnect
     {
+        #region Read
         public DataTable GetAll()
         {
             return GetData("SELECT * FROM Supplier");
@@ -22,6 +23,9 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Id", id) };
             return GetData(sql, parameters);
         }
+        #endregion
+
+        #region CUD
         public int Insert(string name, string phone, string email, string address)
         {
             string sql = @"INSERT INTO Supplier(supplierName, phoneNumber, email, address)
@@ -68,10 +72,12 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
             return GetData(sql, parameters);
         }
+        #endregion
         /// <summary>
         ///  TotalValue: tổng (price * stockQuantity)
         ///  TotalStock: tổng stockQuantity
         /// </summary>
+        #region VM Helper
         public DataTable GetSupplierReport()
         {
             string sql = @"SELECT 
@@ -88,5 +94,15 @@ namespace CuaHangMayTinh.DAL
                           s.supplierName ";
             return GetData(sql);
         }
+        #endregion
+
+        #region ComboBox
+        public DataTable GetIdName()
+        {
+            const string sql =
+                "SELECT Supplier_Id, supplierName FROM Supplier WHERE IsDeleted = 0";
+            return GetData(sql);
+        }
+        #endregion
     }
 }

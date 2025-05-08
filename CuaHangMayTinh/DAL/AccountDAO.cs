@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CuaHangMayTinh.DAL
 {
-    public class AccountDAO
+    public class AccountDAO : DbConnect
     {
         private static readonly string connectionString = "Data Source=LAPTOP-TF3R4DSP\\MSSQLSERVER01;Initial Catalog=PBL3;Integrated Security=True";
 
@@ -81,8 +79,17 @@ namespace CuaHangMayTinh.DAL
             }
         }
 
-
-
+        #region CBB
+        public DataTable GetDistinctRoles()
+        {
+            const string sql = @"
+            SELECT DISTINCT role
+            FROM Account
+            WHERE role IS NOT NULL
+            ORDER BY role";
+            return GetData(sql);
+        }
+        #endregion
     }
 
 }

@@ -7,6 +7,7 @@ using CuaHangMayTinh.DTO;
 public class CustomerDAO : DbConnect
 {
     //private readonly DbConnect _db = new DbConnect();
+    #region Read
     public DataTable GetAll()
     {
         return GetData("SELECT * FROM Customer");
@@ -18,7 +19,9 @@ public class CustomerDAO : DbConnect
         SqlParameter[] parameters = { new SqlParameter("@Id", id) };
         return GetData(sql, parameters);
     }
+    #endregion
 
+    #region CUD
     public int Insert(string name, string phone, string email, string address)
     {
         string sql = @"INSERT INTO Customer(customerName, phoneNumber, email, address)
@@ -62,6 +65,8 @@ public class CustomerDAO : DbConnect
         SqlParameter[] parameters = { new SqlParameter("@Id", id) };
         return ExecuteNonQuery(sql, parameters);
     }
+    #endregion
+
     public DataTable Search(string keyword)
     {
         string sql = @"SELECT * FROM Customer
@@ -71,4 +76,15 @@ public class CustomerDAO : DbConnect
         SqlParameter[] parameters = { new SqlParameter("@Keyword", SqlDbType.NVarChar) { Value = $"%{keyword}%" } };
         return GetData(sql, parameters);
     }
+
+    #region ComboBox
+    public DataTable GetIdName()
+    {
+        const string sql =
+            "SELECT Customer_Id, customerName FROM Customer";  // WHERE IsDeleted = 0";
+        return GetData(sql);
+    }
+    #endregion
+
+
 }

@@ -3,6 +3,8 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using CuaHangMayTinh.DAL;
+using CuaHangMayTinh.DTO.Staff;
+using System.Collections.Generic;
 
 namespace CuaHangMayTinh.BUS
 {
@@ -155,6 +157,33 @@ namespace CuaHangMayTinh.BUS
 
             if (errors.Length > 0)
                 throw new ArgumentException(errors.ToString());
+        }
+
+        public List<CBBItems> GetColourItems()
+        {
+            var colours = _laptopDAO.GetDistinctColours();
+            var list = new List<CBBItems>();
+            foreach (var c in colours)
+            {
+                list.Add(new CBBItems { Text = c, Value = c });
+            }
+            return list;
+        }
+
+        
+        public List<CBBItems> GetScreenSizeItems()
+        {
+            var sizes = _laptopDAO.GetDistinctScreenSizes();
+            var list = new List<CBBItems>();
+            foreach (var s in sizes)
+            {
+                list.Add(new CBBItems
+                {
+                    Text = $"{s:0.0}\"",   
+                    Value = s
+                });
+            }
+            return list;
         }
     }
 }

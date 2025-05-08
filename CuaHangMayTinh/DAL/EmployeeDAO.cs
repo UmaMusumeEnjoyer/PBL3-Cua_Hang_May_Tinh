@@ -10,6 +10,7 @@ namespace CuaHangMayTinh.DAL
     public class EmployeeDAO : DbConnect
     {
         // private readonly DbConnect _db = new DbConnect();
+        #region Read
         public DataTable GetAll()
         {
             string sql = "SELECT * FROM Employee"; 
@@ -29,6 +30,9 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Name", name) };
             return GetData(sql, parameters);
         }
+        #endregion
+
+        #region CUD
 
         public int Insert(string name, int age, string phone)
         {
@@ -67,6 +71,8 @@ namespace CuaHangMayTinh.DAL
             SqlParameter[] parameters = { new SqlParameter("@Id", id) };
             return ExecuteNonQuery(sql, parameters);
         }
+        #endregion
+
         public DataTable Search(string keyword)
         {
             string sql = @"SELECT * FROM Employee
@@ -90,5 +96,19 @@ namespace CuaHangMayTinh.DAL
                           ON e.Employee_Id = a.Employee_Id";
             return GetData(sql);
         }
+
+        #region Combobox
+        public DataTable GetIdName()
+        {
+            const string sql = @"
+        SELECT 
+            Employee_Id, 
+            employeeName 
+        FROM Employee ";
+                    
+ //       WHERE IsDeleted = 0";    // flag xoá mềm
+            return GetData(sql);
+        }
+        #endregion
     }
 }
