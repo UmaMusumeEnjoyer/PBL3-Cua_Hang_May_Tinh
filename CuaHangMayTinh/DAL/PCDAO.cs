@@ -6,6 +6,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class PCDAO : DbConnect
     {
+        #region Read
         public DataTable GetAllPCs()
         {
             const string sql = @"SELECT p.*, pc.pcName, pc.specification
@@ -24,6 +25,9 @@ namespace CuaHangMayTinh.DAL
                                 AND  p.IsDeleted = 0";
             return GetData(sql, new SqlParameter[] { new SqlParameter("@Id", id) });
         }
+        #endregion
+
+        #region CUD
 
         public int Insert(string pcName, string specification, int supplierId,
             string productName, decimal price, int stockQuantity)
@@ -121,6 +125,7 @@ namespace CuaHangMayTinh.DAL
         {
             return new ProductDAO().DeleteProduct(productId);
         }
+        #endregion
 
         public DataTable Search(string keyword)
         {

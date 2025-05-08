@@ -176,6 +176,7 @@ namespace CuaHangMayTinh.DAL
         }
         #endregion
 
+        
         // Lấy chi tiết chung
         public DataTable GetAllProductDetails()
             => ExecuteSp("sp_Product_GetAllDetails");

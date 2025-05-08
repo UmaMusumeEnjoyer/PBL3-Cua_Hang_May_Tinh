@@ -9,6 +9,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class LaptopDAO : DbConnect
     {
+        #region Read
         public DataTable GetAllLaptops()
         {
             const string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour
@@ -28,7 +29,9 @@ namespace CuaHangMayTinh.DAL
 
             return GetData(sql, new[] { new SqlParameter("@Id", id) });
         }
+        #endregion
 
+        #region CUD
         public int Insert(string laptopName, decimal weight, decimal screenSize,
                           string specification, string colour, int supplierId,
                           string productName, decimal price, int stockQuantity)
@@ -128,7 +131,7 @@ namespace CuaHangMayTinh.DAL
         {
             return new ProductDAO().DeleteProduct(productId);
         }
-
+        #endregion
         public DataTable Search(string keyword)
         {
             const string sql = @"SELECT p.*, l.*
