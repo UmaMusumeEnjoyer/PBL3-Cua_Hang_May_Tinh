@@ -124,8 +124,9 @@ namespace CuaHangMayTinh.DAL
             const string sql = @"SELECT p.*, a.accessoriesName, a.overview
                                  FROM Product p
                                  INNER JOIN Accessories a ON p.Product_Id = a.Product_Id
-                                 WHERE a.accessoriesName LIKE @Keyword
-                                    OR a.overview LIKE @Keyword";
+                                 WHERE p.IsDeleted = 0
+                                   AND (a.accessoriesName LIKE @Keyword
+                                    OR a.overview LIKE @Keyword)";
             return GetData(sql, new[] { new SqlParameter("@Keyword", $"%{keyword}%") });
         }
     }

@@ -134,9 +134,10 @@ namespace CuaHangMayTinh.DAL
             const string sql = @"SELECT p.*, l.*
                                  FROM Product p
                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
-                                 WHERE l.laptopName LIKE @Keyword
+                                 WHERE p.IsDeleted = 0
+                                 AND (l.laptopName LIKE @Keyword
                                     OR l.colour LIKE @Keyword
-                                    OR l.specification LIKE @Keyword";
+                                    OR l.specification LIKE @Keyword)";
             return GetData(sql, new[] { new SqlParameter("@Keyword", $"%{keyword}%") });
         }
 
