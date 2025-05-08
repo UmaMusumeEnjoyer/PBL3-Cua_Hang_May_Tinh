@@ -12,7 +12,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class AccountDAO
     {
-        private static readonly string connectionString = "Data Source=DESKTOP-HV7IPNG;Initial Catalog=PBL3;Integrated Security=True";
+        private static readonly string connectionString = "Data Source=LAPTOP-TF3R4DSP\\MSSQLSERVER01;Initial Catalog=PBL3;Integrated Security=True";
 
         private static int id;
 

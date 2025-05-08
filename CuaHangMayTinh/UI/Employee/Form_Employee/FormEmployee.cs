@@ -19,8 +19,27 @@ namespace CuaHangMayTinh.UI.Form_Employee
             timer1.Start();
         }
 
+        private void moveSidePanel(Control btn)
+        {
+            panelSide.Top = btn.Top;
+            panelSide.Height = btn.Height;
+        }
+
+        private void AddControlsToPanel(Control c)
+        {
+            c.Dock = DockStyle.Fill;
+            panelControls.Controls.Clear();
+            panelControls.Controls.Add(c);
+        }
+
         private void panel4_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            moveSidePanel(btnHome);
 
         }
 
@@ -28,12 +47,10 @@ namespace CuaHangMayTinh.UI.Form_Employee
         {
 
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void FormEmployee_Load(object sender, EventArgs e)
         {
 

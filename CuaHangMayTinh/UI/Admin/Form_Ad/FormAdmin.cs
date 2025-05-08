@@ -1,5 +1,6 @@
 ﻿using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO.Staff;
+using CuaHangMayTinh.UI.Share;
 using CuaHangMayTinh.UI.UserControls_Ad;
 using System;
 using System.Collections.Generic;
@@ -18,38 +19,28 @@ namespace CuaHangMayTinh.UI.Form_Ad
         public FormAdmin()
         {
             InitializeComponent();
+            moveSidePanel(btnHome);
+            information Uc = new information();
+            AddControlsToPanel(Uc);
             timerTime.Start();
             setLabel();
-        }
 
+        }
+       
+        private void setLabel()
+        {
+            label3.Text = "Admin";
+        }
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void btnChiPhi_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void btnDoanhThu_Click(object sender, EventArgs e)
-        {
-            moveSidePanel(btnDoanhThu);
-            Goods_Receipt gr = new Goods_Receipt();
-            AddControlsToPanel(gr);
-        }
-
         private void AddControlsToPanel(Control c)
         {
             c.Dock = DockStyle.Fill;
-            panelControls.Controls.Clear();
-            panelControls.Controls.Add(c);
+            PanelControls.Controls.Clear();
+            PanelControls.Controls.Add(c);
         }
 
         private void moveSidePanel(Control btn)
@@ -57,6 +48,26 @@ namespace CuaHangMayTinh.UI.Form_Ad
             panelSide.Top = btn.Top;
             panelSide.Height = btn.Height;
         }
+        private void btnChiPhi_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            moveSidePanel(btnHome);
+            information Uc = new information();
+            AddControlsToPanel(Uc);
+        }
+
+        private void btnDoanhThu_Click(object sender, EventArgs e)
+        {
+            moveSidePanel(btnHoadonnhap);
+            Goods_Receipt gr = new Goods_Receipt();
+            AddControlsToPanel(gr);
+        }
+
+       
 
         private void btnWarehouse_Click(object sender, EventArgs e)
         {
@@ -111,10 +122,7 @@ namespace CuaHangMayTinh.UI.Form_Ad
 
         }
 
-        private void setLabel()
-        {
-            label3.Text = "Admin";
-        }
+       
 
         private void labelTime_Click(object sender, EventArgs e)
         {
@@ -122,6 +130,13 @@ namespace CuaHangMayTinh.UI.Form_Ad
 
         private void label4_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void panelControls_Paint(object sender, PaintEventArgs e)
+        {
+            //PanelControls.Dock = DockStyle.Fill;
+            
 
         }
     }
