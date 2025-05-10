@@ -83,6 +83,72 @@
     <Compile Include="UI\Admin\UserControls_Ad\Employee\AddUser.Designer.cs">
       <DependentUpon>AddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\ConfirmDeleteEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\ConfirmDeleteEmployeeForm.Designer.cs">
+      <DependentUpon>ConfirmDeleteEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\EditEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\Employee\EditEmployeeForm.Designer.cs">
+      <DependentUpon>EditEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AccessoriesManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AccessoriesManager.Designer.cs">
+      <DependentUpon>AccessoriesManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AddAccessories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AddAccessories.Designer.cs">
+      <DependentUpon>AddAccessories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AddLaptop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AddLaptop.Designer.cs">
+      <DependentUpon>AddLaptop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AddPC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\AddPC.Designer.cs">
+      <DependentUpon>AddPC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\LaptopManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\LaptopManager.Designer.cs">
+      <DependentUpon>LaptopManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\PcManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\PcManager.Designer.cs">
+      <DependentUpon>PcManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\ProductManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\ProductManager\ProductManager.Designer.cs">
+      <DependentUpon>ProductManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager\AddSuppiler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager\AddSuppiler.Designer.cs">
+      <DependentUpon>AddSuppiler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager\SupplierManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager\SupplierManager.Designer.cs">
+      <DependentUpon>SupplierManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Authentication\ChangePass.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,18 +210,6 @@
     <Compile Include="UI\Admin\UserControls_Ad\Goods_Receipt.Designer.cs">
       <DependentUpon>Goods_Receipt.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Admin\UserControls_Ad\ProductManager.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Admin\UserControls_Ad\ProductManager.Designer.cs">
-      <DependentUpon>ProductManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Admin\UserControls_Ad\SupplierManager.Designer.cs">
-      <DependentUpon>SupplierManager.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Employee\UserControls_Employee\Receips.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -167,6 +221,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\UserControls_Ad\Employee\AddUser.resx">
       <DependentUpon>AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\Employee\EditEmployeeForm.resx">
+      <DependentUpon>EditEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\AccessoriesManager.resx">
+      <DependentUpon>AccessoriesManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\AddAccessories.resx">
+      <DependentUpon>AddAccessories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\AddLaptop.resx">
+      <DependentUpon>AddLaptop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\AddPC.resx">
+      <DependentUpon>AddPC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\LaptopManager.resx">
+      <DependentUpon>LaptopManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\PcManager.resx">
+      <DependentUpon>PcManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\ProductManager.resx">
+      <DependentUpon>ProductManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\SupplierManager\AddSuppiler.resx">
+      <DependentUpon>AddSuppiler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\SupplierManager\SupplierManager.resx">
+      <DependentUpon>SupplierManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Authentication\ChangePass.resx">
       <DependentUpon>ChangePass.cs</DependentUpon>
@@ -197,12 +281,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\UserControls_Ad\Goods_Receipt.resx">
       <DependentUpon>Goods_Receipt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager.resx">
-      <DependentUpon>ProductManager.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Admin\UserControls_Ad\SupplierManager.resx">
-      <DependentUpon>SupplierManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Employee\UserControls_Employee\Receips.resx">
       <DependentUpon>Receips.cs</DependentUpon>

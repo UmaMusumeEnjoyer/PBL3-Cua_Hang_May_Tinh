@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CuaHangMayTinh.UI.UserControls_Ad
+namespace CuaHangMayTinh.UI.Admin.UserControls_Ad.ProductManager
 {
-    public partial class SupplierManager: UserControl
+    public partial class AddPC: Form
     {
-        public SupplierManager()
+        public AddPC()
         {
             InitializeComponent();
         }

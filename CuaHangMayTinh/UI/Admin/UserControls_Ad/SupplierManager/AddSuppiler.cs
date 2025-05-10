@@ -8,21 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CuaHangMayTinh.UI.Authentication
+namespace CuaHangMayTinh.UI.Admin.UserControls_Ad.SuppilerManager
 {
-    public partial class ChangePass: Form
+    public partial class AddSuppiler: Form
     {
-        public ChangePass()
+        public AddSuppiler()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void ChangePass_Load(object sender, EventArgs e)
+        private void lblEmail_Click(object sender, EventArgs e)
         {
 
         }

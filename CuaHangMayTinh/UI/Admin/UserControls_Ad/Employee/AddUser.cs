@@ -24,8 +24,10 @@ namespace CuaHangMayTinh.UI.Forms
         {
             InitializeComponent();
             _employeeBLL = new EmployeeBUS();
+            txtPhone.TextChanged += txtPhone_TextChanged;
+            txtEmail.TextChanged += txtEmail_TextChanged;
+            cboRole.SelectedIndex = 1; // Mặc định là staff
         }
-
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.GroupBox grpEmployeeInfo;
@@ -63,16 +65,37 @@ namespace CuaHangMayTinh.UI.Forms
                 string.IsNullOrWhiteSpace(txtUsername.Text) ||
                 string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                MessageBox.Show("Please fill in all required fields!", "Validation Error",
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin bắt buộc!", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            // Kiểm tra số điện thoại phải là 10 số
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtPhone.Text.Trim(), "^0[0-9]{9}$"))
+            {
+                MessageBox.Show("Số điện thoại phải bắt đầu bằng số 0 và đủ 10 số!", "Lỗi",
+                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPhone.Focus();
+                return;
+            }
+
+            // Kiểm tra định dạng email nếu có nhập
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text.Trim(), @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
+                {
+                    MessageBox.Show("Email không đúng định dạng!", "Lỗi",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtEmail.Focus();
+                    return;
+                }
             }
 
             // Kiểm tra mật khẩu xác nhận
             if (txtPassword.Text != txtConfirmPassword.Text)
             {
-                MessageBox.Show("Password and Confirm Password do not match!",
-                               "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Mật khẩu xác nhận không khớp!",
+                               "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtConfirmPassword.Focus();
                 return;
             }
@@ -88,6 +111,7 @@ namespace CuaHangMayTinh.UI.Forms
                 string address = txtAddress.Text.Trim();
                 string email = txtEmail.Text.Trim();
                 int age = DateTime.Now.Year - birthDate.Year;
+                string role = cboRole.SelectedItem?.ToString() ?? "staff";
 
                 // Gọi phương thức thêm nhân viên
                 int result = _employeeBLL.InsertEmployee(fullName, age, phone);
@@ -99,40 +123,38 @@ namespace CuaHangMayTinh.UI.Forms
 
                     if (employee == null)
                     {
-                        MessageBox.Show("Cannot retrieve newly added employee info.", "Error",
+                        MessageBox.Show("Không thể lấy thông tin nhân viên vừa thêm.", "Lỗi",
                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
                     // Gọi phương thức thêm tài khoản
-                    bool accountResult = AccountDAO.InsertAccount(username, password, employee.Employee_Id);
+                    bool accountResult = AccountDAO.InsertAccount(username, password, employee.Employee_Id, role);
                     if (accountResult)
                     {
-                        MessageBox.Show("Employee and account added successfully!", "Success",
+                        MessageBox.Show("Thêm nhân viên và tài khoản thành công!", "Thành công",
                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Employee added, but failed to create account.", "Partial Success",
+                        MessageBox.Show("Đã thêm nhân viên, nhưng tạo tài khoản thất bại.", "Cảnh báo",
                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Failed to add employee. Please try again.", "Error",
+                    MessageBox.Show("Thêm nhân viên thất bại. Vui lòng thử lại!", "Lỗi",
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error",
+                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -146,11 +168,6 @@ namespace CuaHangMayTinh.UI.Forms
         }
 
         private void EmployeeRegistrationForm_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEmployeeId_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -173,6 +190,31 @@ namespace CuaHangMayTinh.UI.Forms
         private void dtpBirthDate_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtPhone_TextChanged(object sender, EventArgs e)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(txtPhone.Text.Trim(), "^0[0-9]{9}$"))
+            {
+                errorProviderPhone.SetError(txtPhone, "");
+            }
+            else
+            {
+                errorProviderPhone.SetError(txtPhone, "Số điện thoại phải bắt đầu bằng số 0 và đủ 10 số!");
+            }
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text.Trim(), @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"))
+            {
+                errorProviderEmail.SetError(txtEmail, "");
+            }
+            else
+            {
+                errorProviderEmail.SetError(txtEmail, "Email không đúng định dạng!");
+            }
         }
     }
 }

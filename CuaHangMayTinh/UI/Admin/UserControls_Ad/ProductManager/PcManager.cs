@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CuaHangMayTinh.UI.UserControls_Ad
+namespace CuaHangMayTinh.UI.Admin.UserControls_Ad.ProductManager
 {
-    public partial class ProductManager: UserControl
+    public partial class PcManager: UserControl
     {
-        public ProductManager()
+        public PcManager()
         {
             InitializeComponent();
+        }
+
+        private void AddPc_click(object sender, EventArgs e)
+        {
+            AddPC em  = new AddPC();
+            em.ShowDialog();
         }
     }
 }

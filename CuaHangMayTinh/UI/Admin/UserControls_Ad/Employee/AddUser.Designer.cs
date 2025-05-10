@@ -6,6 +6,10 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.ErrorProvider errorProviderPhone;
+        private System.Windows.Forms.ErrorProvider errorProviderEmail;
+        private System.Windows.Forms.Label lblRole;
+        private System.Windows.Forms.ComboBox cboRole;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -28,6 +32,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitle = new System.Windows.Forms.Label();
             this.grpEmployeeInfo = new System.Windows.Forms.GroupBox();
             this.lblBirthDate = new System.Windows.Forms.Label();
@@ -50,11 +55,15 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtEmployeeId = new System.Windows.Forms.TextBox();
-            this.lblEmployeeId = new System.Windows.Forms.Label();
+            this.errorProviderPhone = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProviderEmail = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lblRole = new System.Windows.Forms.Label();
+            this.cboRole = new System.Windows.Forms.ComboBox();
             this.grpEmployeeInfo.SuspendLayout();
             this.grpAccountInfo.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderPhone)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderEmail)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -63,9 +72,9 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(180, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(307, 26);
+            this.lblTitle.Size = new System.Drawing.Size(227, 26);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "New Employee Registration";
+            this.lblTitle.Text = "Thông Tin Nhân Viên";
             this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click_1);
             // 
             // grpEmployeeInfo
@@ -80,14 +89,12 @@
             this.grpEmployeeInfo.Controls.Add(this.txtAddress);
             this.grpEmployeeInfo.Controls.Add(this.lblFullName);
             this.grpEmployeeInfo.Controls.Add(this.txtFullName);
-            this.grpEmployeeInfo.Controls.Add(this.lblEmployeeId);
-            this.grpEmployeeInfo.Controls.Add(this.txtEmployeeId);
             this.grpEmployeeInfo.Location = new System.Drawing.Point(12, 60);
             this.grpEmployeeInfo.Name = "grpEmployeeInfo";
             this.grpEmployeeInfo.Size = new System.Drawing.Size(550, 230);
             this.grpEmployeeInfo.TabIndex = 1;
             this.grpEmployeeInfo.TabStop = false;
-            this.grpEmployeeInfo.Text = "Employee Information";
+            this.grpEmployeeInfo.Text = "Thông Tin Cá Nhân";
             // 
             // lblBirthDate
             // 
@@ -96,7 +103,7 @@
             this.lblBirthDate.Name = "lblBirthDate";
             this.lblBirthDate.Size = new System.Drawing.Size(57, 13);
             this.lblBirthDate.TabIndex = 11;
-            this.lblBirthDate.Text = "Birth Date:";
+            this.lblBirthDate.Text = "Ngày Sinh:";
             // 
             // dtpBirthDate
             // 
@@ -130,7 +137,7 @@
             this.lblPhone.Name = "lblPhone";
             this.lblPhone.Size = new System.Drawing.Size(41, 13);
             this.lblPhone.TabIndex = 7;
-            this.lblPhone.Text = "Phone:";
+            this.lblPhone.Text = "Số Điện Thoại:";
             // 
             // txtPhone
             // 
@@ -146,7 +153,7 @@
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(48, 13);
             this.lblAddress.TabIndex = 5;
-            this.lblAddress.Text = "Address:";
+            this.lblAddress.Text = "Địa Chỉ:";
             // 
             // txtAddress
             // 
@@ -164,7 +171,7 @@
             this.lblFullName.Name = "lblFullName";
             this.lblFullName.Size = new System.Drawing.Size(57, 13);
             this.lblFullName.TabIndex = 3;
-            this.lblFullName.Text = "Full Name:";
+            this.lblFullName.Text = "Họ và Tên:";
             // 
             // txtFullName
             // 
@@ -182,12 +189,14 @@
             this.grpAccountInfo.Controls.Add(this.txtPassword);
             this.grpAccountInfo.Controls.Add(this.lblUsername);
             this.grpAccountInfo.Controls.Add(this.txtUsername);
+            this.grpAccountInfo.Controls.Add(this.lblRole);
+            this.grpAccountInfo.Controls.Add(this.cboRole);
             this.grpAccountInfo.Location = new System.Drawing.Point(12, 300);
             this.grpAccountInfo.Name = "grpAccountInfo";
             this.grpAccountInfo.Size = new System.Drawing.Size(550, 150);
             this.grpAccountInfo.TabIndex = 2;
             this.grpAccountInfo.TabStop = false;
-            this.grpAccountInfo.Text = "Account Information";
+            this.grpAccountInfo.Text = "Thông Tin Tài Khoản";
             // 
             // lblConfirmPassword
             // 
@@ -196,7 +205,7 @@
             this.lblConfirmPassword.Name = "lblConfirmPassword";
             this.lblConfirmPassword.Size = new System.Drawing.Size(94, 13);
             this.lblConfirmPassword.TabIndex = 5;
-            this.lblConfirmPassword.Text = "Confirm Password:";
+            this.lblConfirmPassword.Text = "Xác Nhận Mật Khẩu:";
             // 
             // txtConfirmPassword
             // 
@@ -213,7 +222,7 @@
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(56, 13);
             this.lblPassword.TabIndex = 3;
-            this.lblPassword.Text = "Password:";
+            this.lblPassword.Text = "Mật Khẩu:";
             // 
             // txtPassword
             // 
@@ -230,7 +239,7 @@
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(58, 13);
             this.lblUsername.TabIndex = 1;
-            this.lblUsername.Text = "Username:";
+            this.lblUsername.Text = "Tên Đăng Nhập:";
             // 
             // txtUsername
             // 
@@ -239,24 +248,53 @@
             this.txtUsername.Size = new System.Drawing.Size(200, 20);
             this.txtUsername.TabIndex = 0;
             // 
+            // lblRole
+            // 
+            this.lblRole.AutoSize = true;
+            this.lblRole.Location = new System.Drawing.Point(20, 120);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(49, 13);
+            this.lblRole.TabIndex = 12;
+            this.lblRole.Text = "Vai trò:";
+            // 
+            // cboRole
+            // 
+            this.cboRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboRole.FormattingEnabled = true;
+            this.cboRole.Items.Clear();
+            this.cboRole.Items.AddRange(new object[] { "admin", "staff", "warehouse" });
+            this.cboRole.Location = new System.Drawing.Point(150, 117);
+            this.cboRole.Name = "cboRole";
+            this.cboRole.Size = new System.Drawing.Size(200, 21);
+            this.cboRole.TabIndex = 13;
+            this.cboRole.SelectedIndex = 1;
+            // 
             // btnSave
             // 
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Location = new System.Drawing.Point(370, 15);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(90, 30);
             this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Text = "Thêm";
+            this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Location = new System.Drawing.Point(470, 15);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(90, 30);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Text = "Hủy";
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // panel1
@@ -268,23 +306,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(574, 60);
             this.panel1.TabIndex = 3;
-            // 
-            // txtEmployeeId
-            // 
-            this.txtEmployeeId.Location = new System.Drawing.Point(150, 30);
-            this.txtEmployeeId.Name = "txtEmployeeId";
-            this.txtEmployeeId.Size = new System.Drawing.Size(200, 20);
-            this.txtEmployeeId.TabIndex = 0;
-            this.txtEmployeeId.TextChanged += new System.EventHandler(this.txtEmployeeId_TextChanged);
-            // 
-            // lblEmployeeId
-            // 
-            this.lblEmployeeId.AutoSize = true;
-            this.lblEmployeeId.Location = new System.Drawing.Point(20, 33);
-            this.lblEmployeeId.Name = "lblEmployeeId";
-            this.lblEmployeeId.Size = new System.Drawing.Size(70, 13);
-            this.lblEmployeeId.TabIndex = 1;
-            this.lblEmployeeId.Text = "Employee ID:";
             // 
             // EmployeeRegistrationForm
             // 
@@ -300,21 +321,20 @@
             this.MinimizeBox = false;
             this.Name = "EmployeeRegistrationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Employee Registration";
+            this.Text = "Thêm Nhân Viên";
             this.Load += new System.EventHandler(this.EmployeeRegistrationForm_Load);
             this.grpEmployeeInfo.ResumeLayout(false);
             this.grpEmployeeInfo.PerformLayout();
             this.grpAccountInfo.ResumeLayout(false);
             this.grpAccountInfo.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderPhone)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderEmail)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblEmployeeId;
-        private System.Windows.Forms.TextBox txtEmployeeId;
     }
 }

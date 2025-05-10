@@ -15,7 +15,7 @@ namespace CuaHangMayTinh.DAL
 
         public DbConnect()
         {
-            _connectionString = "Data Source=LAPTOP-TF3R4DSP\\MSSQLSERVER01;Initial Catalog=PBL3;Integrated Security=True";
+            _connectionString = "Data Source=DESKTOP-P8ALBBS;Initial Catalog=PBL3;Integrated Security=True";
         }
 
         public DataTable GetData(string sql, SqlParameter[] parameters = null)

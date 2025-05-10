@@ -10,7 +10,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class AccountDAO : DbConnect
     {
-        private static readonly string connectionString = "Data Source=LAPTOP-TF3R4DSP\\MSSQLSERVER01;Initial Catalog=PBL3;Integrated Security=True";
+        private static readonly string connectionString = "Data Source=DESKTOP-P8ALBBS;Initial Catalog=PBL3;Integrated Security=True";
 
         private static int id;
 
@@ -90,6 +90,23 @@ namespace CuaHangMayTinh.DAL
             return GetData(sql);
         }
         #endregion
+
+        public int UpdateAccount(int employeeId, string username, string password, string role)
+        {
+            string query = @"UPDATE Account SET username = @username, password = @password, role = @role WHERE Employee_Id = @employeeId";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@role", role);
+                    cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 
 }

@@ -22,6 +22,8 @@ namespace PBL3
         {
             InitializeComponent();
             this.FormClosing += fLogin_FormClosing;
+            textBox1.KeyDown += TextBoxes_KeyDown;
+            textBox2.KeyDown += TextBoxes_KeyDown;
         }
        
         private void Form1_Load(object sender, EventArgs e)
@@ -132,6 +134,14 @@ namespace PBL3
             if (MessageBox.Show("Bạn có muốn thoát chương trình không?", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
             {
                 e.Cancel = true;
+            }
+        }
+
+        private void TextBoxes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1_Click(sender, e);
             }
         }
     }

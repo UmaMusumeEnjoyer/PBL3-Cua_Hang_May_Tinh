@@ -8,21 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CuaHangMayTinh.UI.Authentication
+namespace CuaHangMayTinh.UI.Admin.UserControls_Ad.ProductManager
 {
-    public partial class ChangePass: Form
+    public partial class AddAccessories: Form
     {
-        public ChangePass()
+        public AddAccessories()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void ChangePass_Load(object sender, EventArgs e)
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }

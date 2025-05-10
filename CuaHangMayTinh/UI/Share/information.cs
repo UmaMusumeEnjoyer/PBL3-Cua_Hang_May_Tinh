@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CuaHangMayTinh.UI.Authentication;
 
 namespace CuaHangMayTinh.UI.Share
 {
@@ -35,6 +36,12 @@ namespace CuaHangMayTinh.UI.Share
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ChangePass_Click(object sender, EventArgs e)
+        {
+            ChangePass em = new ChangePass();
+            em.ShowDialog();
         }
     }
 }

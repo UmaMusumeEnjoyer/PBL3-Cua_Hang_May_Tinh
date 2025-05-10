@@ -1,5 +1,7 @@
 ﻿using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO.Staff;
+using CuaHangMayTinh.UI.Admin.UserControls_Ad.ProductManager;
+using CuaHangMayTinh.UI.Admin.UserControls_Ad.SupplierManager;
 using CuaHangMayTinh.UI.Share;
 using CuaHangMayTinh.UI.UserControls_Ad;
 using System;
@@ -80,7 +82,12 @@ namespace CuaHangMayTinh.UI.Form_Ad
             EmployeeManager em = new EmployeeManager();
             AddControlsToPanel(em);
         }
-
+        private void btnThietbi_Click(object sender , EventArgs e)
+        {
+            moveSidePanel(btnThietbi);
+            ProductManager em = new ProductManager();
+            AddControlsToPanel(em);
+        }
         private void panelLeft_Paint(object sender, PaintEventArgs e)
         {
 
@@ -94,11 +101,6 @@ namespace CuaHangMayTinh.UI.Form_Ad
         private void button9_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -138,6 +140,13 @@ namespace CuaHangMayTinh.UI.Form_Ad
             //PanelControls.Dock = DockStyle.Fill;
             
 
+        }
+
+        private void btnSupplier_Click(object sender, EventArgs e)
+        {
+            moveSidePanel(btnThietbi);
+            SupplierManager em = new SupplierManager();
+            AddControlsToPanel(em);
         }
     }
 }
