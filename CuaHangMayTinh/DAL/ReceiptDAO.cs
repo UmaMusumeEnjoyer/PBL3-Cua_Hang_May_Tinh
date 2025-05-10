@@ -6,6 +6,11 @@ namespace CuaHangMayTinh.DAL
     public class ReceiptDAO : DbConnect
     {
         #region Read Operations
+        public DataTable GetAllReceipts()
+        {
+            const string sql = "SELECT * FROM Receipt";
+            return GetData(sql);
+        }
         public DataTable GetDetailsByReceipt(int receiptId)
         {
             const string sql = @"SELECT d.*, p.productName

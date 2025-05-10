@@ -9,6 +9,7 @@ namespace CuaHangMayTinh.DTO.Staff
         public int      GoodsReceipt_Id   { get; set; }
         public DateTime GoodsReceiptDate  { get; set; }
         public int      Employee_Id       { get; set; }
+        public bool IsCanceled { get; set; }
 
         // Quan hệ 1–n: một GoodsReceipt có nhiều Details
         public List<Details> Details { get; set; } = new List<Details>();

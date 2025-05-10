@@ -13,6 +13,7 @@ namespace CuaHangMayTinh.DTO.Staff
         public DateTime ReceiptDate { get; set; }
         public int Customer_Id { get; set; }
         public int Employee_Id { get; set; }
+        public bool IsCanceled { get; set; }
 
         // quan hệ 1–n: một hoá đơn có nhiều details
         public List<Details> Details { get; set; } = new List<Details>();
