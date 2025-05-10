@@ -1,22 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace CuaHangMayTinh.DAL
 {
     public class DbConnect
     {
-        private readonly string _connectionString;
+        protected readonly string _connectionString;
 
         public DbConnect()
         {
             _connectionString = "Data Source=LAPTOP-TF3R4DSP\\MSSQLSERVER01;Initial Catalog=PBL3;Integrated Security=True";
         }
+        
 
         public DataTable GetData(string sql, SqlParameter[] parameters = null)
         {

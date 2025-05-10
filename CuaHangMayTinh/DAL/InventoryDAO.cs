@@ -12,6 +12,5 @@ namespace CuaHangMayTinh.DAL
     {
         public DataTable GetInventoryRaw()
             => ExecuteSp("sp_Inventory_GetRaw");
-
     }
 }

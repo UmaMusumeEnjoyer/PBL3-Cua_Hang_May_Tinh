@@ -92,6 +92,7 @@ namespace CuaHangMayTinh.DAL
                         new SqlParameter("@SupplierId", supplierId),
                         new SqlParameter("@ProductName", productName),
                         new SqlParameter("@Price", price),
+                        
                         new SqlParameter("@StockQuantity", stockQuantity),
                         new SqlParameter("@ProductId", productId)
                     });

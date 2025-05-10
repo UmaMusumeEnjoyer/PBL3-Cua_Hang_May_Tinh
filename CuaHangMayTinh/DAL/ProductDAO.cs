@@ -44,6 +44,7 @@ namespace CuaHangMayTinh.DAL
                 new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId }
             };
             return ExecuteSpNonQuery("sp_Product_Restore", parameters);
+            
         }
 
         #region Insert kèm bảng con
