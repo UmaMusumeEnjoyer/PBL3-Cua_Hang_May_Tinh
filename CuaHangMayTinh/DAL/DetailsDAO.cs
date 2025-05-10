@@ -121,5 +121,81 @@ namespace CuaHangMayTinh.DAL
         }
         #endregion
         
+        /*
+         // Cancel a detail: create a CANCEL adjustment equal to original quantity
+        public int CancelDetail(int detailId)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    // Fetch original detail
+                    var dt = GetData(conn, tran,
+                        "SELECT Product_Id, quantity, Receipt_Id, GoodsReceipt_Id FROM Details WHERE Details_Id = @Id",
+                        new[] { new SqlParameter("@Id", detailId) });
+                    if (dt.Rows.Count == 0) throw new ArgumentException("Detail not found.");
+                    var row = dt.Rows[0];
+                    var detail = new Detail
+                    {
+                        Product_Id = row.Field<int>("Product_Id"),
+                        Quantity = row.Field<int>("quantity"),
+                        ProductPrice = 0, // price doesn't affect stock
+                        Receipt_Id = row.Field<int?>("Receipt_Id"),
+                        GoodsReceipt_Id = row.Field<int?>("GoodsReceipt_Id"),
+                        AdjustmentType = "CANCEL",
+                        OriginalDetailId = detailId
+                    };
+                    int result = InsertDetail(detail, conn, tran);
+                    tran.Commit();
+                    return result;
+                }
+            }
+        }
+
+        // Adjust a detail: create an ADJUST adjustment with difference newQuantity - currentQuantity
+        public int AdjustDetail(int originalDetailId, int newQuantity)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    // Compute current quantity sum of original and adjustments
+                    var current = Convert.ToInt32(ExecuteScalar(conn, tran,
+                        "SELECT SUM(quantity) FROM Details WHERE Details_Id = @Id OR OriginalDetailId = @Id",
+                        new[] { new SqlParameter("@Id", originalDetailId) }));
+
+                    int diff = newQuantity - current;
+                    if (diff != 0)
+                    {
+                        // Fetch original detail attributes
+                        var dt = GetData(conn, tran,
+                            "SELECT Product_Id, productPrice, Receipt_Id, GoodsReceipt_Id FROM Details WHERE Details_Id = @Id",
+                            new[] { new SqlParameter("@Id", originalDetailId) });
+                        var row = dt.Rows[0];
+                        var detail = new Detail
+                        {
+                            Product_Id = row.Field<int>("Product_Id"),
+                            Quantity = Math.Abs(diff),
+                            ProductPrice = row.Field<decimal>("productPrice"),
+                            Receipt_Id = row.Field<int?>("Receipt_Id"),
+                            GoodsReceipt_Id = row.Field<int?>("GoodsReceipt_Id"),
+                            AdjustmentType = "ADJUST",
+                            OriginalDetailId = originalDetailId
+                        };
+                        // If reducing, interpret negative diff as CANCEL
+                        if (diff < 0) detail.AdjustmentType = "CANCEL";
+
+                        int result = InsertDetail(detail, conn, tran);
+                        tran.Commit();
+                        return result;
+                    }
+                    return 0;
+                }
+            }
+        }
+         */
+        
     }
 }
