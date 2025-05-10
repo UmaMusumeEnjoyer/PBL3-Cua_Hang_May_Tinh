@@ -171,9 +171,8 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.cboRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRole.FormattingEnabled = true;
-            this.cboRole.Items.AddRange(new object[] {
-            "staff",
-            "manager"});
+            this.cboRole.Items.Clear();
+            this.cboRole.Items.AddRange(new object[] { "admin", "staff", "warehouse" });
             this.cboRole.Location = new System.Drawing.Point(200, 106);
             this.cboRole.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboRole.Name = "cboRole";
