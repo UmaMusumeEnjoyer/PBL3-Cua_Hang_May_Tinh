@@ -6,6 +6,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class ProductDAO : DbConnect
     {
+        #region Read
         // Lấy tất cả sản phẩm chưa xóa
         public DataTable GetAllProducts()
             => ExecuteSp("sp_Product_GetAll");
@@ -23,6 +24,7 @@ namespace CuaHangMayTinh.DAL
             };
             return ExecuteSp("sp_Product_GetById", parameters);
         }
+        #endregion
 
         // Tìm kiếm sản phẩm
         public DataTable Search(string keyword)
@@ -174,6 +176,7 @@ namespace CuaHangMayTinh.DAL
         }
         #endregion
 
+        
         // Lấy chi tiết chung
         public DataTable GetAllProductDetails()
             => ExecuteSp("sp_Product_GetAllDetails");

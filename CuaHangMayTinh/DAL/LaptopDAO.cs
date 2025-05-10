@@ -9,11 +9,13 @@ namespace CuaHangMayTinh.DAL
 {
     public class LaptopDAO : DbConnect
     {
+        #region Read
         public DataTable GetAllLaptops()
         {
             const string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour
                                   FROM Product p
-                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id";
+                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
+                                    WHERE p.IsDeleted = 0";
             return GetData(sql);
         }
 
@@ -22,10 +24,14 @@ namespace CuaHangMayTinh.DAL
             const string sql = @"SELECT p.*, l.laptopName, l.weight, l.screenSize, l.specification, l.colour
                                   FROM Product p
                                   INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
-                                  WHERE p.Product_Id = @Id";
+                                  WHERE p.Product_Id = @Id
+                                     AND p.IsDeleted = 0";
+
             return GetData(sql, new[] { new SqlParameter("@Id", id) });
         }
+        #endregion
 
+        #region CUD
         public int Insert(string laptopName, decimal weight, decimal screenSize,
                           string specification, string colour, int supplierId,
                           string productName, decimal price, int stockQuantity)
@@ -125,15 +131,16 @@ namespace CuaHangMayTinh.DAL
         {
             return new ProductDAO().DeleteProduct(productId);
         }
-
+        #endregion
         public DataTable Search(string keyword)
         {
             const string sql = @"SELECT p.*, l.*
                                  FROM Product p
                                  INNER JOIN Laptop l ON p.Product_Id = l.Product_Id
-                                 WHERE l.laptopName LIKE @Keyword
+                                 WHERE p.IsDeleted = 0
+                                 AND (l.laptopName LIKE @Keyword
                                     OR l.colour LIKE @Keyword
-                                    OR l.specification LIKE @Keyword";
+                                    OR l.specification LIKE @Keyword)";
             return GetData(sql, new[] { new SqlParameter("@Keyword", $"%{keyword}%") });
         }
 
