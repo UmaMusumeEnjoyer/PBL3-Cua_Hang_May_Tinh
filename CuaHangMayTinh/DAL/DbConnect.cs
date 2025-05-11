@@ -44,6 +44,32 @@ namespace CuaHangMayTinh.DAL
             }
             return dt;
         }
+        // overload conn tran
+        /*
+        protected DataTable GetData(string sql, SqlParameter[] parameters, SqlConnection conn, SqlTransaction tran)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (var cmd = new SqlCommand(sql, conn, tran))
+                {
+                    if (parameters != null)
+                        cmd.Parameters.AddRange(parameters);
+
+                    using (var da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[GetData Error] {ex.Message}");
+                throw new DataException("Database operation failed", ex);
+            }
+            return dt;
+        }
+         */
 
         public int ExecuteNonQuery(string sql, SqlParameter[] parameters = null)
         {
