@@ -38,6 +38,48 @@ namespace CuaHangMayTinh.DAL
             }
             return details;
         }
+        
+        // overload conn tran
+        /*
+        public List<Details> GetDetailsByReceiptId(int receiptId,
+            SqlConnection conn,
+            SqlTransaction tran)
+        {
+            const string sql = @"
+        SELECT * 
+          FROM Details WITH (UPDLOCK)
+         WHERE Receipt_Id = @rid";
+
+            List<Details> list = new List<Details>();
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn, tran))
+            {
+                cmd.Parameters.AddWithValue("@rid", receiptId);
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(new Details
+                        {
+                            Details_Id = (int)row["Details_Id"],
+                            Product_Id = (int)row["Product_Id"],
+                            Quantity = (int)row["quantity"],
+                            ProductPrice = (decimal)row["productPrice"],
+                            Receipt_Id = (int)row["Receipt_Id"],
+                            AdjustmentType = row["AdjustmentType"].ToString(),
+                            OriginalDetailId = row["OriginalDetailId"] as int?
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
+        */
 
         public List<Details> GetDetailsByGoodsReceiptId(int goodsReceiptId)
         {
