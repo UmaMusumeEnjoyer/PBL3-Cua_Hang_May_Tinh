@@ -50,6 +50,7 @@
     <Compile Include="BLL\ChartBUS.cs" />
     <Compile Include="BLL\CustomerBUS.cs" />
     <Compile Include="BLL\EmployeeBUS.cs" />
+    <Compile Include="BLL\Goods_ReceiptBUS.cs" />
     <Compile Include="BLL\InventoryBUS.cs" />
     <Compile Include="BLL\LaptopBUS.cs" />
     <Compile Include="BLL\PCBUS.cs" />
