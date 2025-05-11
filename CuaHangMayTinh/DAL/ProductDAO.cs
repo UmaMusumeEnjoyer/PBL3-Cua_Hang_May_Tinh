@@ -181,5 +181,18 @@ namespace CuaHangMayTinh.DAL
         // Lấy chi tiết chung
         public DataTable GetAllProductDetails()
             => ExecuteSp("sp_Product_GetAllDetails");
+
+        public bool Exists(int productId, SqlConnection conn, SqlTransaction tran)
+        {
+            const string sql = @"SELECT COUNT(*) 
+                FROM Product 
+                WHERE Product_Id = @pid";
+            using (var cmd = new SqlCommand(sql, conn, tran))
+            {
+                cmd.Parameters.AddWithValue("@pid", productId);
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
     }
 }
