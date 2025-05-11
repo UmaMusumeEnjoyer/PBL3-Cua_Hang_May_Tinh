@@ -106,6 +106,10 @@ namespace CuaHangMayTinh.DAL
 
                 // Lấy chi tiết gốc
                 var originals = new DetailsDAO().GetDetailsByReceiptId(receiptId);
+                // sử dụng overload
+                // var originals = new DetailsDAO()
+                // .GetDetailsByReceiptId(receiptId, conn, tran);
+
                 foreach (var originalDetail in originals)
                 {
                     var cancel = new Details
