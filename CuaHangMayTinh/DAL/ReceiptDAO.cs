@@ -51,7 +51,7 @@ namespace CuaHangMayTinh.DAL
             return total;
         }
 
-        public void CreateReceipt(Receipt receipt)
+        public int CreateReceipt(Receipt receipt)
         {
             ExecuteTransaction((conn, tran) =>
             {
@@ -88,7 +88,9 @@ namespace CuaHangMayTinh.DAL
                     d.AdjustmentType  = "ORIGINAL";
                     AddDetailForReceipt(conn, tran, receipt.Receipt_Id, d);
                 }
+                
             });
+            return receipt.Receipt_Id;
         }
         public void CancelReceipt(int receiptId)
         {

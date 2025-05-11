@@ -23,7 +23,7 @@ namespace CuaHangMayTinh.BUS
             return _receiptDao.GetReceiptById(receiptId);
         }
         
-        public void CreateReceipt(Receipt receipt)
+        public int CreateReceipt(Receipt receipt)
         {
             if (receipt == null)
                 throw new ArgumentNullException(nameof(receipt));
@@ -31,7 +31,7 @@ namespace CuaHangMayTinh.BUS
             if (receipt.Details == null || receipt.Details.Count == 0)
                 throw new InvalidOperationException("Hóa đơn phải có ít nhất 1 sản phẩm.");
             
-            _receiptDao.CreateReceipt(receipt);
+            return _receiptDao.CreateReceipt(receipt);
         }
         
         public void CancelReceipt(int receiptId)
