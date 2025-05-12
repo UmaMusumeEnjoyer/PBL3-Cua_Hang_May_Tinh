@@ -68,7 +68,6 @@ namespace CuaHangMayTinh.DAL
                     cmd.Parameters.AddWithValue("@EmployeeId", receipt.Employee_Id);
                     receipt.Receipt_Id = (int)cmd.ExecuteScalar();
                 }
-
                 foreach (var d in receipt.Details)
                 {
                     // kiểm kho, atomic
@@ -105,10 +104,10 @@ namespace CuaHangMayTinh.DAL
                 }
 
                 // Lấy chi tiết gốc
-                var originals = new DetailsDAO().GetDetailsByReceiptId(receiptId);
+                // var originals = new DetailsDAO().GetDetailsByReceiptId(receiptId);
                 // sử dụng overload
-                // var originals = new DetailsDAO()
-                // .GetDetailsByReceiptId(receiptId, conn, tran);
+                 var originals = new DetailsDAO()
+                 .GetDetailsByReceiptId(receiptId, conn, tran);
 
                 foreach (var originalDetail in originals)
                 {

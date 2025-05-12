@@ -45,7 +45,7 @@ namespace CuaHangMayTinh.DAL
             return dt;
         }
         // overload conn tran
-        /*
+        
         protected DataTable GetData(string sql, SqlParameter[] parameters, SqlConnection conn, SqlTransaction tran)
         {
             DataTable dt = new DataTable();
@@ -69,7 +69,7 @@ namespace CuaHangMayTinh.DAL
             }
             return dt;
         }
-         */
+         
 
         public int ExecuteNonQuery(string sql, SqlParameter[] parameters = null)
         {

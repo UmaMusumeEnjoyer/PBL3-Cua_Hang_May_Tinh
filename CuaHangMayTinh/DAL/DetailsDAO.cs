@@ -40,7 +40,7 @@ namespace CuaHangMayTinh.DAL
         }
         
         // overload conn tran
-        /*
+        
         public List<Details> GetDetailsByReceiptId(int receiptId,
             SqlConnection conn,
             SqlTransaction tran)
@@ -79,7 +79,7 @@ namespace CuaHangMayTinh.DAL
 
             return list;
         }
-        */
+        
 
         public List<Details> GetDetailsByGoodsReceiptId(int goodsReceiptId)
         {
