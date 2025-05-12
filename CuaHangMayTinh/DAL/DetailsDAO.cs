@@ -7,7 +7,7 @@ namespace CuaHangMayTinh.DAL
 {
     public class DetailsDAO : DbConnect
     {
-        #region Read Operations
+        #region Read 
         public DataTable GetAllDetails()
         {
             const string sql = @"SELECT d.*, p.productName, r.receiptDate, gr.goodsReceiptDate
@@ -17,6 +17,9 @@ namespace CuaHangMayTinh.DAL
                             LEFT JOIN Goods_Receipt gr ON d.GoodsReceipt_Id = gr.GoodsReceipt_Id";
             return GetData(sql);
         }
+        #endregion
+        
+        #region Receipt
         public List<Details> GetDetailsByReceiptId(int receiptId)
         {
             var details = new List<Details>();
@@ -41,9 +44,7 @@ namespace CuaHangMayTinh.DAL
         
         // overload conn tran
         
-        public List<Details> GetDetailsByReceiptId(int receiptId,
-            SqlConnection conn,
-            SqlTransaction tran)
+        public List<Details> GetDetailsByReceiptId(int receiptId, SqlConnection conn, SqlTransaction tran)
         {
             const string sql = @"
         SELECT * 
@@ -79,8 +80,46 @@ namespace CuaHangMayTinh.DAL
 
             return list;
         }
+        #endregion
         
+        #region Goods_Receipt
+        public List<Details> GetDetailsByGoodsReceiptId(int goodsReceiptId, SqlConnection conn, SqlTransaction tran)
+        {
+            const string sql = @"
+        SELECT * 
+        FROM Details WITH (UPDLOCK) 
+        WHERE GoodsReceipt_Id = @gid";
 
+            List<Details> list = new List<Details>();
+
+            using (SqlCommand cmd = new SqlCommand(sql, conn, tran))
+            {
+                cmd.Parameters.AddWithValue("@gid", goodsReceiptId);
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        list.Add(new Details
+                        {
+                            Details_Id = (int)row["Details_Id"],
+                            Product_Id = (int)row["Product_Id"],
+                            Quantity = (int)row["quantity"],
+                            ProductPrice = (decimal)row["productPrice"],
+                            GoodsReceipt_Id = (int)row["GoodsReceipt_Id"],
+                            AdjustmentType = row["AdjustmentType"].ToString(),
+                            OriginalDetailId = row["OriginalDetailId"] as int?
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
+        
         public List<Details> GetDetailsByGoodsReceiptId(int goodsReceiptId)
         {
             var details = new List<Details>();
@@ -101,7 +140,7 @@ namespace CuaHangMayTinh.DAL
             }
             return details;
         }
-        
         #endregion
+        
     }
 }
