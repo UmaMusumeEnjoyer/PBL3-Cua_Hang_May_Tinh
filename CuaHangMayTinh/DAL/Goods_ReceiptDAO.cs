@@ -38,7 +38,7 @@ namespace CuaHangMayTinh.DAL
                     }
                     d.GoodsReceipt_Id = newId;
                     d.AdjustmentType = "ORIGINAL";
-                    AddDetailForGoodsReceipt(conn, tran, newId, d);
+                    AddDetailForGoodsReceipt(conn, tran, d);
                 }
             });
             return newId;
@@ -47,63 +47,84 @@ namespace CuaHangMayTinh.DAL
         {
             ExecuteTransaction((conn, tran) =>
             {
-                using (var cmd = new SqlCommand(
-                    "UPDATE Goods_Receipt SET IsCanceled = 1 WHERE GoodsReceipt_Id = @gid",
-                    conn, tran))
+                // Kiểm tra và đánh dấu hủy atomic
+                const string updateSql = @"
+            UPDATE Goods_Receipt WITH (UPDLOCK)
+            SET IsCanceled = 1 
+            WHERE GoodsReceipt_Id = @gid 
+              AND IsCanceled = 0";
+
+                int rowsAffected;
+                using (var cmd = new SqlCommand(updateSql, conn, tran))
                 {
                     cmd.Parameters.AddWithValue("@gid", goodsReceiptId);
-                    cmd.ExecuteNonQuery();
+                    rowsAffected = cmd.ExecuteNonQuery();
                 }
-                List<Details> originals = _detailsDAO.GetDetailsByGoodsReceiptId(goodsReceiptId);
-                foreach (var orig in originals)
+
+                if (rowsAffected == 0)
+                {
+                    bool exists = CheckGoodsReceiptExists(conn, tran, goodsReceiptId);
+                    if (!exists) throw new KeyNotFoundException($"GoodsReceipt {goodsReceiptId} không tồn tại.");
+                    return; // Đã hủy từ trước
+                }
+
+                // Lấy chi tiết gốc
+                var originals = _detailsDAO.GetDetailsByGoodsReceiptId(goodsReceiptId, conn, tran);
+
+                foreach (var originalDetail in originals)
                 {
                     var cancel = new Details
                     {
-                        Product_Id = orig.Product_Id,
-                        Quantity = orig.Quantity,
-                        ProductPrice = orig.ProductPrice,
+                        Product_Id = originalDetail.Product_Id,
+                        Quantity = originalDetail.Quantity,
+                        ProductPrice = originalDetail.ProductPrice,
                         GoodsReceipt_Id = goodsReceiptId,
                         AdjustmentType = "CANCEL",
-                        OriginalDetailId = orig.Details_Id
+                        OriginalDetailId = originalDetail.Details_Id
                     };
-                    AddDetailForGoodsReceipt(conn, tran, goodsReceiptId, cancel);
+                    AddDetailForGoodsReceipt(conn, tran, cancel);
                 }
             });
         }
 
-        private void AddDetailForGoodsReceipt(
-            SqlConnection conn, 
+        private bool CheckGoodsReceiptExists(SqlConnection conn, SqlTransaction tran, int goodsReceiptId)
+        {
+            const string sql = "SELECT COUNT(*) FROM Goods_Receipt WHERE GoodsReceipt_Id = @gid";
+            using (var cmd = new SqlCommand(sql, conn, tran))
+            {
+                cmd.Parameters.AddWithValue("@gid", goodsReceiptId);
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+        private void AddDetailForGoodsReceipt(SqlConnection conn, 
             SqlTransaction tran,
-            int goodsReceiptId, 
             Details detail)
         {
-            
             const string insSql = @"
-                INSERT INTO Details
-                  (Product_Id, quantity, productPrice,
-                   GoodsReceipt_Id, AdjustmentType, OriginalDetailId)
-                VALUES (@pid,@qty,@price,@gid,@type,@orig)";
-            
-            using (var ins = new SqlCommand(insSql, conn, tran))
+        INSERT INTO Details
+          (Product_Id, quantity, productPrice, GoodsReceipt_Id, AdjustmentType, OriginalDetailId)
+        VALUES (@pid, @qty, @price, @gid, @type, @orig)";
+
+            using (var cmd = new SqlCommand(insSql, conn, tran))
             {
-                ins.Parameters.AddWithValue("@pid", detail.Product_Id);
-                ins.Parameters.AddWithValue("@qty", detail.Quantity);
-                ins.Parameters.AddWithValue("@price", detail.ProductPrice);
-                ins.Parameters.AddWithValue("@gid", detail.GoodsReceipt_Id);
-                ins.Parameters.AddWithValue("@type", detail.AdjustmentType);
-                ins.Parameters.AddWithValue("@orig", detail.OriginalDetailId ?? (object)DBNull.Value);
-                ins.ExecuteNonQuery();
+                cmd.Parameters.AddWithValue("@pid", detail.Product_Id);
+                cmd.Parameters.AddWithValue("@qty", detail.Quantity);
+                cmd.Parameters.AddWithValue("@price", detail.ProductPrice);
+                cmd.Parameters.AddWithValue("@gid", detail.GoodsReceipt_Id);
+                cmd.Parameters.AddWithValue("@type", detail.AdjustmentType);
+                cmd.Parameters.AddWithValue("@orig", detail.OriginalDetailId ?? (object)DBNull.Value);
+                cmd.ExecuteNonQuery();
             }
-            
-            int factor = detail.AdjustmentType == "CANCEL" ? -1 : +1;
-            using (var stk = new SqlCommand(
-                "UPDATE Product SET stockQuantity = stockQuantity + @f*@qty WHERE Product_Id = @pid",
-                conn, tran))
+
+            int factor = detail.AdjustmentType == "CANCEL" ? -1 : 1;
+            using (var stkCmd = new SqlCommand(
+                       "UPDATE Product SET stockQuantity = stockQuantity + (@factor * @qty) WHERE Product_Id = @pid",
+                       conn, tran))
             {
-                stk.Parameters.AddWithValue("@f", factor);
-                stk.Parameters.AddWithValue("@qty", detail.Quantity);
-                stk.Parameters.AddWithValue("@pid", detail.Product_Id);
-                stk.ExecuteNonQuery();
+                stkCmd.Parameters.AddWithValue("@factor", factor);
+                stkCmd.Parameters.AddWithValue("@qty", detail.Quantity);
+                stkCmd.Parameters.AddWithValue("@pid", detail.Product_Id);
+                stkCmd.ExecuteNonQuery();
             }
         }
     }
