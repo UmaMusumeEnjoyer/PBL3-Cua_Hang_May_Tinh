@@ -8,9 +8,21 @@ namespace CuaHangMayTinh.DTO.Common
 {
     public class PC
     {
-        public int Product_Id { get; set; }
+        public int ProductId { get; set; }
         public string PCName { get; set; }
         public string Specification { get; set; }
-    }
+        public int SupplierId { get; set; }
 
+        public PC()
+        {
+        }
+
+        public PC(int productId, string pcName, string specification, int supplierId)
+        {
+            ProductId = productId;
+            PCName = pcName;
+            Specification = specification;
+            SupplierId = supplierId;
+        }
+    }
 }

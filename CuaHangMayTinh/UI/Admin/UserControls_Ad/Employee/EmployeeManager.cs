@@ -19,13 +19,20 @@ namespace CuaHangMayTinh.UI.UserControls_Ad
         public EmployeeManager()
         {
             InitializeComponent();
+            // Thiết lập màu nền cho header
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(0, 123, 255); // Xanh dương đậm
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             LoadData();
             textBox1.TextChanged += textBox1_TextChanged;
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
         }
 
         private void LoadData()
         {
-            string SQL = "SELECt * From Account join Employee on Account.Employee_Id = Employee.Employee_Id and Account.role != 'admin'";
+            string SQL = "SELECT * FROM Account JOIN Employee ON Account.Employee_Id = Employee.Employee_Id";
             DataTable dt = new DataTable();
             DbConnect DAL = new DbConnect();
             dt = DAL.GetData(SQL);
@@ -41,6 +48,26 @@ namespace CuaHangMayTinh.UI.UserControls_Ad
             {
                 dataGridView1.Columns["Employee_id"].Visible = false;
             }
+
+            // Đổi tên các cột sang tiếng Việt
+            if (dataGridView1.Columns.Contains("EmployeeName"))
+                dataGridView1.Columns["EmployeeName"].HeaderText = "Họ và Tên";
+            if (dataGridView1.Columns.Contains("Age"))
+                dataGridView1.Columns["Age"].HeaderText = "Tuổi";
+            if (dataGridView1.Columns.Contains("PhoneNumber"))
+                dataGridView1.Columns["PhoneNumber"].HeaderText = "Số điện thoại";
+            if (dataGridView1.Columns.Contains("Username"))
+                dataGridView1.Columns["Username"].HeaderText = "Tên đăng nhập";
+            if (dataGridView1.Columns.Contains("Role"))
+                dataGridView1.Columns["Role"].HeaderText = "Vai trò";
+            if (dataGridView1.Columns.Contains("Address"))
+                dataGridView1.Columns["Address"].HeaderText = "Địa chỉ";
+            if (dataGridView1.Columns.Contains("Email"))
+                dataGridView1.Columns["Email"].HeaderText = "Email";
+            if (dataGridView1.Columns.Contains("BirthDate"))
+                dataGridView1.Columns["BirthDate"].HeaderText = "Ngày sinh";
+            if (dataGridView1.Columns.Contains("Password"))
+                dataGridView1.Columns["Password"].HeaderText = "Mật khẩu";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -147,6 +174,11 @@ namespace CuaHangMayTinh.UI.UserControls_Ad
             {
                 MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

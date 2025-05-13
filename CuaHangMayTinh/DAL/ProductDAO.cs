@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using CuaHangMayTinh.DTO.Common;
 
 namespace CuaHangMayTinh.DAL
 {
@@ -168,17 +169,99 @@ namespace CuaHangMayTinh.DAL
         #region Delete kèm bảng con
         public int DeleteProduct(int productId)
         {
+            string sql = @"
+                DELETE FROM Laptop WHERE Product_Id = @Product_Id;
+                DELETE FROM PC WHERE Product_Id = @Product_Id;
+                DELETE FROM Accessories WHERE Product_Id = @Product_Id;
+                UPDATE Product SET IsDeleted = 1 WHERE Product_Id = @Product_Id;
+            ";
+            SqlParameter[] parameters = { new SqlParameter("@Product_Id", productId) };
+            return ExecuteNonQuery(sql, parameters);
+        }
+        #endregion
+
+        // Lấy chi tiết chung
+        public DataTable GetAllProductDetails()
+        {
+            const string sql = @"
+                SELECT p.*, s.supplierName, s.phoneNumber as SupplierPhone, s.email as SupplierEmail,
+                       l.weight, l.screenSize, l.specification as LaptopSpec,
+                       pc.specification as PCSpec,
+                       a.overview,
+                       (SELECT TOP 1 gr.goodsReceiptDate 
+                        FROM Goods_Receipt gr 
+                        JOIN Details d ON gr.GoodsReceipt_Id = d.GoodsReceipt_Id
+                        WHERE d.Product_Id = p.Product_Id 
+                        ORDER BY gr.goodsReceiptDate DESC) as LastReceiptDate,
+                       CASE
+                           WHEN l.Product_Id IS NOT NULL THEN N'Laptop'
+                           WHEN pc.Product_Id IS NOT NULL THEN 'PC'
+                           WHEN a.Product_Id IS NOT NULL THEN N'Phụ kiện'
+                       END as Category
+                FROM Product p
+                LEFT JOIN Supplier s ON p.Supplier_Id = s.Supplier_Id
+                LEFT JOIN Laptop l ON p.Product_Id = l.Product_Id
+                LEFT JOIN PC pc ON p.Product_Id = pc.Product_Id
+                LEFT JOIN Accessories a ON p.Product_Id = a.Product_Id
+                WHERE p.IsDeleted = 0";
+            return GetData(sql);
+        }
+
+        public int InsertProduct(Product product)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = product.ProductName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = product.Price },
+                new SqlParameter("@Quantity", SqlDbType.Int) { Value = product.Quantity },
+                new SqlParameter("@CategoryId", SqlDbType.Int) { Value = product.CategoryId },
+                new SqlParameter("@Description", SqlDbType.NVarChar, -1) { Value = product.Description },
+                new SqlParameter("@ProductType", SqlDbType.NVarChar, 50) { Value = product.ProductType },
+                new SqlParameter("@NewProductId", SqlDbType.Int) { Direction = ParameterDirection.Output }
+            };
+
+            ExecuteSpNonQuery("sp_Product_Insert", parameters);
+            var lastIndex = parameters.Length - 1;
+            return (int)parameters[lastIndex].Value;
+        }
+
+        public DataTable GetAll()
+        {
+            return ExecuteSp("sp_Product_GetAll");
+        }
+
+        public DataTable GetById(int productId)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId }
+            };
+            return ExecuteSp("sp_Product_GetById", parameters);
+        }
+
+        public int Update(Product product)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@Product_Id", SqlDbType.Int) { Value = product.ProductId },
+                new SqlParameter("@ProductName", SqlDbType.NVarChar, 100) { Value = product.ProductName },
+                new SqlParameter("@Price", SqlDbType.Decimal) { Value = product.Price },
+                new SqlParameter("@Quantity", SqlDbType.Int) { Value = product.Quantity },
+                new SqlParameter("@CategoryId", SqlDbType.Int) { Value = product.CategoryId },
+                new SqlParameter("@Description", SqlDbType.NVarChar, -1) { Value = product.Description },
+                new SqlParameter("@ProductType", SqlDbType.NVarChar, 50) { Value = product.ProductType }
+            };
+
+            return ExecuteSpNonQuery("sp_Product_Update", parameters);
+        }
+
+        public int Delete(int productId)
+        {
             var parameters = new[]
             {
                 new SqlParameter("@Product_Id", SqlDbType.Int) { Value = productId }
             };
             return ExecuteSpNonQuery("sp_Product_Delete", parameters);
         }
-        #endregion
-
-        
-        // Lấy chi tiết chung
-        public DataTable GetAllProductDetails()
-            => ExecuteSp("sp_Product_GetAllDetails");
     }
 }

@@ -30,9 +30,10 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(60, 15);
+            this.lblTitle.Location = new System.Drawing.Point(80, 18);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(260, 24);
+            this.lblTitle.Size = new System.Drawing.Size(334, 32);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Xác nhận xóa nhân viên này";
             // 
@@ -40,9 +41,10 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.lblNameTitle.AutoSize = true;
             this.lblNameTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblNameTitle.Location = new System.Drawing.Point(30, 60);
+            this.lblNameTitle.Location = new System.Drawing.Point(40, 74);
+            this.lblNameTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNameTitle.Name = "lblNameTitle";
-            this.lblNameTitle.Size = new System.Drawing.Size(70, 13);
+            this.lblNameTitle.Size = new System.Drawing.Size(88, 23);
             this.lblNameTitle.TabIndex = 1;
             this.lblNameTitle.Text = "Họ và tên:";
             // 
@@ -50,9 +52,10 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.lblPhoneTitle.AutoSize = true;
             this.lblPhoneTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblPhoneTitle.Location = new System.Drawing.Point(30, 90);
+            this.lblPhoneTitle.Location = new System.Drawing.Point(40, 111);
+            this.lblPhoneTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPhoneTitle.Name = "lblPhoneTitle";
-            this.lblPhoneTitle.Size = new System.Drawing.Size(84, 13);
+            this.lblPhoneTitle.Size = new System.Drawing.Size(115, 23);
             this.lblPhoneTitle.TabIndex = 2;
             this.lblPhoneTitle.Text = "Số điện thoại:";
             // 
@@ -60,9 +63,10 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.lblUsernameTitle.AutoSize = true;
             this.lblUsernameTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblUsernameTitle.Location = new System.Drawing.Point(30, 120);
+            this.lblUsernameTitle.Location = new System.Drawing.Point(40, 148);
+            this.lblUsernameTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUsernameTitle.Name = "lblUsernameTitle";
-            this.lblUsernameTitle.Size = new System.Drawing.Size(92, 13);
+            this.lblUsernameTitle.Size = new System.Drawing.Size(128, 23);
             this.lblUsernameTitle.TabIndex = 3;
             this.lblUsernameTitle.Text = "Tên đăng nhập:";
             // 
@@ -70,9 +74,10 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.lblRoleTitle.AutoSize = true;
             this.lblRoleTitle.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblRoleTitle.Location = new System.Drawing.Point(30, 150);
+            this.lblRoleTitle.Location = new System.Drawing.Point(40, 185);
+            this.lblRoleTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblRoleTitle.Name = "lblRoleTitle";
-            this.lblRoleTitle.Size = new System.Drawing.Size(49, 13);
+            this.lblRoleTitle.Size = new System.Drawing.Size(64, 23);
             this.lblRoleTitle.TabIndex = 4;
             this.lblRoleTitle.Text = "Vai trò:";
             // 
@@ -80,36 +85,40 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblName.Location = new System.Drawing.Point(130, 60);
+            this.lblName.Location = new System.Drawing.Point(173, 74);
+            this.lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(0, 13);
+            this.lblName.Size = new System.Drawing.Size(0, 23);
             this.lblName.TabIndex = 5;
             // 
             // lblPhone
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblPhone.Location = new System.Drawing.Point(130, 90);
+            this.lblPhone.Location = new System.Drawing.Point(173, 111);
+            this.lblPhone.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(0, 13);
+            this.lblPhone.Size = new System.Drawing.Size(0, 23);
             this.lblPhone.TabIndex = 6;
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblUsername.Location = new System.Drawing.Point(130, 120);
+            this.lblUsername.Location = new System.Drawing.Point(173, 148);
+            this.lblUsername.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(0, 13);
+            this.lblUsername.Size = new System.Drawing.Size(0, 23);
             this.lblUsername.TabIndex = 7;
             // 
             // lblRole
             // 
             this.lblRole.AutoSize = true;
             this.lblRole.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblRole.Location = new System.Drawing.Point(130, 150);
+            this.lblRole.Location = new System.Drawing.Point(173, 185);
+            this.lblRole.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(0, 13);
+            this.lblRole.Size = new System.Drawing.Size(0, 23);
             this.lblRole.TabIndex = 8;
             // 
             // btnDelete
@@ -118,9 +127,10 @@ namespace CuaHangMayTinh.UI.Forms
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(60, 190);
+            this.btnDelete.Location = new System.Drawing.Point(259, 241);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(120, 35);
+            this.btnDelete.Size = new System.Drawing.Size(131, 43);
             this.btnDelete.TabIndex = 9;
             this.btnDelete.Text = "Xác nhận xóa";
             this.btnDelete.UseVisualStyleBackColor = false;
@@ -128,13 +138,14 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.Gray;
+            this.btnCancel.BackColor = System.Drawing.Color.Lime;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(200, 190);
+            this.btnCancel.ForeColor = System.Drawing.Color.Black;
+            this.btnCancel.Location = new System.Drawing.Point(398, 241);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(120, 35);
+            this.btnCancel.Size = new System.Drawing.Size(96, 43);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -142,9 +153,9 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             // ConfirmDeleteEmployeeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(380, 250);
+            this.ClientSize = new System.Drawing.Size(507, 308);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.lblRole);
@@ -157,6 +168,7 @@ namespace CuaHangMayTinh.UI.Forms
             this.Controls.Add(this.lblNameTitle);
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfirmDeleteEmployeeForm";
@@ -164,6 +176,7 @@ namespace CuaHangMayTinh.UI.Forms
             this.Text = "Xác nhận xóa nhân viên";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblNameTitle;

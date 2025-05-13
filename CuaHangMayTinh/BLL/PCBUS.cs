@@ -3,12 +3,14 @@ using System.Data;
 using System.Text;
 using System.Data.SqlClient;
 using CuaHangMayTinh.DAL;
+using CuaHangMayTinh.DTO.Common;
 
-namespace CuaHangMayTinh.BUS
+namespace CuaHangMayTinh.BLL
 {
     public class PCBUS
     {
         private readonly PCDAO _pcDAO = new PCDAO();
+        private readonly ProductDAO _productDAO = new ProductDAO();
 
         public DataTable GetAllPCs()
         {
@@ -40,24 +42,36 @@ namespace CuaHangMayTinh.BUS
             }
         }
 
-        public int InsertPC(string pcName, string specification,
-                             int supplierId, string productName,
-                             decimal price, int stockQuantity)
+        public int InsertPC(string pcName, string specification, int supplierId, string productName, decimal price, int stockQuantity)
         {
-            ValidatePCData(pcName, specification, supplierId, 
-                           productName, price, stockQuantity);
-
             try
             {
-                // Thực hiện insert và nhận về ProductId
-                int productId = _pcDAO.Insert(pcName, specification,
-                                              supplierId, productName,
-                                              price, stockQuantity);
+                // Validate input
+                if (string.IsNullOrWhiteSpace(pcName))
+                    throw new ArgumentException("Tên PC không được để trống");
+                if (string.IsNullOrWhiteSpace(specification))
+                    throw new ArgumentException("Thông số kỹ thuật không được để trống");
+                if (supplierId <= 0)
+                    throw new ArgumentException("Nhà cung cấp không hợp lệ");
+                if (string.IsNullOrWhiteSpace(productName))
+                    throw new ArgumentException("Tên sản phẩm không được để trống");
+                if (price <= 0)
+                    throw new ArgumentException("Giá phải lớn hơn 0");
+                if (stockQuantity < 0)
+                    throw new ArgumentException("Số lượng tồn kho không được âm");
+
+                int productId = _pcDAO.Insert(pcName, specification, supplierId, productName, price, stockQuantity);
+                if (productId <= 0)
+                    throw new Exception("Không thể thêm sản phẩm PC");
                 return productId;
+            }
+            catch (ArgumentException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
-                throw new Exception("Thêm PC thất bại", ex);
+                throw new Exception("Lỗi khi thêm PC: " + ex.Message, ex);
             }
         }
 

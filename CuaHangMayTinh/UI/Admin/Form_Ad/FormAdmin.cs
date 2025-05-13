@@ -18,20 +18,22 @@ namespace CuaHangMayTinh.UI.Form_Ad
 {
     public partial class FormAdmin: Form
     {
-        public FormAdmin()
+        private string username;
+
+        public FormAdmin(string username)
         {
             InitializeComponent();
+            this.username = username;
             moveSidePanel(btnHome);
             information Uc = new information();
             AddControlsToPanel(Uc);
             timerTime.Start();
             setLabel();
-
         }
        
         private void setLabel()
         {
-            label3.Text = "Admin";
+            label3.Text = username;
         }
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
@@ -106,7 +108,7 @@ namespace CuaHangMayTinh.UI.Form_Ad
         private void timer1_Tick(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
-            labelTime.Text = dt.ToString("HH:MM:ss");
+            labelTime.Text = dt.ToString("HH:mm:ss");
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -147,6 +149,11 @@ namespace CuaHangMayTinh.UI.Form_Ad
             moveSidePanel(btnThietbi);
             SupplierManager em = new SupplierManager();
             AddControlsToPanel(em);
+        }
+
+        private void PanelControls_Paint_1(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

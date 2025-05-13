@@ -40,7 +40,7 @@ namespace PBL3
             if (isValid == 1)
             {
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                FormAdmin formAdmin = new FormAdmin();
+                FormAdmin formAdmin = new FormAdmin(username);
                 this.Hide();
                 formAdmin.ShowDialog();
                 this.Show();

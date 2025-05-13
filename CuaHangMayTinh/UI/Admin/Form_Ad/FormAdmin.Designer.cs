@@ -71,42 +71,49 @@
             this.panelHome.Controls.Add(this.panelLeft);
             this.panelHome.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelHome.Location = new System.Drawing.Point(0, 0);
+            this.panelHome.Margin = new System.Windows.Forms.Padding(4);
             this.panelHome.Name = "panelHome";
-            this.panelHome.Size = new System.Drawing.Size(1170, 645);
+            this.panelHome.Size = new System.Drawing.Size(1560, 794);
             this.panelHome.TabIndex = 3;
             this.panelHome.Paint += new System.Windows.Forms.PaintEventHandler(this.panelControls_Paint);
             // 
             // PanelControls
             // 
+            this.PanelControls.BackColor = System.Drawing.SystemColors.Menu;
             this.PanelControls.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelControls.Location = new System.Drawing.Point(215, 142);
-            this.PanelControls.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PanelControls.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.PanelControls.Location = new System.Drawing.Point(287, 167);
+            this.PanelControls.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PanelControls.Name = "PanelControls";
-            this.PanelControls.Size = new System.Drawing.Size(955, 503);
+            this.PanelControls.Size = new System.Drawing.Size(1273, 627);
             this.PanelControls.TabIndex = 4;
+            this.PanelControls.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelControls_Paint_1);
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel2.BackColor = System.Drawing.Color.Blue;
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.labelTime);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(215, 50);
+            this.panel2.Location = new System.Drawing.Point(287, 54);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(955, 92);
+            this.panel2.Size = new System.Drawing.Size(1273, 113);
             this.panel2.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.BackColor = System.Drawing.Color.Blue;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(166, 19);
+            this.label3.Location = new System.Drawing.Point(221, 23);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 19);
+            this.label3.Size = new System.Drawing.Size(70, 25);
             this.label3.TabIndex = 1;
             this.label3.Text = "label3";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -114,22 +121,26 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(166, 50);
+            this.label7.BackColor = System.Drawing.Color.Blue;
+            this.label7.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label7.Location = new System.Drawing.Point(221, 62);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(62, 19);
+            this.label7.Size = new System.Drawing.Size(78, 25);
             this.label7.TabIndex = 0;
             this.label7.Text = "Admin";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(110, 50);
+            this.label6.BackColor = System.Drawing.Color.Blue;
+            this.label6.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label6.Location = new System.Drawing.Point(147, 62);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(46, 19);
+            this.label6.Size = new System.Drawing.Size(65, 25);
             this.label6.TabIndex = 0;
             this.label6.Text = "Role:";
             // 
@@ -138,10 +149,11 @@
             this.labelTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTime.AutoSize = true;
             this.labelTime.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTime.ForeColor = System.Drawing.Color.White;
-            this.labelTime.Location = new System.Drawing.Point(804, 26);
+            this.labelTime.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.labelTime.Location = new System.Drawing.Point(1072, 32);
+            this.labelTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(83, 19);
+            this.labelTime.Size = new System.Drawing.Size(106, 23);
             this.labelTime.TabIndex = 0;
             this.labelTime.Text = "HH:MM:SS";
             this.labelTime.Click += new System.EventHandler(this.labelTime_Click);
@@ -149,40 +161,46 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(69, 19);
+            this.label1.BackColor = System.Drawing.Color.Blue;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(92, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 19);
+            this.label1.Size = new System.Drawing.Size(107, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Xin chào:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel4
             // 
-            this.panel4.BackColor = System.Drawing.Color.Gray;
+            this.panel4.BackColor = System.Drawing.Color.Blue;
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.button9);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(215, 0);
+            this.panel4.Location = new System.Drawing.Point(287, 0);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(955, 50);
+            this.panel4.Size = new System.Drawing.Size(1273, 54);
             this.panel4.TabIndex = 2;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(18, 18);
+            this.label4.BackColor = System.Drawing.Color.Blue;
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label4.Location = new System.Drawing.Point(25, 15);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(154, 19);
+            this.label4.Size = new System.Drawing.Size(211, 25);
             this.label4.TabIndex = 0;
             this.label4.Text = "Quản Lý Cửa Hàng";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // button9
             // 
+            this.button9.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button9.Dock = System.Windows.Forms.DockStyle.Right;
             this.button9.FlatAppearance.BorderSize = 0;
             this.button9.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
@@ -191,17 +209,18 @@
             this.button9.ForeColor = System.Drawing.Color.White;
             this.button9.Image = ((System.Drawing.Image)(resources.GetObject("button9.Image")));
             this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.Location = new System.Drawing.Point(911, 0);
+            this.button9.Location = new System.Drawing.Point(1227, 0);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(44, 50);
+            this.button9.Size = new System.Drawing.Size(46, 54);
             this.button9.TabIndex = 2;
             this.button9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button9.UseVisualStyleBackColor = true;
+            this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // panelLeft
             // 
-            this.panelLeft.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panelLeft.BackColor = System.Drawing.Color.Blue;
             this.panelLeft.Controls.Add(this.btnThietbi);
             this.panelLeft.Controls.Add(this.btnNhacungcap);
             this.panelLeft.Controls.Add(this.btnHoadonnhap);
@@ -212,139 +231,155 @@
             this.panelLeft.Controls.Add(this.panel3);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelLeft.Margin = new System.Windows.Forms.Padding(4);
             this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(215, 645);
+            this.panelLeft.Size = new System.Drawing.Size(287, 794);
             this.panelLeft.TabIndex = 1;
             this.panelLeft.Paint += new System.Windows.Forms.PaintEventHandler(this.panelLeft_Paint);
             // 
             // btnThietbi
             // 
+            this.btnThietbi.BackColor = System.Drawing.Color.Blue;
             this.btnThietbi.FlatAppearance.BorderSize = 0;
             this.btnThietbi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThietbi.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThietbi.ForeColor = System.Drawing.Color.White;
+            this.btnThietbi.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThietbi.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnThietbi.Image = ((System.Drawing.Image)(resources.GetObject("btnThietbi.Image")));
             this.btnThietbi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThietbi.Location = new System.Drawing.Point(12, 274);
+            this.btnThietbi.Location = new System.Drawing.Point(11, 317);
+            this.btnThietbi.Margin = new System.Windows.Forms.Padding(4);
             this.btnThietbi.Name = "btnThietbi";
-            this.btnThietbi.Size = new System.Drawing.Size(203, 60);
+            this.btnThietbi.Size = new System.Drawing.Size(271, 74);
             this.btnThietbi.TabIndex = 6;
-            this.btnThietbi.Text = "      Thiết Bị";
+            this.btnThietbi.Text = "      Sản Phẩm";
             this.btnThietbi.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnThietbi.UseVisualStyleBackColor = true;
+            this.btnThietbi.UseVisualStyleBackColor = false;
             this.btnThietbi.Click += new System.EventHandler(this.btnThietbi_Click);
             // 
             // btnNhacungcap
             // 
+            this.btnNhacungcap.BackColor = System.Drawing.Color.Blue;
             this.btnNhacungcap.FlatAppearance.BorderSize = 0;
             this.btnNhacungcap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNhacungcap.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNhacungcap.ForeColor = System.Drawing.Color.White;
+            this.btnNhacungcap.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNhacungcap.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnNhacungcap.Image = ((System.Drawing.Image)(resources.GetObject("btnNhacungcap.Image")));
             this.btnNhacungcap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNhacungcap.Location = new System.Drawing.Point(12, 327);
+            this.btnNhacungcap.Location = new System.Drawing.Point(11, 390);
+            this.btnNhacungcap.Margin = new System.Windows.Forms.Padding(4);
             this.btnNhacungcap.Name = "btnNhacungcap";
-            this.btnNhacungcap.Size = new System.Drawing.Size(203, 60);
+            this.btnNhacungcap.Size = new System.Drawing.Size(271, 74);
             this.btnNhacungcap.TabIndex = 5;
             this.btnNhacungcap.Text = "    Nhà Cung Cấp";
             this.btnNhacungcap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnNhacungcap.UseVisualStyleBackColor = true;
+            this.btnNhacungcap.UseVisualStyleBackColor = false;
             this.btnNhacungcap.Click += new System.EventHandler(this.btnSupplier_Click);
             // 
             // btnHoadonnhap
             // 
+            this.btnHoadonnhap.BackColor = System.Drawing.Color.Blue;
             this.btnHoadonnhap.FlatAppearance.BorderSize = 0;
             this.btnHoadonnhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHoadonnhap.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHoadonnhap.ForeColor = System.Drawing.Color.White;
+            this.btnHoadonnhap.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHoadonnhap.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnHoadonnhap.Image = ((System.Drawing.Image)(resources.GetObject("btnHoadonnhap.Image")));
             this.btnHoadonnhap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHoadonnhap.Location = new System.Drawing.Point(12, 393);
+            this.btnHoadonnhap.Location = new System.Drawing.Point(11, 460);
+            this.btnHoadonnhap.Margin = new System.Windows.Forms.Padding(4);
             this.btnHoadonnhap.Name = "btnHoadonnhap";
-            this.btnHoadonnhap.Size = new System.Drawing.Size(203, 60);
+            this.btnHoadonnhap.Size = new System.Drawing.Size(271, 74);
             this.btnHoadonnhap.TabIndex = 3;
             this.btnHoadonnhap.Text = "    Hóa Đơn Nhập";
             this.btnHoadonnhap.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnHoadonnhap.UseVisualStyleBackColor = true;
+            this.btnHoadonnhap.UseVisualStyleBackColor = false;
             this.btnHoadonnhap.Click += new System.EventHandler(this.btnDoanhThu_Click);
             // 
             // btnThongKe
             // 
+            this.btnThongKe.BackColor = System.Drawing.Color.Blue;
             this.btnThongKe.FlatAppearance.BorderSize = 0;
             this.btnThongKe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThongKe.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThongKe.ForeColor = System.Drawing.Color.White;
+            this.btnThongKe.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThongKe.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnThongKe.Image = ((System.Drawing.Image)(resources.GetObject("btnThongKe.Image")));
             this.btnThongKe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThongKe.Location = new System.Drawing.Point(12, 459);
+            this.btnThongKe.Location = new System.Drawing.Point(11, 533);
+            this.btnThongKe.Margin = new System.Windows.Forms.Padding(4);
             this.btnThongKe.Name = "btnThongKe";
-            this.btnThongKe.Size = new System.Drawing.Size(203, 60);
+            this.btnThongKe.Size = new System.Drawing.Size(271, 74);
             this.btnThongKe.TabIndex = 2;
             this.btnThongKe.Text = "     Thống Kê";
             this.btnThongKe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnThongKe.UseVisualStyleBackColor = true;
+            this.btnThongKe.UseVisualStyleBackColor = false;
             this.btnThongKe.Click += new System.EventHandler(this.btnChiPhi_Click);
             // 
             // panelSide
             // 
             this.panelSide.BackColor = System.Drawing.Color.White;
-            this.panelSide.Location = new System.Drawing.Point(1, 142);
+            this.panelSide.Location = new System.Drawing.Point(1, 175);
+            this.panelSide.Margin = new System.Windows.Forms.Padding(4);
             this.panelSide.Name = "panelSide";
-            this.panelSide.Size = new System.Drawing.Size(7, 60);
+            this.panelSide.Size = new System.Drawing.Size(9, 74);
             this.panelSide.TabIndex = 1;
             // 
             // btnUsers
             // 
+            this.btnUsers.BackColor = System.Drawing.Color.Blue;
             this.btnUsers.FlatAppearance.BorderSize = 0;
             this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUsers.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUsers.ForeColor = System.Drawing.Color.White;
+            this.btnUsers.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUsers.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnUsers.Image = ((System.Drawing.Image)(resources.GetObject("btnUsers.Image")));
             this.btnUsers.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUsers.Location = new System.Drawing.Point(9, 208);
+            this.btnUsers.Location = new System.Drawing.Point(11, 244);
+            this.btnUsers.Margin = new System.Windows.Forms.Padding(4);
             this.btnUsers.Name = "btnUsers";
-            this.btnUsers.Size = new System.Drawing.Size(203, 60);
+            this.btnUsers.Size = new System.Drawing.Size(271, 74);
             this.btnUsers.TabIndex = 2;
-            this.btnUsers.Text = "      Nhân Viên";
+            this.btnUsers.Text = "     Nhân Viên";
             this.btnUsers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnUsers.UseVisualStyleBackColor = true;
+            this.btnUsers.UseVisualStyleBackColor = false;
             this.btnUsers.Click += new System.EventHandler(this.btnUsers_Click);
             // 
             // btnHome
             // 
+            this.btnHome.BackColor = System.Drawing.Color.Blue;
             this.btnHome.FlatAppearance.BorderSize = 0;
             this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHome.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHome.ForeColor = System.Drawing.Color.White;
+            this.btnHome.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnHome.Image = ((System.Drawing.Image)(resources.GetObject("btnHome.Image")));
             this.btnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHome.Location = new System.Drawing.Point(8, 142);
+            this.btnHome.Location = new System.Drawing.Point(11, 175);
+            this.btnHome.Margin = new System.Windows.Forms.Padding(4);
             this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(203, 60);
+            this.btnHome.Size = new System.Drawing.Size(271, 74);
             this.btnHome.TabIndex = 2;
             this.btnHome.Text = "     Trang Chủ";
             this.btnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.UseVisualStyleBackColor = false;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel3.BackColor = System.Drawing.Color.Blue;
             this.panel3.Controls.Add(this.panel1);
             this.panel3.Controls.Add(this.button8);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.pictureBox1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(215, 140);
+            this.panel3.Size = new System.Drawing.Size(287, 175);
             this.panel3.TabIndex = 0;
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(215, 142);
+            this.panel1.Location = new System.Drawing.Point(287, 175);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(982, 578);
+            this.panel1.Size = new System.Drawing.Size(1309, 711);
             this.panel1.TabIndex = 2;
             // 
             // button8
@@ -356,9 +391,10 @@
             this.button8.ForeColor = System.Drawing.Color.White;
             this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(173, 8);
+            this.button8.Location = new System.Drawing.Point(231, 10);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(38, 29);
+            this.button8.Size = new System.Drawing.Size(51, 36);
             this.button8.TabIndex = 2;
             this.button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button8.UseVisualStyleBackColor = true;
@@ -366,20 +402,24 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(53, 76);
+            this.label2.BackColor = System.Drawing.Color.Blue;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(40, 85);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(138, 18);
+            this.label2.Size = new System.Drawing.Size(203, 25);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Cửa Hàng Diện Tử";
+            this.label2.Text = "Cửa Hàng Điện Tử";
             // 
             // pictureBox1
             // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Blue;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(78, 18);
+            this.pictureBox1.Location = new System.Drawing.Point(104, 22);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 48);
+            this.pictureBox1.Size = new System.Drawing.Size(65, 59);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -391,10 +431,11 @@
             // 
             // FormAdmin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1170, 645);
+            this.ClientSize = new System.Drawing.Size(1560, 794);
             this.Controls.Add(this.panelHome);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormAdmin";
             this.Text = "s";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

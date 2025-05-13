@@ -22,7 +22,8 @@ VALUES
 INSERT INTO Product (Supplier_Id, productName, price, stockQuantity, IsDeleted)
 VALUES
   (1, N'Dell Inspiron 15', 15000000.00, 10, 0),
-  (1, N'Logitech M185 Mouse',      500000.00, 50, 0),
+  (1, N'Logitech M185 Mouse',      500000.00,
+  50, 0),
   (2, N'MSI Gaming PC',    25000000.00,  5, 0);
 
 -- 5. Chi tiết mỗi loại sản phẩm
@@ -63,3 +64,36 @@ VALUES
   (N'adminA', N'admin123', 1, N'Admin'),
   (N'nvB',    N'passwordB',2, N'Staff'),
   (N'nvC',    N'passwordC',3, N'Warehouse');
+
+-- Kiểm tra dữ liệu bảng Employee
+SELECT * FROM Employee;
+
+-- Kiểm tra dữ liệu bảng Customer
+SELECT * FROM Customer;
+
+-- Kiểm tra dữ liệu bảng Supplier
+SELECT * FROM Supplier;
+
+-- Kiểm tra dữ liệu bảng Product
+SELECT * FROM Product;
+
+-- Kiểm tra dữ liệu bảng Laptop
+SELECT * FROM Laptop;
+
+-- Kiểm tra dữ liệu bảng Accessories
+SELECT * FROM Accessories;
+
+-- Kiểm tra dữ liệu bảng PC
+SELECT * FROM PC;
+
+-- Kiểm tra dữ liệu bảng Receipt
+SELECT * FROM Receipt;
+
+-- Kiểm tra dữ liệu bảng Goods_Receipt
+SELECT * FROM Goods_Receipt;
+
+-- Kiểm tra dữ liệu bảng Details
+SELECT * FROM Details;
+
+-- Kiểm tra dữ liệu bảng Account
+SELECT * FROM Account;

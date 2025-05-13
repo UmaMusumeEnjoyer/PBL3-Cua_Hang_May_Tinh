@@ -10,59 +10,87 @@ using CuaHangMayTinh.DTO;
 using System.Text.RegularExpressions;
 using CuaHangMayTinh.DTO.Admin;
 using CuaHangMayTinh.DTO.Staff;
+using CuaHangMayTinh.DTO.Common;
 
 namespace CuaHangMayTinh.BLL
 {
     public class SupplierBUS
     {
         private readonly SupplierDAO _supplierDAO = new SupplierDAO();
-        public DataTable GetAllSupplier()
+
+        public DataTable GetAll()
         {
-            try { return _supplierDAO.GetAll(); }
-            catch (Exception ex) { throw new Exception("Lỗi khi tải danh sách nhà cung cấp", ex); }
-        }
-        public DataTable GetSupplierById(int id)
-        {
-            if (id <= 0)
-                throw new ArgumentOutOfRangeException(nameof(id), "ID nhà cung cấp phải lớn hơn 0.");
-            try { return _supplierDAO.GetById(id); }
-            catch (Exception ex) { throw new Exception("Lỗi khi tải danh sách nhà cung cấp theo Id", ex); }
-        }
-        public int InsertSupplier(string name, string phone, string email, string address)
-        {
-            ValidateSupplierData(name, phone, email);
             try
             {
-                return _supplierDAO.Insert(name, phone, email, address);
-            } catch (Exception ex)
+                return _supplierDAO.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi tải danh sách nhà cung cấp", ex);
+            }
+        }
+
+        public DataTable GetById(int supplierId)
+        {
+            if (supplierId <= 0)
+                throw new ArgumentException("ID nhà cung cấp không hợp lệ");
+
+            try
+            {
+                var dt = _supplierDAO.GetById(supplierId);
+                if (dt.Rows.Count == 0)
+                    throw new Exception("Nhà cung cấp không tồn tại");
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi lấy thông tin nhà cung cấp", ex);
+            }
+        }
+
+        public int Insert(string supplierName, string address, string phone, string email)
+        {
+            try
+            {
+                return _supplierDAO.Insert(supplierName, address, phone, email);
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Thêm nhà cung cấp thất bại", ex);
             }
         }
-        public int UpdateSupplier(int id, string name, string phone, string email, string address)
-        {
-            if (id <= 0)
-                throw new ArgumentOutOfRangeException(nameof(id), "ID nhà cung cấp phải lớn hơn 0.");
 
-            ValidateSupplierData(name, phone, email);
-            try { return _supplierDAO.Update(id, name, phone, email, address); }
-            catch (Exception ex) { throw new Exception("Lỗi khi cập nhật nhà cung cấp", ex); }
-        }
-        public int Delete(int id)
+        public int Update(int supplierId, string supplierName, string address, string phone, string email)
         {
-            if (id <= 0)
-                throw new ArgumentOutOfRangeException(nameof(id), "ID nhà cung cấp phải lớn hơn 0.");
+            if (supplierId <= 0)
+                throw new ArgumentException("ID nhà cung cấp không hợp lệ");
+
             try
             {
-                return _supplierDAO.Delete(id);
+                return _supplierDAO.Update(supplierId, supplierName, address, phone, email);
             }
             catch (Exception ex)
             {
-                throw new Exception("Lỗi khi xoá nhà cung cấp", ex);
+                throw new Exception("Cập nhật nhà cung cấp thất bại", ex);
             }
         }
 
-        public DataTable SearchSupplier(string keyword)
+        public int Delete(int supplierId)
+        {
+            if (supplierId <= 0)
+                throw new ArgumentException("ID nhà cung cấp không hợp lệ");
+
+            try
+            {
+                return _supplierDAO.Delete(supplierId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Xóa nhà cung cấp thất bại", ex);
+            }
+        }
+
+        public DataTable Search(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))
                 throw new ArgumentException("Từ khóa tìm kiếm không hợp lệ");
@@ -76,18 +104,7 @@ namespace CuaHangMayTinh.BLL
                 throw new Exception("Tìm kiếm nhà cung cấp thất bại", ex);
             }
         }
-        private void ValidateSupplierData(string name, string phone, string email)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Tên nhà cung cấp không được để trống.", nameof(name));
 
-            if (string.IsNullOrWhiteSpace(phone) || !Regex.IsMatch(phone, "^\\d{10,15}$"))
-                throw new ArgumentException("Số điện thoại phải là dãy số dài từ 10 đến 15 chữ số.", nameof(phone));
-
-            if (!string.IsNullOrWhiteSpace(email) && !Regex.IsMatch(email,
-                    "^[\\w-+.]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))
-                throw new ArgumentException("Email không hợp lệ.", nameof(email));
-        }
         public List<SupplierReport> GetSupplierReports()
         {
             DataTable dt = _supplierDAO.GetSupplierReport();
@@ -102,7 +119,6 @@ namespace CuaHangMayTinh.BLL
                      })
                      .ToList();
         }
-
 
         public List<CBBItems> GetSupplierCBBItems()
         {

@@ -59,9 +59,9 @@ namespace CuaHangMayTinh.UI.Forms
             this.grpEmployeeInfo.Controls.Add(this.lblEmployeeName);
             this.grpEmployeeInfo.Controls.Add(this.txtEmployeeName);
             this.grpEmployeeInfo.Location = new System.Drawing.Point(107, 78);
-            this.grpEmployeeInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEmployeeInfo.Margin = new System.Windows.Forms.Padding(4);
             this.grpEmployeeInfo.Name = "grpEmployeeInfo";
-            this.grpEmployeeInfo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEmployeeInfo.Padding = new System.Windows.Forms.Padding(4);
             this.grpEmployeeInfo.Size = new System.Drawing.Size(597, 185);
             this.grpEmployeeInfo.TabIndex = 1;
             this.grpEmployeeInfo.TabStop = false;
@@ -80,7 +80,7 @@ namespace CuaHangMayTinh.UI.Forms
             // txtPhone
             // 
             this.txtPhone.Location = new System.Drawing.Point(200, 111);
-            this.txtPhone.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPhone.Margin = new System.Windows.Forms.Padding(4);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(265, 22);
             this.txtPhone.TabIndex = 5;
@@ -98,7 +98,7 @@ namespace CuaHangMayTinh.UI.Forms
             // txtAge
             // 
             this.txtAge.Location = new System.Drawing.Point(200, 74);
-            this.txtAge.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAge.Margin = new System.Windows.Forms.Padding(4);
             this.txtAge.Name = "txtAge";
             this.txtAge.Size = new System.Drawing.Size(265, 22);
             this.txtAge.TabIndex = 3;
@@ -116,7 +116,7 @@ namespace CuaHangMayTinh.UI.Forms
             // txtEmployeeName
             // 
             this.txtEmployeeName.Location = new System.Drawing.Point(200, 37);
-            this.txtEmployeeName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEmployeeName.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.Size = new System.Drawing.Size(265, 22);
             this.txtEmployeeName.TabIndex = 1;
@@ -130,9 +130,9 @@ namespace CuaHangMayTinh.UI.Forms
             this.grpAccountInfo.Controls.Add(this.lblUsername);
             this.grpAccountInfo.Controls.Add(this.txtUsername);
             this.grpAccountInfo.Location = new System.Drawing.Point(107, 271);
-            this.grpAccountInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAccountInfo.Margin = new System.Windows.Forms.Padding(4);
             this.grpAccountInfo.Name = "grpAccountInfo";
-            this.grpAccountInfo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAccountInfo.Padding = new System.Windows.Forms.Padding(4);
             this.grpAccountInfo.Size = new System.Drawing.Size(597, 159);
             this.grpAccountInfo.TabIndex = 2;
             this.grpAccountInfo.TabStop = false;
@@ -151,7 +151,7 @@ namespace CuaHangMayTinh.UI.Forms
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(200, 69);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(265, 22);
@@ -171,10 +171,11 @@ namespace CuaHangMayTinh.UI.Forms
             // 
             this.cboRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRole.FormattingEnabled = true;
-            this.cboRole.Items.Clear();
-            this.cboRole.Items.AddRange(new object[] { "admin", "staff", "warehouse" });
+            this.cboRole.Items.AddRange(new object[] {
+            "Admin",
+            "staff"});
             this.cboRole.Location = new System.Drawing.Point(200, 106);
-            this.cboRole.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboRole.Margin = new System.Windows.Forms.Padding(4);
             this.cboRole.Name = "cboRole";
             this.cboRole.Size = new System.Drawing.Size(265, 24);
             this.cboRole.TabIndex = 3;
@@ -192,19 +193,19 @@ namespace CuaHangMayTinh.UI.Forms
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(200, 37);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(265, 22);
             this.txtUsername.TabIndex = 1;
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnSave.BackColor = System.Drawing.Color.Lime;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.ForeColor = System.Drawing.Color.Black;
             this.btnSave.Location = new System.Drawing.Point(493, 18);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(120, 37);
             this.btnSave.TabIndex = 0;
@@ -219,7 +220,7 @@ namespace CuaHangMayTinh.UI.Forms
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Location = new System.Drawing.Point(627, 18);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(120, 37);
             this.btnCancel.TabIndex = 1;
@@ -233,7 +234,7 @@ namespace CuaHangMayTinh.UI.Forms
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 442);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(841, 74);
             this.panel1.TabIndex = 3;
@@ -248,7 +249,7 @@ namespace CuaHangMayTinh.UI.Forms
             this.Controls.Add(this.grpEmployeeInfo);
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EditEmployeeForm";

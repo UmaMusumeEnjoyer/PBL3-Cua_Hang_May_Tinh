@@ -46,5 +46,15 @@ namespace CuaHangMayTinh.UI.UserControls_Ad
         {
 
         }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

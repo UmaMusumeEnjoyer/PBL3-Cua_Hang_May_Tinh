@@ -1,4 +1,4 @@
-﻿namespace CuaHangMayTinh.UI.Admin.UserControls_Ad.SuppilerManager
+﻿namespace CuaHangMayTinh.UI.Admin.UserControls_Ad.SupplierManager
 {
     partial class AddSuppiler
     {
@@ -39,7 +39,7 @@
             this.lblPhone = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.lblFullName = new System.Windows.Forms.Label();
-            this.txtFullName = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.lblEmployeeId = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -51,10 +51,10 @@
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 350);
+            this.panel1.Location = new System.Drawing.Point(0, 349);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 74);
+            this.panel1.Size = new System.Drawing.Size(767, 75);
             this.panel1.TabIndex = 7;
             // 
             // btnCancel
@@ -76,6 +76,7 @@
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // grpEmployeeInfo
             // 
@@ -86,7 +87,7 @@
             this.grpEmployeeInfo.Controls.Add(this.lblPhone);
             this.grpEmployeeInfo.Controls.Add(this.txtAddress);
             this.grpEmployeeInfo.Controls.Add(this.lblFullName);
-            this.grpEmployeeInfo.Controls.Add(this.txtFullName);
+            this.grpEmployeeInfo.Controls.Add(this.txtName);
             this.grpEmployeeInfo.Controls.Add(this.lblEmployeeId);
             this.grpEmployeeInfo.Location = new System.Drawing.Point(16, 62);
             this.grpEmployeeInfo.Margin = new System.Windows.Forms.Padding(4);
@@ -150,7 +151,7 @@
             this.txtAddress.Margin = new System.Windows.Forms.Padding(4);
             this.txtAddress.Multiline = true;
             this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(465, 48);
+            this.txtAddress.Size = new System.Drawing.Size(187, 31);
             this.txtAddress.TabIndex = 4;
             // 
             // lblFullName
@@ -163,13 +164,13 @@
             this.lblFullName.TabIndex = 3;
             this.lblFullName.Text = "Tên nhà cung cấp: ";
             // 
-            // txtFullName
+            // txtName
             // 
-            this.txtFullName.Location = new System.Drawing.Point(199, 43);
-            this.txtFullName.Margin = new System.Windows.Forms.Padding(4);
-            this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(465, 22);
-            this.txtFullName.TabIndex = 2;
+            this.txtName.Location = new System.Drawing.Point(199, 43);
+            this.txtName.Margin = new System.Windows.Forms.Padding(4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(348, 22);
+            this.txtName.TabIndex = 2;
             // 
             // lblEmployeeId
             // 
@@ -187,7 +188,7 @@
             this.lblTitle.Location = new System.Drawing.Point(240, 13);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(234, 26);
+            this.lblTitle.Size = new System.Drawing.Size(286, 31);
             this.lblTitle.TabIndex = 4;
             this.lblTitle.Text = "Thêm Nhà Cung Cấp";
             // 
@@ -195,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 424);
+            this.ClientSize = new System.Drawing.Size(767, 424);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grpEmployeeInfo);
             this.Controls.Add(this.lblTitle);
@@ -222,7 +223,7 @@
         private System.Windows.Forms.Label lblPhone;
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Label lblFullName;
-        private System.Windows.Forms.TextBox txtFullName;
+        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblEmployeeId;
         private System.Windows.Forms.Label lblTitle;
     }

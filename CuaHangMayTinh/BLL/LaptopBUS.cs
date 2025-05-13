@@ -4,13 +4,15 @@ using System.Text;
 using System.Data.SqlClient;
 using CuaHangMayTinh.DAL;
 using CuaHangMayTinh.DTO.Staff;
+using CuaHangMayTinh.DTO.Common;
 using System.Collections.Generic;
 
-namespace CuaHangMayTinh.BUS
+namespace CuaHangMayTinh.BLL
 {
     public class LaptopBUS
     {
         private readonly LaptopDAO _laptopDAO = new LaptopDAO();
+        private readonly ProductDAO _productDAO = new ProductDAO();
 
         public DataTable GetAllLaptops()
         {
@@ -42,29 +44,44 @@ namespace CuaHangMayTinh.BUS
             }
         }
 
-        public int InsertLaptop(string laptopName,
-                                decimal weight, decimal screenSize,
-                                string specification, string colour,
-                                int supplierId, string productName,
-                                decimal price, int stockQuantity)
+        public int InsertLaptop(string laptopName, decimal weight, decimal screenSize, string specification, 
+            string colour, int supplierId, string productName, decimal price, int stockQuantity)
         {
-            ValidateLaptopData(laptopName, weight, screenSize,
-                                specification, colour,
-                                supplierId, productName,
-                                price, stockQuantity);
-
             try
             {
-                // Thực hiện insert và nhận về ProductId
-                int productId = _laptopDAO.Insert(laptopName, weight, screenSize,
-                                                  specification, colour,
-                                                  supplierId, productName,
-                                                  price, stockQuantity);
+                // Validate input data
+                if (string.IsNullOrWhiteSpace(laptopName))
+                    throw new ArgumentException("Tên laptop không được để trống");
+                if (weight <= 0)
+                    throw new ArgumentException("Cân nặng phải lớn hơn 0");
+                if (screenSize <= 0)
+                    throw new ArgumentException("Kích thước màn hình phải lớn hơn 0");
+                if (string.IsNullOrWhiteSpace(specification))
+                    throw new ArgumentException("Thông số kỹ thuật không được để trống");
+                if (string.IsNullOrWhiteSpace(colour))
+                    throw new ArgumentException("Màu sắc không được để trống");
+                if (supplierId <= 0)
+                    throw new ArgumentException("Nhà cung cấp không hợp lệ");
+                if (string.IsNullOrWhiteSpace(productName))
+                    throw new ArgumentException("Tên sản phẩm không được để trống");
+                if (price <= 0)
+                    throw new ArgumentException("Giá phải lớn hơn 0");
+                if (stockQuantity < 0)
+                    throw new ArgumentException("Số lượng tồn kho không được âm");
+
+                // Chỉ gọi LaptopDAO.Insert (đã thực hiện cả hai bước insert Product và Laptop)
+                int productId = _laptopDAO.Insert(laptopName, weight, screenSize, specification, colour, supplierId, productName, price, stockQuantity);
+                if (productId <= 0)
+                    throw new Exception("Không thể thêm sản phẩm laptop");
                 return productId;
+            }
+            catch (ArgumentException ex)
+            {
+                throw ex; // Re-throw validation exceptions
             }
             catch (Exception ex)
             {
-                throw new Exception("Thêm laptop thất bại", ex);
+                throw new Exception("Lỗi khi thêm laptop: " + ex.Message, ex);
             }
         }
 
