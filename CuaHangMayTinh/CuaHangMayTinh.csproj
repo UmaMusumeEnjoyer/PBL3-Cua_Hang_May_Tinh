@@ -308,6 +308,9 @@
     <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\ConfirmDeleteAccessoriesForm.resx">
       <DependentUpon>ConfirmDeleteAccessoriesForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\ConfirmDeleteLaptopForm.resx">
+      <DependentUpon>ConfirmDeleteLaptopForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Admin\UserControls_Ad\ProductManager\EditAccessories.resx">
       <DependentUpon>EditAccessories.cs</DependentUpon>
     </EmbeddedResource>

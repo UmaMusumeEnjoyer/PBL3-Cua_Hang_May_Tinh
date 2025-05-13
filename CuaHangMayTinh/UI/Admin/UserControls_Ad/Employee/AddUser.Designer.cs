@@ -80,7 +80,7 @@
             // 
             // grpEmployeeInfo
             // 
-            this.grpEmployeeInfo.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.grpEmployeeInfo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.grpEmployeeInfo.Controls.Add(this.lblBirthDate);
             this.grpEmployeeInfo.Controls.Add(this.dtpBirthDate);
             this.grpEmployeeInfo.Controls.Add(this.lblEmail);
@@ -93,9 +93,9 @@
             this.grpEmployeeInfo.Controls.Add(this.txtFullName);
             this.grpEmployeeInfo.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpEmployeeInfo.Location = new System.Drawing.Point(16, 74);
-            this.grpEmployeeInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEmployeeInfo.Margin = new System.Windows.Forms.Padding(4);
             this.grpEmployeeInfo.Name = "grpEmployeeInfo";
-            this.grpEmployeeInfo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEmployeeInfo.Padding = new System.Windows.Forms.Padding(4);
             this.grpEmployeeInfo.Size = new System.Drawing.Size(733, 283);
             this.grpEmployeeInfo.TabIndex = 1;
             this.grpEmployeeInfo.TabStop = false;
@@ -115,7 +115,7 @@
             // 
             this.dtpBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpBirthDate.Location = new System.Drawing.Point(210, 246);
-            this.dtpBirthDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpBirthDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.Size = new System.Drawing.Size(159, 27);
             this.dtpBirthDate.TabIndex = 10;
@@ -134,7 +134,7 @@
             // txtEmail
             // 
             this.txtEmail.Location = new System.Drawing.Point(210, 211);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(265, 27);
             this.txtEmail.TabIndex = 8;
@@ -152,7 +152,7 @@
             // txtPhone
             // 
             this.txtPhone.Location = new System.Drawing.Point(210, 172);
-            this.txtPhone.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPhone.Margin = new System.Windows.Forms.Padding(4);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(265, 27);
             this.txtPhone.TabIndex = 6;
@@ -170,7 +170,7 @@
             // txtAddress
             // 
             this.txtAddress.Location = new System.Drawing.Point(210, 100);
-            this.txtAddress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAddress.Margin = new System.Windows.Forms.Padding(4);
             this.txtAddress.Multiline = true;
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(465, 48);
@@ -190,7 +190,7 @@
             // txtFullName
             // 
             this.txtFullName.Location = new System.Drawing.Point(210, 58);
-            this.txtFullName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFullName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFullName.Name = "txtFullName";
             this.txtFullName.Size = new System.Drawing.Size(465, 27);
             this.txtFullName.TabIndex = 2;
@@ -198,7 +198,7 @@
             // 
             // grpAccountInfo
             // 
-            this.grpAccountInfo.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.grpAccountInfo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.grpAccountInfo.Controls.Add(this.lblConfirmPassword);
             this.grpAccountInfo.Controls.Add(this.txtConfirmPassword);
             this.grpAccountInfo.Controls.Add(this.lblPassword);
@@ -209,9 +209,9 @@
             this.grpAccountInfo.Controls.Add(this.cboRole);
             this.grpAccountInfo.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpAccountInfo.Location = new System.Drawing.Point(16, 369);
-            this.grpAccountInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAccountInfo.Margin = new System.Windows.Forms.Padding(4);
             this.grpAccountInfo.Name = "grpAccountInfo";
-            this.grpAccountInfo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpAccountInfo.Padding = new System.Windows.Forms.Padding(4);
             this.grpAccountInfo.Size = new System.Drawing.Size(733, 185);
             this.grpAccountInfo.TabIndex = 2;
             this.grpAccountInfo.TabStop = false;
@@ -230,7 +230,7 @@
             // txtConfirmPassword
             // 
             this.txtConfirmPassword.Location = new System.Drawing.Point(210, 111);
-            this.txtConfirmPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtConfirmPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.PasswordChar = '*';
             this.txtConfirmPassword.Size = new System.Drawing.Size(265, 27);
@@ -249,7 +249,7 @@
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(210, 72);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(265, 27);
@@ -268,7 +268,7 @@
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(210, 37);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(265, 27);
             this.txtUsername.TabIndex = 0;
@@ -291,7 +291,7 @@
             "Admin",
             "staff"});
             this.cboRole.Location = new System.Drawing.Point(210, 145);
-            this.cboRole.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboRole.Margin = new System.Windows.Forms.Padding(4);
             this.cboRole.Name = "cboRole";
             this.cboRole.Size = new System.Drawing.Size(265, 27);
             this.cboRole.TabIndex = 13;
@@ -303,7 +303,7 @@
             this.btnSave.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.Black;
             this.btnSave.Location = new System.Drawing.Point(493, 18);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(120, 37);
             this.btnSave.TabIndex = 0;
@@ -318,7 +318,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Location = new System.Drawing.Point(627, 18);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(120, 37);
             this.btnCancel.TabIndex = 1;
@@ -328,11 +328,12 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 566);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(765, 74);
             this.panel1.TabIndex = 3;
@@ -349,7 +350,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(765, 640);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.grpAccountInfo);
@@ -357,7 +358,7 @@
             this.Controls.Add(this.lblTitle);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EmployeeRegistrationForm";

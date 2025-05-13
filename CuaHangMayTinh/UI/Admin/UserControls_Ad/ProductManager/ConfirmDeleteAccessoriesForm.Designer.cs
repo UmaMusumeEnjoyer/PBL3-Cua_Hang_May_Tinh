@@ -23,44 +23,49 @@ namespace CuaHangMayTinh.UI.Admin.UserControls_Ad.ProductManager
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(16, 11);
+            this.lblMessage.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMessage.Location = new System.Drawing.Point(22, 26);
             this.lblMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(44, 16);
+            this.lblMessage.Size = new System.Drawing.Size(55, 19);
             this.lblMessage.TabIndex = 0;
             this.lblMessage.Text = "label1";
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(203, 77);
-            this.btnConfirm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConfirm.BackColor = System.Drawing.Color.Red;
+            this.btnConfirm.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnConfirm.Location = new System.Drawing.Point(230, 113);
+            this.btnConfirm.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(100, 28);
+            this.btnConfirm.Size = new System.Drawing.Size(100, 39);
             this.btnConfirm.TabIndex = 1;
             this.btnConfirm.Text = "Xác nhận";
-            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.UseVisualStyleBackColor = false;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(311, 77);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.BackColor = System.Drawing.Color.Chartreuse;
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnCancel.Location = new System.Drawing.Point(350, 115);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(100, 28);
+            this.btnCancel.Size = new System.Drawing.Size(100, 34);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Hủy";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // ConfirmDeleteAccessoriesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 118);
+            this.ClientSize = new System.Drawing.Size(463, 159);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.lblMessage);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConfirmDeleteAccessoriesForm";
             this.Text = "Xác nhận xóa";
             this.ResumeLayout(false);
